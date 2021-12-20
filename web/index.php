@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>CollabWork - Index</title>
         <!-- STYLES ... -->
+        <link href="../style/style.css" rel="stylesheet" />
     </head>
     <body>
         <div class="col">
