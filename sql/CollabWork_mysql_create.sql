@@ -1,32 +1,3 @@
-DROP TABLE IF EXISTS `comptes`;
-DROP TABLE IF EXISTS `groupes_comptes`;
-DROP TABLE IF EXISTS `groupes`;
-DROP TABLE IF EXISTS `permissions_comptes_groupes`;
-DROP TABLE IF EXISTS `brouillons`;
-DROP TABLE IF EXISTS `brouillons_comptes`;
-DROP TABLE IF EXISTS `messages`;
-DROP TABLE IF EXISTS `discussions`;
-DROP TABLE IF EXISTS `discussions_messages`;
-DROP TABLE IF EXISTS `cours`;
-DROP TABLE IF EXISTS `cours_groupes`;
-DROP TABLE IF EXISTS `chapitres`;
-DROP TABLE IF EXISTS `cours_chapitres`;
-DROP TABLE IF EXISTS `elements`;
-DROP TABLE IF EXISTS `chapitres_elements`;
-DROP TABLE IF EXISTS `fiches`;
-DROP TABLE IF EXISTS `fiches_elements`;
-DROP TABLE IF EXISTS `fiches_chapitres`;
-DROP TABLE IF EXISTS `elements_a_verifier`;
-DROP TABLE IF EXISTS `demonstrations`;
-DROP TABLE IF EXISTS `elements_demonstrations`;
-DROP TABLE IF EXISTS `exercices`;
-DROP TABLE IF EXISTS `chapitres_exercices`;
-DROP TABLE IF EXISTS `brouillon_exercice`;
-DROP TABLE IF EXISTS `dernier_action`;
-DROP TABLE IF EXISTS `elements_connus`;
-DROP TABLE IF EXISTS `reponse_exercice`;
-
-
 CREATE TABLE `comptes` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`pseudo` VARCHAR(255) NOT NULL,
@@ -87,9 +58,9 @@ CREATE TABLE `messages` (
 CREATE TABLE `discussions` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`type` VARCHAR(255) NOT NULL,
-	`id_groupe` INT DEFAULT 'groupe',
-	`id_compte1` INT DEFAULT 'groupe',
-	`id_compte2` INT DEFAULT 'groupe',
+	`id_groupe` INT,
+	`id_compte1` INT,
+	`id_compte2` INT,
 	PRIMARY KEY (`id`)
 );
 
@@ -143,7 +114,7 @@ CREATE TABLE `chapitres_elements` (
 );
 
 CREATE TABLE `fiches` (
-	`id` BINARY NOT NULL AUTO_INCREMENT,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`nom` VARCHAR(255) NOT NULL,
 	`description` TEXT NOT NULL,
 	`est_prive` BOOLEAN NOT NULL,
