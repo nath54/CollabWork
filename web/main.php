@@ -7,10 +7,8 @@
         <link href="../style/style.css" rel="stylesheet" />
     </head>
     <body>
-        <!-- UN MENU -->
-        <div>
-            <button>Se déconnecter</button>
-        </div>
+        <!-- HEADER -->
+        <?php include "../include/header.php"; ?>
         <!-- D'AUTRES MENUS -->
         
     </body>

@@ -1,18 +1,116 @@
+html * {
+    font-family: open-sans, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.01em;
+}
 
-.row{
-    display:flex;
+h1 {
+    font-size: 1.5em;
+}
+
+.centerFlex {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
     flex-direction: row;
 }
 
-.col{
+.col {
     display: flex;
     flex-direction: column;
 }
 
-.form *{
+.form * {
     margin: auto;
 }
 
-.MathJax, .MathJax * {
+.MathJax,
+.MathJax * {
     background-color: transparent !important;
 }
+
+.bta {
+    color: white;
+    background: rgb(16, 106, 158);
+    display: flex;
+    padding: 8px;
+    margin: auto;
+    margin-top: 10px;
+    max-width: fit-content;
+    text-decoration: none;
+    border-radius: 2px;
+    border: none;
+}
+
+.bta:hover {
+    border-radius: 1px;
+    background: rgb(13, 95, 143);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(50, 50, 50);
+}
+
+header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 8%;
+    background-color: rgb(16, 106, 158);
+}
+
+.menu_3bandes {
+    margin: auto;
+    font-size: 2em;
+}
+
+.menu_3bandes:hover {
+    transform: rotate(90deg);
+}
+
+
+/*
+
+Open Sans Bold
+    font-family: open-sans, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+
+Open Sans Bold Italic
+    font-family: open-sans, sans-serif;
+    font-weight: 700;
+    font-style: italic;
+
+Open Sans Italic
+    font-family: open-sans, sans-serif;
+    font-weight: 400;
+    font-style: italic;
+
+Open Sans Regular
+    font-family: open-sans, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+Open Sans Condensed Bold
+    font-family: open-sans-condensed, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+
+Open Sans Condensed Light
+    font-family: open-sans-condensed, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+
+Open Sans Condensed Light Italic
+    font-family: open-sans-condensed, sans-serif;
+    font-weight: 300;
+    font-style: italic;
+
+*/
