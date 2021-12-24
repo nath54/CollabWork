@@ -11,6 +11,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CollabWork - Inscription</title>
     <!-- STYLES ... -->
     <link href="../style/style.css" rel="stylesheet" />
@@ -22,7 +23,9 @@
     <div class="centerFlex" style="height:60%;">
         <div class="col" style="height:60%;">
             <div class="col" style="margin:auto;">
-                <h1 style="margin:auto;">Inscription</h1>
+                <h1 onclick="window.location.href='index.php';" style="margin:auto;">CollabWork</h1>
+                <hr style="width:60px; color:rgb(0,0,0);" />
+                <h2 style="margin:auto;">Inscription</h2>
                 <hr style="width:100%; color:rgb(230,230,230);" />
                 <form method="POST" action="connection.php">
                     <div class="col">
@@ -41,7 +44,7 @@
                         <input class="bta" type="submit" value="inscription" />
                     </div>
                 </form>
-                <p>Vous avez déjà un compte ? <a href="inscription.php">Se connecter</a></p>
+                <p>Vous avez déjà un compte ? <a href="connection.php">Se connecter</a></p>
             </div>
         </div>
     </div>

@@ -86,6 +86,43 @@ header {
     transform: rotate(90deg);
 }
 
+.sidemenu {
+    left: -15%;
+    width: 15%;
+    background-color: rgb(16, 106, 158);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transition: all 0.4s;
+    transition-duration: 0.2s;
+}
+
+.sidemenu_open {
+    left: 0;
+}
+
+
+/* PC */
+
+@media (min-aspect-ratio>1) {
+    .sidemenu {}
+}
+
+
+/* TELEPHONES */
+
+@media (max-aspect-ratio<=1) {
+    .sidemenu {
+        left: -100%;
+        width: 100%;
+    }
+}
+
+.lien_sidemenu {
+    margin: 5px;
+    margin-left: 10px;
+}
+
 
 /*
 
