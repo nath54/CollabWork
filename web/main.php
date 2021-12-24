@@ -1,3 +1,9 @@
+<?php
+
+$est_connecte = true;
+
+?>
+
 <!doctype HTML>
 <html lang="fr">
     <head>
@@ -25,7 +31,18 @@
 
         </div>
 
+        <div id="accountmenu" class="col">
+            <?php
+                if($est_connecte){
+                    include "../include/account_menu/connecte.php";
+                }
+                else{
+                    include "../include/account_menu/non_connecte.php";
+                }
+            ?>
+        </div>
+
 
     </body>
-    <script src="../js/sidemenu.js"></script>
+    <script src="../js/menus.js"></script>
 </html>

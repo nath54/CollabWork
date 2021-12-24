@@ -123,6 +123,33 @@ header {
     margin-left: 10px;
 }
 
+#accountmenu {
+    position: absolute;
+    top: 8%;
+    right: 0;
+    transition: all 0.4s;
+    transition-duration: 0.2s;
+    display: flex;
+}
+
+.account_menu_cache {
+    right: 100%;
+}
+
+.bt_account_menu {
+    padding: 2px;
+    background-color: rgb(16, 106, 158);
+    border-top: 1px solid black;
+}
+
+.bt_account_menu:hover {
+    background-color: rgb(13, 95, 143);
+}
+
+.cache {
+    display: none;
+}
+
 
 /*
 
