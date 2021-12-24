@@ -19,7 +19,7 @@ $est_connecte = true;
         <div style="position: absolute; top:8%; bottom: 0; left: 0; right: 0;">
 
             <div id="sidemenu" class="sidemenu">
-                <div class="col" style="margin-left: 10px; margin-top:10px;">
+                <div class="col" style="width:100%; margin-left: 8%; margin-right:auto; margin-top:20px;">
                     <a href="#" class="lien_sidemenu">Accueil</a>
                     <a href="#" class="lien_sidemenu">Brouillons</a>
                     <a href="#" class="lien_sidemenu">Exercices</a>
