@@ -15,9 +15,9 @@ function toggle_sidemenu() {
 
 function toggle_account_menu() {
     var m = document.getElementById("accountmenu");
-    if (m.classList.contains("account_menu_cache")) {
-        m.classList.remove("account_menu_cache");
+    if (m.classList.contains("cache")) {
+        m.classList.remove("cache");
     } else {
-        m.classList.add("account_menu_cache");
+        m.classList.add("cache");
     }
 }

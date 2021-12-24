@@ -31,7 +31,7 @@ $est_connecte = true;
 
         </div>
 
-        <div id="accountmenu" class="col">
+        <div id="accountmenu" class="col accountmenu cache">
             <?php
                 if($est_connecte){
                     include "../include/account_menu/connecte.php";
