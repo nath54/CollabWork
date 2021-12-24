@@ -69,9 +69,19 @@ header {
 .menu_3bandes {
     margin: auto;
     font-size: 2em;
+    border: none;
+    background: none;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    transition: all 0.4s;
+    transform: rotate(0deg);
 }
 
-.menu_3bandes:hover {
+.menu_3bandes:active {
+    transform: rotate(90deg);
+}
+
+.menu_3bandes_down {
     transform: rotate(90deg);
 }
 
