@@ -104,17 +104,16 @@ header {
 
 /* PC */
 
-@media (min-aspect-ratio>1) {
-    .sidemenu {}
-}
-
 
 /* TELEPHONES */
 
-@media (max-aspect-ratio<=1) {
+@media screen and (max-width: 600px) {
     .sidemenu {
         left: -50%;
         width: 50%;
+    }
+    .sidemenu_open {
+        left: 0;
     }
 }
 
