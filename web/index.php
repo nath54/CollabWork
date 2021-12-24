@@ -5,7 +5,7 @@ $est_connecte = false;
 ?>
 
 <!doctype HTML>
-<html>
+<html lang="fr">
 
 <style>
 

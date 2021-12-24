@@ -1,5 +1,5 @@
 <!doctype HTML>
-<html>
+<html lang="fr">
 
 
 <style>
@@ -38,7 +38,7 @@
                         <input name="password" type="password" id="input_password" placeholder="password" maxlength=32/>
                     </div>
                     <div>
-                        <input class="bta" type="submit" />
+                        <input class="bta" type="submit" value="inscription" />
                     </div>
                 </form>
                 <p>Vous avez déjà un compte ? <a href="inscription.php">Se connecter</a></p>

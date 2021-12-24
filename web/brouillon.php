@@ -1,5 +1,5 @@
 <!doctype HTML>
-<html>
+<html lang="fr">
 
 
     <script src="../js/MATHJAX_CONFIG.js"></script>
