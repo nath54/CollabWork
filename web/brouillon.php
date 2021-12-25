@@ -38,13 +38,13 @@ $texte = "";
                 <div class="col" style="height:100%;">
 
                     <div class="row">
-                        <button>Editer</button>
-                        <button>Voir</button>
+                        <button id="bt_edit" onclick="edit();" class="bt_tab_active">Editer</button>
+                        <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
                     </div>
                     <div id="div_textarea" style="width:100%; height:100%;">
                         <textarea id="texte" style="width:100%; height:100%;" placeholder="Ecrire son texte ici" onchange="compile();" onkeypress="compile();" onkeyup="compile();"></textarea>
                     </div>
-                    <div id="div_result" style="display:none;">
+                    <div id="div_result" style="display:none; border:1px solid black; width:100%; height:100%; overflow:auto; padding:5px;">
 
                         <div id="result"></div>
 
