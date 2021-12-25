@@ -12,3 +12,8 @@ function compile() {
     // Compilation
     MathJax.typesetPromise();
 }
+
+function retour() {
+    // En vrai, on fera une sauvegarde en envoyant une requete a la page brouillon, qui va ensuite rediriger vers brouillons.php
+    window.location.href = "brouillons.php";
+}
