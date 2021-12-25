@@ -33,9 +33,24 @@ $texte = "";
 
             </div>
             <!-- Conteneur -->
-            <div class="container margin:auto">
+            <div class="container" style="height:100%; margin:6vh;">
 
-    
+                <div class="col" style="height:100%;">
+
+                    <div class="row">
+                        <button>Editer</button>
+                        <button>Voir</button>
+                    </div>
+                    <div id="div_textarea" style="width:100%; height:100%;">
+                        <textarea id="texte" style="width:100%; height:100%;" placeholder="Ecrire son texte ici" onchange="compile();" onkeypress="compile();" onkeyup="compile();"></textarea>
+                    </div>
+                    <div id="div_result" style="display:none;">
+
+                        <div id="result"></div>
+
+                    </div>
+
+                </div>
 
             </div>
 
