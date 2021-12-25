@@ -6,6 +6,12 @@ html * {
     word-wrap: normal;
 }
 
+i {
+    font-family: open-sans, sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
 h1 {
     font-size: 1.5em;
 }
@@ -51,6 +57,44 @@ h1 {
 .bta:hover {
     border-radius: 1px;
     background: rgb(13, 95, 143);
+}
+
+.bt1 {
+    color: white;
+    background: rgb(15, 114, 172);
+    border-radius: 2px;
+    border: none;
+    padding: 1.2vh;
+}
+
+.bt1:hover {
+    border-radius: 1px;
+    background: rgb(13, 95, 143);
+}
+
+.bt_item {
+    display: flex;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    max-height: 100px;
+    margin: 10px;
+}
+
+.bt_svg {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    margin: auto;
+    margin-right: 15px;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.bt_svg:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: rotate(5deg);
 }
 
 a {
