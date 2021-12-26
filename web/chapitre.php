@@ -41,6 +41,8 @@ $quiz_mot = "Ajouter";
 
             <div class="container" style="margin:3vh;">
 
+                <button class="bt1" style="margin:2vh;">Retour</button>
+
                 <div class="row">
                     <h2 id="titre" style="margin-top:auto; margin-bottom:auto;"><?php echo $titre; ?></h2>
                     <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>

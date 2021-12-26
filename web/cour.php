@@ -51,9 +51,9 @@ $chapitres = [
 
             <div class="container" style="margin:3vh;">
 
-                <div class="row">
+                <div style="flex-wrap:wrap;" class="row">
                     <h2 id="titre" style="margin-top:auto; margin-bottom:auto;"><?php echo $titre; ?></h2>
-                    <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
+                    <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">
                         <input id="input_titre" value="<?php echo $titre; ?>" style="display:none;"/>
                         <button id="bt_modif_titre" onclick="modif_titre();" class="bt1" style="margin:2vh;">Modifier</button>
                         <button id="bt_save_titre" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
@@ -61,9 +61,9 @@ $chapitres = [
                     </div>
                 </div>
                 
-                <div class="row">
+                <div class="row" style="flex-wrap:wrap;">
                     <p id="description" style="display:block;"><?php echo $description; ?></p>
-                    <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
+                    <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">
                         <textarea id="input_description" style="width: 100%; display:none;"><?php echo $description; ?></textarea>
                         <button id="bt_modif_description" onclick="modif_description();" class="bt1" style="margin:2vh; display:block;">Modifier</button>
                         <button id="bt_save_description" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
@@ -101,7 +101,7 @@ $chapitres = [
                     <label>Public</label>
                 </div>
 
-                <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
+                <div class="row" style="flex-wrap:wrap;<?php if(!$est_auteur){ echo 'display:none;'; } ?>">
                     <h2 style="margin-top:auto; margin-bottom:auto; margin-left:2vh;" >Groupes qui y ont accès : </h2>
                     <?php
                         if(count($groupes)==0){
@@ -133,7 +133,7 @@ $chapitres = [
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh; margin-top:0;">Supprimer le cour</button>
+                    <button class="bt3" style="margin:2vh;">Supprimer le cour</button>
                 </div>
 
             </div>
