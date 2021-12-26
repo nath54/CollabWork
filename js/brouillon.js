@@ -2,6 +2,14 @@ var input = document.getElementById("texte")
 var div_result = document.getElementById("result");
 var converter = new showdown.Converter();
 
+var live_compile = false;
+
+function key_compile() {
+    if (live_compile) {
+        compile();
+    }
+}
+
 function compile() {
     // Nettoyage
     for (c of div_result.children) {
@@ -9,8 +17,10 @@ function compile() {
     }
     // Update
     div_result.innerHTML = converter.makeHtml(input.value);
-    // Compilation
+    // Compilation latex
     MathJax.typesetPromise();
+    // Compilation markdown
+    // div_result.innerHTML = div_result.innerHTML);
 }
 
 function retour() {

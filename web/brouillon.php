@@ -42,7 +42,7 @@ $texte = "";
                         <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
                     </div>
                     <div id="div_textarea" style="width:100%; height:100%;">
-                        <textarea id="texte" style="width:100%; height:100%;" placeholder="Ecrire son texte ici" onchange="compile();" onkeypress="compile();" onkeyup="compile();"></textarea>
+                        <textarea id="texte" style="width:100%; height:100%;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"></textarea>
                     </div>
                     <div id="div_result" style="display:none; border:1px solid black; width:100%; height:100%; overflow:auto; padding:5px;">
 

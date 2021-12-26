@@ -5,15 +5,12 @@
 
 html * {
     font-family: open-sans, sans-serif;
-    font-weight: 400;
-    font-style: normal;
     font-size: 2.4vh;
     word-wrap: normal;
 }
 
 i {
     font-family: open-sans, sans-serif;
-    font-weight: 400;
     font-style: italic;
 }
 
@@ -48,6 +45,7 @@ textarea {
 .MathJax,
 .MathJax * {
     background-color: transparent !important;
+    font-size: 1em;
 }
 
 .bta {

@@ -28,7 +28,14 @@ MathJax = {
             cD: "\\cal{D}",
             cV: "\\cal{V}",
             cP: "\\cal{P}",
-            eq: "\\equiv"
+            eq: "\\equiv",
+            part: "\\partial"
         }
     }
 };
+
+MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "STIX"
+    }
+});
