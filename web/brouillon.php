@@ -33,15 +33,15 @@ $texte = "";
 
             </div>
             <!-- Conteneur -->
-            <div class="container" style="height:100%; margin:6vh;">
+            <div class="container" style="height:85%; margin:6vh;">
 
-                <div class="col" style="height:100%;">
+                <div class="col" style="height:90%;">
 
                     <div class="row">
                         <button id="bt_edit" onclick="edit();" class="bt_tab_active">Editer</button>
                         <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
                     </div>
-                    <div class="row" style="height:90%; margin-bottom:2vh;">
+                    <div class="row" style="height:85%; margin-bottom:2vh;">
                         <div id="div_textarea" style="width:100%; height:100%;">
                             <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"></textarea>
                         </div>
