@@ -34,8 +34,8 @@ MathJax = {
     }
 };
 
-MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "STIX"
-    }
-});
+// MathJax.Hub.Config({
+//     "HTML-CSS": {
+//         preferredFont: "STIX"
+//     }
+// });

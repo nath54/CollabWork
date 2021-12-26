@@ -79,6 +79,19 @@ textarea {
     background: rgb(13, 95, 143);
 }
 
+.bt3 {
+    color: white;
+    background: rgb(172, 15, 15);
+    border-radius: 2px;
+    border: none;
+    padding: 1.2vh;
+}
+
+.bt3:hover {
+    border-radius: 1px;
+    background: rgb(143, 13, 13);
+}
+
 .bt_item {
     display: flex;
     background-color: rgb(240, 240, 240);
@@ -87,6 +100,7 @@ textarea {
     max-height: 13vh;
     margin: 10px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .bt_svg {
@@ -272,6 +286,32 @@ header {
         height: 100%;
         padding: 5px;
     }
+}
+
+.c_pointer {
+    cursor: pointer;
+}
+
+.bt2 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.4s;
+}
+
+.bt2:hover {
+    font-size: 1.23em;
+    color: rgb(60, 60, 60);
+}
+
+.souligne {
+    text-decoration: underline;
+}
+
+.container {
+    display: block;
+    overflow: auto;
 }
 
 
