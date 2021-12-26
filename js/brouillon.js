@@ -2,9 +2,10 @@ var input = document.getElementById("texte")
 var div_result = document.getElementById("result");
 var converter = new showdown.Converter();
 
-var live_compile = false;
 
 function key_compile() {
+    var live_compile = (document.getElementById("div_checkbox").style.display == "block") && (document.getElementById("checkbox_live_compil").checked)
+    console.log("live_compile = ", live_compile);
     if (live_compile) {
         compile();
     }
@@ -36,7 +37,7 @@ function edit() {
         bt1.classList.replace("bt_tab", "bt_tab_active");
     }
     if (bt2.classList.contains("bt_tab_active")) {
-        bt1.classList.replace("bt_tab_active", "bt_tab");
+        bt2.classList.replace("bt_tab_active", "bt_tab");
     }
     //
     document.getElementById("div_textarea").style.display = "initial";
@@ -51,7 +52,7 @@ function view() {
         bt1.classList.replace("bt_tab", "bt_tab_active");
     }
     if (bt2.classList.contains("bt_tab_active")) {
-        bt1.classList.replace("bt_tab_active", "bt_tab");
+        bt2.classList.replace("bt_tab_active", "bt_tab");
     }
     //
     document.getElementById("div_textarea").style.display = "none";

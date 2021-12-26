@@ -4,7 +4,7 @@
 }
 
 html * {
-    font-family: open-sans, sans-serif;
+    /* font-family: open-sans, sans-serif; */
     font-size: 2.4vh;
     word-wrap: normal;
 }
@@ -213,6 +213,65 @@ header {
 
 #retour_bt:hover {
     background-color: rgb(13, 95, 143);
+}
+
+.notify {
+    border-radius: 50%;
+    background-color: red;
+    display: inline-flex;
+    width: 0.9vh;
+    height: 0.9vh;
+    margin-bottom: 1vh;
+}
+
+.bt_tab {
+    border: none;
+    margin: 0;
+    padding: 3px;
+    height: 4vh;
+    margin-top: auto;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}
+
+.bt_tab_active {
+    border: none;
+    margin: 0;
+    padding: 7px;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    background-color: rgb(16, 106, 158);
+    height: 5vh;
+    margin-top: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+#div_result {
+    display: none;
+    overflow: scroll;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+
+@media screen and (min-width: 600px) and (min-aspect-ratio: 1.1) {
+    #bt_edit,
+    #bt_view {
+        display: none;
+    }
+    #div_textarea,
+    #div_result {
+        display: flex;
+        margin: 5px;
+    }
+    #div_result {
+        overflow: scroll;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+    }
 }
 
 

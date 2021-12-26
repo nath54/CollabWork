@@ -41,13 +41,20 @@ $texte = "";
                         <button id="bt_edit" onclick="edit();" class="bt_tab_active">Editer</button>
                         <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
                     </div>
-                    <div id="div_textarea" style="width:100%; height:100%;">
-                        <textarea id="texte" style="width:100%; height:100%;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"></textarea>
+                    <div class="row" style="height:90%; margin-bottom:2vh;">
+                        <div id="div_textarea" style="width:100%; height:100%;">
+                            <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"></textarea>
+                        </div>
+                        <div id="div_result">
+
+                            <div id="result"></div>
+
+                        </div>
                     </div>
-                    <div id="div_result" style="display:none; border:1px solid black; width:100%; height:100%; overflow:auto; padding:5px;">
-
-                        <div id="result"></div>
-
+                    <div style="margin:3px; display: block;" id="div_checkbox">
+                        <button onclick="compile();" class="bt1" >Compile</button>
+                        <input type="checkbox" value=false id="checkbox_live_compil" />
+                        <label>Compiler à chaque changements</label>
                     </div>
 
                 </div>
