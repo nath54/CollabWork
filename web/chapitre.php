@@ -41,7 +41,7 @@ $quiz_mot = "Ajouter";
 
             <div class="container" style="margin:3vh;">
 
-                <button class="bt1" style="margin:2vh;">Retour</button>
+                <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'">Retour</button>
 
                 <div class="row">
                     <h2 id="titre" style="margin-top:auto; margin-bottom:auto;"><?php echo $titre; ?></h2>
