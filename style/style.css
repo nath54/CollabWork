@@ -4,7 +4,7 @@
 }
 
 html * {
-    /* font-family: open-sans, sans-serif; */
+    font-family: open-sans, sans-serif;
     font-size: 2.4vh;
     word-wrap: normal;
 }
