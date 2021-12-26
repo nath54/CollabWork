@@ -1,5 +1,5 @@
 <div class="container" style="margin: 20px;">
-    <button class="bt1" onclick="window.location.href='brouillon.php'" >Nouveau brouillon</button>
+    <button class="bt1" onclick="window.location.href='brouillon.php'" >+ Nouveau brouillon</button>
     <h1>Vos brouillons :</h1>
     <div class="col">
     <?php

@@ -3,29 +3,23 @@
 $est_connecte = true;
 $est_auteur = true;
 
-$titre = "Titre du cour";
-$description = "Voici la description de ce cour, elle peut être tellement longue qu'elle peut prendre plusieurs lignes, il faut donc faire bien attention à l'affichage résultant de la page dans ces situations suivantes, pour qu'il soit quand même joli et agréable pour l'utilisateur";
+$titre = "Titre du chapitre";
+$description = "Description du chapitre";
 
-$chapitres = [
-
+$elements = [
     [
         "id" => 0,
-        "titre" => "1. La construction du monde"
+        "type" => "definition",
+        "titre" => "Ensemble"
     ],
     [
         "id" => 1,
-        "titre" => "2. Le développement des hommes"
+        "type" => "theoreme",
+        "titre" => "Propriété fondamentale de $\N$"
     ],
-    [
-        "id" => 2,
-        "titre" => "3. La destruction"
-    ],
-    [
-        "id" => 3,
-        "titre" => "Conclusion"
-    ]
-
 ];
+
+$quiz_mot = "Ajouter";
 
 ?>
 
@@ -34,11 +28,11 @@ $chapitres = [
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CollabWork - Cour</title>
+        <title>CollabWork - Chapitre</title>
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="init();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -67,20 +61,29 @@ $chapitres = [
                     </div>
                 </div>
 
-                <h1>Chapitres :</h1>
+                <div>
+                    <button class="bt1" style="margin: 1vh;" >Lancer un quiz sur ce chapitre</button>
+                </div>
+
+                <div>
+                    <button class="bt1" style="margin: 1vh;" ><?php echo $quiz_mot; ?> le quiz à la liste des chapitres pour quiz</button>
+                </div>
+
+                <h1>Élements :</h1>
 
                 <div class="col">
 
                     <?php
 
-                        if(count($chapitres)==0){
+                        if(count($elements)==0){
                             echo "<p>Il n'y a pas de chapitres dans ce cours</p>";
                         }
                         else{
-                            foreach($chapitres as $c){
-                                $id = $c["id"];
-                                $titre = $c["titre"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                            foreach($elements as $el){
+                                $id = $el["id"];
+                                $titre = $el["titre"];
+                                $type = $el["type"];
+                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$Type</i></div> <div class='row'><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                             }
                         }
 
@@ -89,11 +92,11 @@ $chapitres = [
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php';">+ Nouveau chapitre</button>
+                    <button class="bt1" style="margin:2vh;">+ Nouvel élément</button>
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh; margin-top:0;">Supprimer le cour</button>
+                    <button class="bt3" style="margin:2vh; margin-top:0;">Supprimer le chapitre</button>
                 </div>
 
             </div>
@@ -103,6 +106,15 @@ $chapitres = [
         <?php include "../include/accountmenu.php" ?>
 
     </body>
-    <script src="../js/cour.js"></script>
+    <script src="../js/chapitre.js"></script>
     <script src="../js/menus.js"></script>
+    <script src="../js/MATHJAX_CONFIG.js"></script>
+    <script src="../js/tex-mml-chtml.js"></script>
+    <script>
+
+function init(){
+    MathJax.typesetPromise();
+}
+
+    </script>
 </html>

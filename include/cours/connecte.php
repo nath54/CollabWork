@@ -19,7 +19,7 @@
 
         ?>
         <div>
-            <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'" >Nouveau cour</button>
+            <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'" >+ Nouveau cour</button>
         </div>
     </div>
 </div>
