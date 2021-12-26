@@ -83,7 +83,9 @@ $quiz_mot = "Ajouter";
                                 $id = $el["id"];
                                 $titre = $el["titre"];
                                 $type = $el["type"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$Type</i></div> <div class='row'><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
+                                $displaynone = "";
+                                if(!$est_auteur){ $displaynone = 'style="display:none;">'; } 
+                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$Type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                             }
                         }
 

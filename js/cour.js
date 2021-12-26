@@ -29,3 +29,11 @@ function annule_description() {
     document.getElementById("bt_save_description").style.display = "none";
     document.getElementById("bt_annule_description").style.display = "none";
 }
+
+function ajout_groupe() {
+    document.getElementById("div_ajout_groupe").style.display = "block";
+}
+
+function annule_ajout_groupe() {
+    document.getElementById("div_ajout_groupe").style.display = "none";
+}

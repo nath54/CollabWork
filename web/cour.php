@@ -6,6 +6,10 @@ $est_auteur = true;
 $titre = "Titre du cour";
 $description = "Voici la description de ce cour, elle peut être tellement longue qu'elle peut prendre plusieurs lignes, il faut donc faire bien attention à l'affichage résultant de la page dans ces situations suivantes, pour qu'il soit quand même joli et agréable pour l'utilisateur";
 
+$est_prive = true;
+$groupes = ["MP2I LLG", "Poink"];
+$mes_groupes = ["MP2I LLG", "Poink"];
+
 $chapitres = [
 
     [
@@ -90,6 +94,42 @@ $chapitres = [
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
                     <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php';">+ Nouveau chapitre</button>
+                </div>
+
+                <div style="margin-top:2vh; <?php if(!$est_auteur){ echo "display:none;"; } ?>">
+                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_prive" />
+                    <label>Public</label>
+                </div>
+
+                <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
+                    <h2 style="margin-top:auto; margin-bottom:auto; margin-left:2vh;" >Groupes qui y ont accès : </h2>
+                    <?php
+                        if(count($groupes)==0){
+                            echo "<p style='margin:1vh; margin-top:auto; margin-bottom:auto;'>Aucuns</p>";
+                        }
+                        else{
+                            foreach($groupes as $grp){
+                                echo "<div class='row' style='margin:1vh; padding:0.5vh; background-color:rgb(16, 106, 158);'><p style='margin:auto;'>$grp</p> <button class='bt2'>-</button></div>";
+                            }
+                        }
+                    ?>
+                    <button onclick="ajout_groupe();" class="bt1" style="margin:1vh;">+</button>
+                </div>
+                
+                <div id="div_ajout_groupe" style="margin: 2vh; margin-left:6vh; display:none;">
+                    <h3>Rajouter l'accès à un groupe</h3>
+                    <select  style="margin:2vh; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">
+                        <?php
+                            foreach($mes_groupes as $grp){
+                                echo "<option>$grp</option>";
+                            }
+                        ?>
+                    </select>
+                    <p <?php if(count($mes_groupes)!=0){ echo "style='display:none;'"; } ?>>Vous n'appartenez à aucun groupe</p>
+                    <div class="row">
+                        <button class="bt1" style="margin:2vh; margin-left:0; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">Rajouter</button>
+                        <button onclick="annule_ajout_groupe();" class="bt1" style="margin:2vh; margin-top:0; margin-left:0;">Annuler</button>
+                    </div>
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
