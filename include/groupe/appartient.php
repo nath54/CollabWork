@@ -9,7 +9,7 @@
 </div>
 
 <div>
-    <button class="bt1" style="margin-top:2vh;" >Voir les cours partagés à ce groupe</button>
+    <button class="bt1" style="margin-top:2vh;"  onclick="window.location.href='groupe_cours.php';" >Voir les cours partagés à ce groupe</button>
 </div>
 
 <div>
