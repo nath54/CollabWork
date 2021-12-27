@@ -54,7 +54,7 @@ $contenu = [
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CollabWork - Cour</title>
+        <title>CollabWork - Modification d'exercice</title>
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
@@ -95,8 +95,14 @@ $contenu = [
                                 if($type == "texte"){
                                     $balise_texte = "p";
                                 }
-                                echo "<$balise_texte>$texte</$balise_texte>";
-
+                                echo "<div class='row' style='flex-wrap:wrap;'>";
+                                echo "<$balise_texte id='texte_contenu_$id'>$texte</$balise_texte>";
+                                echo "<textarea id='input_contenu_$id' style='display:none;'>$texte</textarea>";
+                                echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_modif_contenu_$id' class='bt1' onclick='modif_contenu($id);'>Modifier</button></div>";
+                                echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_supprime_contenu_$id' class='bt3' onclick='supprime_contenu($id);'>Supprimer</button></div>";
+                                echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_save_contenu_$id' class='bt1' style='display:none;'>Sauvegarder</button></div>";
+                                echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_annule_contenu_$id' class='bt1' style='display:none;' onclick='annule_modif_contenu($id);'>Annuler</button></div>";
+                                echo "</div>";
                             }
                         }
 
@@ -104,11 +110,21 @@ $contenu = [
 
                 </div>
 
-                <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;" >+ Nouvelle question</button>
+                <div class="row">
+                    <button class="bt1" style="margin:2vh;" onclick="nouvelle_question();" >+ Nouvelle question</button>
+                    <button class="bt1" style="margin:2vh;" onclick="nouveau_texte();" >+ Nouveau texte</button>
                 </div>
 
-                <div style="margin-top:2vh;">
+                <div id="div_nouveau" style="display:none; margin-left:6vh;">
+                    <h2 id="titre_nouveau"></h2>
+                    <textarea id="input_nouveau" placeholder=""></textarea>
+                    <div class="row">
+                        <button class="bt1" style="margin:1vh;">Ajouter</button>
+                        <button class="bt1" onclick="annule_nouveau();" style="margin:1vh;">Annuler</button>
+                    </div>
+                </div>
+
+                <div style="margin-top:4vh;">
                     <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_prive" />
                     <label>Public</label>
                 </div>
@@ -139,7 +155,7 @@ $contenu = [
                             }
                         ?>
                     </select>
-                    <p>Vous n'appartenez à aucun groupe</p>
+                    <p style="<?php if(count($mes_groupes)!=0){echo 'display:none';} ?>">Vous n'appartenez à aucun groupe</p>
                     <div class="row">
                         <button class="bt1" style="margin:2vh; margin-left:0; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">Rajouter</button>
                         <button onclick="annule_ajout_groupe();" class="bt1" style="margin:2vh; margin-top:0; margin-left:0;">Annuler</button>
