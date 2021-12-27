@@ -65,13 +65,13 @@ $reponses = [
 
         <div style="position: absolute; top:8%; bottom: 0; left: 0; right: 0; overflow:auto;">
 
-            <div class="container col" style="margin:3vh;">
+            <div class="container col" style="margin:5vh;">
 
                 <button class="bt1" style="display:block; margin-bottom:2vh;" onclick="window.location.href='exercices.php';">Retour</button>
 
                 <h1><?php echo $titre; ?></h1>
 
-                <div class="col">
+                <div class="col" style="margin-bottom:20vh;">
 
 
                     <?php 
@@ -80,7 +80,7 @@ $reponses = [
 
                             $id = $el["id"];
 
-                            echo "<div>";
+                            echo "<div style='margin-top:5vh;'>";
 
                             if($el["type"] == "texte"){
                                 $txt = $el["texte"];
@@ -89,15 +89,19 @@ $reponses = [
                             elseif($el["type"] == "question"){
                                 $txt = $el["texte"];
                                 $aff_bt_repondre = "display: block;";
+                                $aff_bt_modif = "display: none;";
                                 $txt_reponse = $reponses[$id];
-                                if($txt_reponse != ""){ $aff_bt_repondre = "display:none;"; }
+                                if($txt_reponse != ""){ $aff_bt_repondre = "display:none;"; $aff_bt_modif = "display:block;"; }
                                 echo "<h2>$txt</h2>";
-                                echo "<p id=\"reponse_q_$id\">$txt_reponse</p>";
-                                // echo "<div class=\"row\">";
-                                echo "  <button class=\"bt1\"  style=\"$aff_bt_repondre\">Répondre</button>";
-                                // echo "</div>";
+                                echo "<div class=\"row\">";
+                                echo "  <p id=\"reponse_q_$id\">$txt_reponse</p>";
+                                echo "  <textarea id=\"input_reponse_q_$id\" style=\"display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto;\">$txt_reponse</textarea>";
+                                echo "  <div id=\"bt_repondre_q_$id\" style='margin-left:2vh; margin-top:auto; margin-bottom:auto; $aff_bt_repondre'> <button  class=\"bt1\">Répondre</button> </div>";
+                                echo "  <div id=\"bt_modifier_q_$id\" style='margin-left:2vh; margin-top:auto; margin-bottom:auto; $aff_bt_modif'> <button class=\"bt1\">Modifier</button> </div>";
+                                echo "  <div id=\"bt_sauvegarder_q_$id\" style='display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto; '> <button class=\"bt1\">Sauvegarder</button> </div>";
+                                echo "  <div id=\"bt_annuler_q_$id\" style='display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto; '> <button class=\"bt1\">Annuler</button> </div>";
+                                echo "</div>";
                             }
-
                             echo "</div>";
 
                         }
@@ -117,4 +121,12 @@ $reponses = [
     <script src="../js/menus.js"></script>
     <script src="../js/MATHJAX_CONFIG.js"></script>
     <script src="../js/tex-mml-chtml.js"></script>
+    <script>
+
+function repondre_question(idq){
+    
+}
+
+
+    </script>
 </html>
