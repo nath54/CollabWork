@@ -67,6 +67,10 @@ $contenu = [
 
             <div class="container" style="margin:3vh;">
 
+                <div>
+                    <button class="bt1" onclick="window.location.href='exercices.php';">Retour</button>
+                </div>
+
                 <div style="flex-wrap:wrap;" class="row">
                     <h1 id="titre" style="margin-top:auto; margin-bottom:auto;"><?php echo $titre; ?></h1>
                     <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">

@@ -51,6 +51,10 @@ $chapitres = [
 
             <div class="container" style="margin:3vh;">
 
+                <div>
+                    <button class="bt1" onclick="window.location.href='cours.php';">Retour</button>
+                </div>
+
                 <div style="flex-wrap:wrap;" class="row">
                     <h2 id="titre" style="margin-top:auto; margin-bottom:auto;"><?php echo $titre; ?></h2>
                     <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">
