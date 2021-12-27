@@ -5,7 +5,7 @@
         <a href="exercices.php" class="lien_sidemenu">Exercices</a>
         <a href="cours.php" class="lien_sidemenu">Cours</a>
         <a href="#" class="lien_sidemenu">Fiches</a>
-        <a href="#" class="lien_sidemenu">Groupes</a>
+        <a href="groupes.php" class="lien_sidemenu">Groupes</a>
         <a href="#" class="lien_sidemenu">Quiz</a>
     </div>
     <div class="col" style="width:100%; margin-left: 8%; margin-right:auto; margin-bottom:20px; margin-top:auto;">
