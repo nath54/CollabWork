@@ -2,16 +2,30 @@
 
 $est_connecte = true;
 
-$mes_groupes_crees = [
-
-];
-
 $mes_groupes = [
 
 ];
 
-$groupes_publics = [
+$groupes = [
+    [
+        "id" => 3,
+        "nom" => "Le cheval, c'est génial"
+    ]
+];
 
+$groupes_publics = [
+    [
+        "id" => 0,
+        "nom" => "Vive les maths !"
+    ],
+    [
+        "id" => 1,
+        "nom" => "Les livres, c'est trop bien"
+    ],
+    [
+        "id" => 2,
+        "nom" => "Le salon des geeks"
+    ]
 ];
 
 ?>
