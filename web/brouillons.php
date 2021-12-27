@@ -15,6 +15,10 @@ $brouillons = [
     ]
 ];
 
+$exercices = [
+
+];
+
 ?>
 
 <!doctype HTML>
