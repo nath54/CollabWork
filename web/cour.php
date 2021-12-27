@@ -42,7 +42,7 @@ $chapitres = [
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="MathJax.typesetPromise();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -145,4 +145,6 @@ $chapitres = [
     </body>
     <script src="../js/cour.js"></script>
     <script src="../js/menus.js"></script>
+    <script src="../js/MATHJAX_CONFIG.js"></script>
+    <script src="../js/tex-mml-chtml.js"></script>
 </html>

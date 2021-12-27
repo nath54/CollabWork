@@ -14,7 +14,7 @@
                     $id = $ex["id"];
                     $titre = $ex["titre"];
                     $chapitres = $ex["chapitres"];
-                    echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                    echo "<div id='$id' class='bt_item row' onclick='window.location.href=\"modif_exercice.php\"'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
                 }
             }
 

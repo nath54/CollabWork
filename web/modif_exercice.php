@@ -3,10 +3,10 @@
 $est_connecte = true;
 $est_auteur = true;
 
-$titre = "Titre du cour";
+$titre = "Titre de l'exercice";
 
 $est_prive = true;
-$groupes = ["MP2I LLG", "Poink"];
+$groupes = ["MP2I LLG"];
 $mes_groupes = ["MP2I LLG", "Poink"];
 
 $mes_chapitres = [];
@@ -58,7 +58,7 @@ $contenu = [
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="MathJax.typesetPromise();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -209,4 +209,6 @@ $contenu = [
     </body>
     <script src="../js/modif_exercice.js"></script>
     <script src="../js/menus.js"></script>
+    <script src="../js/MATHJAX_CONFIG.js"></script>
+    <script src="../js/tex-mml-chtml.js"></script>
 </html>
