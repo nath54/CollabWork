@@ -2,7 +2,7 @@
     <div class="col" style="width:100%; margin-left: 8%; margin-right:auto; margin-top:20px; margin-bottom:auto;">
         <a href="main.php" class="lien_sidemenu">Accueil</a>
         <a href="brouillons.php" class="lien_sidemenu">Brouillons</a>
-        <a href="#" class="lien_sidemenu">Exercices</a>
+        <a href="exercices.php" class="lien_sidemenu">Exercices</a>
         <a href="cours.php" class="lien_sidemenu">Cours</a>
         <a href="#" class="lien_sidemenu">Fiches</a>
         <a href="#" class="lien_sidemenu">Groupes</a>
