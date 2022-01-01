@@ -315,6 +315,33 @@ header {
     overflow: auto;
 }
 
+.msg1 {
+    background-color: rgb(118, 160, 209);
+    border: none;
+    border-radius: 2vh;
+    margin: 2vh;
+    margin-right: auto;
+    padding: 1vh;
+    width: 70%;
+}
+
+.msg2 {
+    background-color: rgb(118, 132, 209);
+    border: none;
+    border-radius: 2vh;
+    margin: 2vh;
+    margin-left: auto;
+    padding: 1vh;
+    width: 70%;
+}
+
+@media screen and (min-width: 600px) and (min-aspect-ratio: 1.1) {
+    .msg1,
+    .msg2 {
+        width: 50%;
+    }
+}
+
 
 /*
 
