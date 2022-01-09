@@ -7,7 +7,7 @@ $error = "";
 
 if(array_key_exists("request",$_POST)){
     // On vérifie que la requete contient bien toutes les bonnes valeurs
-    if(!array_key_exists("pseudo", $_POST) || !array_key_exists("email", $_POST) || !array_key_exists("password", $_POST)){
+    if(!isset($_POST["pseudo"]) || !isset($_POST["email"]) || !isset($_POST["password"])){
         
     }
     // On a une requete d'inscription correcte
@@ -18,14 +18,57 @@ if(array_key_exists("request",$_POST)){
     if(strlen($pseudo) < 4){
         $error = "Le pseudo doit faire au moins 4 caractères !";
     }
-    else if(strlen($pseudo) > 16){
-        $error = "Le pseudo ne doit pas faire plus de 16 caractères !";
+    else if(strlen($pseudo) > 32){
+        $error = "Le pseudo ne doit pas faire plus de 32 caractères !";
     }
     else if(strlen($password) < 8){
         $error = "Le mot de passe doit faire au moins 8 caractères !";
     }
     else if(strlen($password) > 32){
         $error = "Le mot de passe ne doit pas faire plus de 32 caractères !";
+    }
+    //TODO finir tous les tests, parce que flemme
+
+
+    // Je vais quand même faire les tests des pseudos/emails
+    $req = "SELECT pseudo, email FROM comptes WHERE comptes.pseudo=:pseudo OR comptes.email=:email;";
+    $lsts_id_comptes = requete_prep($db, $req, [":email"=>$email, ":pseudo"=>$pseudo]);
+    $e=false;
+    $p=false;
+    foreach($lsts_id_comptes as $data){
+        if($data[0]==$pseudo){
+            $p=true;
+        }
+        if($data[1]==$email){
+            $e=true;
+        }
+    }
+    if(count($lsts_id_comptes)>0){
+        if($p && !$e){
+            $error = "Ce pseudo est déjà pris !";
+        }
+        else if($e && !$p){
+            $error = "Cet email est déjà prise !";
+        }
+        else if($e && $f){
+            $error = "Ce pseudo et cet email sont déjà pris !";
+        }
+        else{
+            $error = "Erreur ! Vous ne pouvez pas vous inscrire avec ce pseudo ou cet email !";
+        }
+    }
+
+    if($error == ""){
+        // Normalement, tout c'est bien passé ici
+        // On peut donc lui créer son compte
+        // Et le connecter
+        
+        $req = "INSERT INTO comptes (pseudo, email, _password) VALUES (:pseudo, :email, :pass);";
+        action_prep($db, $req, [":pseudo"=>$pseudo, ":email"=>$email, ":pass"=>md5($password)]);
+
+        $_SESSION["est_connecte"] = true;
+        $_SESSION["pseudo"] = $pseudo;
+
     }
 }
 
@@ -66,7 +109,7 @@ if(array_key_exists("request",$_POST)){
                         <div style="padding: 1vh; background-color:rgb(15, 114, 172);" class="grossi">
                             <img src="../res/person.svg" class="img_car" />
                         </div>
-                        <input name="pseudo" id="input_pseudo" placeholder="Pseudo" maxlenght=16/>
+                        <input name="pseudo" id="input_pseudo" placeholder="Pseudo" maxlength=32/>
                     </div>
                     <!-- INPUT EMAIL -->
                     <div class="row" style="margin:2vh; margin-top:0;" >

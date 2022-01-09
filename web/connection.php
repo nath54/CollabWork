@@ -32,7 +32,7 @@
                         <div style="padding: 1vh; background-color:rgb(15, 114, 172);" class="grossi">
                             <img src="../res/person.svg" class="img_car" />
                         </div>
-                        <input name="pseudo" id="input_pseudo" placeholder="Pseudo" maxlenght=16/>
+                        <input name="pseudo" id="input_pseudo" placeholder="Pseudo" maxlength=32/>
                     </div>
                     <!-- INPUT PASSWORD -->
                     <div class="row" style="margin:2vh; margin-top:0;">
