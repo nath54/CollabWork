@@ -342,6 +342,21 @@ header {
     }
 }
 
+.img_car {
+    width: 5vh;
+    height: 5vh;
+}
+
+.grossi {
+    transform: none;
+    transition: all 0.4s;
+    transition-duration: 0.4s;
+}
+
+.grossi:hover {
+    transform: scale(1.1);
+}
+
 
 /*
 
