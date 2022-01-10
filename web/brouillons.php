@@ -8,12 +8,16 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+if($est_connecte){
+    $req = "SELECT id, titre, texte, last_modif FROM brouillons WHERE id_compte = :id_compte";
+    $brouillons = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
+}
 
-$brouillons = [
+$brouillons2 = [
     [
         "id" => 0,
         "titre" => "Brouillon n°1",
-        "derniere_modif" => [20,12,2021]
+        "derniere_modif" => [20,12,2021] 
     ],
     [
         "id" => 1,

@@ -1,1 +1,1 @@
-<a href="#" class="bt_account_menu">Se connecter</a>
+<a href="../web/connection.php" class="bt_account_menu">Se connecter</a>

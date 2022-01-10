@@ -14,8 +14,9 @@
                 foreach($brouillons as $br){
                     $id = $br["id"];
                     $titre = $br["titre"];
-                    $date = $br["derniere_modif"];
-                    $text_date = "hier";
+                    $date = $br["last_modif"];
+                    // $text_date = "hier";
+                    $text_date = $date;
                     echo "<div id='$id' class='bt_item row' style='cursor:default;'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>Dernière modification : $text_date</i></div> <div class='row'><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                 }
             }
@@ -41,7 +42,7 @@
                 foreach($exercices as $ex){
                     $id = $ex["id"];
                     $titre = $ex["titre"];
-                    $date = $ex["derniere_modif"];
+                    $date = $ex["last_modif"];
                     $text_date = "hier";
                     echo "<div id='$id' class='bt_item row' style='cursor:default;'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>Dernière modification : $text_date</i></div> <div class='row'><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                 }
@@ -50,6 +51,12 @@
         ?>
     </div>
 </div>
+
+<form style="display:none;"  >
+
+</form>
+
+
 <script>
 
 function toggle_brouillons(){
