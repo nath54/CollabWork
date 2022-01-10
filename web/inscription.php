@@ -1,14 +1,30 @@
 <?php
 
+include_once "../include/init.php";
+include_once "../include/bdd.php";
+
+$db = load_db();
+
 $pseudo = "";
 $email = "";
 $password = "";
 $error = "";
 
+$taille_toks = 32;
+$nb_toks = random_int(10, 30);
+$_SESSION["token"] = random_str($taille_toks);
+$_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
+
 if(array_key_exists("request",$_POST)){
+    // On vérifie que la page provient bien de ce site
+    if(!isset($_SESSION["token"]) || !isset($_SESSION["num_tok"])){
+        // $_SESSION["error"] = "";
+        header("Location: index.php");
+    }
     // On vérifie que la requete contient bien toutes les bonnes valeurs
     if(!isset($_POST["pseudo"]) || !isset($_POST["email"]) || !isset($_POST["password"])){
-        
+        $_SESSION["error"] = "Il y a eu un problème lors de la requête d'inscription";
+        header("Location: index.php");
     }
     // On a une requete d'inscription correcte
     $pseudo = $_POST["pseudo"];
@@ -68,7 +84,12 @@ if(array_key_exists("request",$_POST)){
 
         $_SESSION["est_connecte"] = true;
         $_SESSION["pseudo"] = $pseudo;
+        $_SESSION["token_connection"] = random_str(32);
+        
+        $req = "UPDATE comptes (token) VALUES (:token);";
+        action_prep($db, $req, [":token"=>$_SESSION["token_connection"]]);
 
+        header("main.php");
     }
 }
 
@@ -126,11 +147,24 @@ if(array_key_exists("request",$_POST)){
                         <input name="password" type="password" id="input_password" placeholder="Mot de passe" maxlength=32/>
                     </div>
                     <input style="display:none;" name="type" value="request"/>
+                    <!-- TOKENS -->
+                    <?php
+                        for($x=0; $x<=$nb_toks; $x++){
+                            if($x == $_SESSION["num_tok"]){
+                                $val = $_SESSION["token"];
+                            }
+                            else{
+                                $val = random_str($taille_toks);
+                            }
+                            echo "<input style='display:none;' name='tok$x' value='$val' />";
+                        }
+                    ?>
                     <!-- BUTTON SUBMIT -->
                     <div>
                         <input class="bta" type="submit" value="S'inscrire" />
                     </div>
                 </form>
+                <p style="color:red;"><?php echo $error; ?></p>
                 <p style="margin-top:6vh;">Vous avez déjà un compte ? <a href="connection.php">Se connecter</a></p>
             </div>
         </div>

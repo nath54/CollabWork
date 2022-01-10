@@ -32,12 +32,12 @@ function open_json($file_path){
  *
  * @author Nathan
 **/
-function load_db($path="../includes/config.json"){
+function load_db($path="../include/config.json"){
     $FILE_PATH = $path;
     $data_account = open_json($FILE_PATH);
     $pseudo = $data_account["user"];
     $password = $data_account["password"];
-    $db_name = $data_account["database"];
+    $db_name = $data_account["db"];
     $port = $data_account["port"];
 
     try {
