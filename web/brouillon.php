@@ -1,5 +1,17 @@
 <?php
 
+
+include_once "../include/init.php";
+include_once "../include/bdd.php";
+
+$db = load_db();
+
+include "../include/test_connecte.php";
+
+if(!$est_connecte){
+    header("../web/index.php");
+}
+
 $titre = "";
 $texte = "";
 
