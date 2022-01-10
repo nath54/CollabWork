@@ -124,7 +124,7 @@ if(array_key_exists("request",$_POST)){
                 <hr style="width:60px; color:rgb(0,0,0);" />
                 <h2 style="margin:auto;">Inscription</h2>
                 <hr style="width:100%; color:rgb(230,230,230);" />
-                <form method="POST" action="connection.php">
+                <form method="POST" action="inscription.php">
                     <!-- INPUT PSEUDO -->
                     <div class="row" style="margin:2vh;"> 
                         <div style="padding: 1vh; background-color:rgb(15, 114, 172);" class="grossi">
