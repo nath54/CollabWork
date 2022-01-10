@@ -11,24 +11,17 @@ include "../include/test_connecte.php";
 if($est_connecte){
     $req = "SELECT id, titre, texte, last_modif FROM brouillons WHERE id_compte = :id_compte";
     $brouillons = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
+
+    $req = "SELECT id, titre, texte, last_modif FROM brouillons_exercices WHERE id_compte = :id_compte";
+    $exercices = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 }
 
-$brouillons2 = [
-    [
-        "id" => 0,
-        "titre" => "Brouillon n°1",
-        "derniere_modif" => [20,12,2021] 
-    ],
-    [
-        "id" => 1,
-        "titre" => "Brouillon n°2",
-        "derniere_modif" => [24,12,2021]
-    ]
-];
 
-$exercices = [
+$taille_toks = 32;
+$nb_toks = random_int(10, 30);
+$_SESSION["token"] = random_str($taille_toks);
+$_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
-];
 
 ?>
 

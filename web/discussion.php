@@ -35,6 +35,13 @@ $messages = [
 
 $id_compte = 0; // L'id du compte qui est connecté
 
+
+$taille_toks = 32;
+$nb_toks = random_int(10, 30);
+$_SESSION["token"] = random_str($taille_toks);
+$_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
+
+
 ?>
 
 <!doctype HTML>
