@@ -27,6 +27,8 @@ function send_form(action, data){
         i.setAttribute("name", d[0]);
         i.setAttribute("value", d[1]);
     }
+
+    f.submit();
 }
 
 </script>

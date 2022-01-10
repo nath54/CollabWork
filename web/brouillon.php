@@ -14,11 +14,12 @@ if(!$est_connecte){
 
 $id = null;
 
-if(isset($_POST["type"]) && $_POST["type"]=="request" && $_POST["id_brouillon"] && test_token($_POST)){
-    $id = $_POST["id_brouillon"];
+
+if(isset($_SESSION["request"]) && isset($_SESSION["brouillon_id"]) && $_SESSION["request"]=="brouillon"){
+    $id = $_SESSION["brouillon_id"];
 }
-else if(isset($_SESSION["request"]) && isset($_SESSION["id_brouillon"]) && $_SESSION["request"]=="brouillon"){
-    $id = $_SESSION["id_brouillon"];
+else if(isset($_POST["type"]) && $_POST["type"]=="request" && $_POST["brouillon_id"] && test_token($_POST)){
+    $id = $_POST["brouillon_id"];
 }
 
 if($id==null){
@@ -29,11 +30,12 @@ $req = "SELECT titre, texte FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
 $data = requete_prep($db, $req, [":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 
 if(count($data) != 1){
-    header("Location: ../web/index.php");
+    alert(strval(count($data)));
+    // header("Location: ../web/index.php");
 }
 
-$titre = "";
-$texte = "";
+$titre = $data[0][0];
+$texte = $data[0][1];
 
 
 $taille_toks = 32;

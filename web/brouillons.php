@@ -15,18 +15,16 @@ if($est_connecte){
     $req = "SELECT id, titre, texte, last_modif FROM brouillons_exercices WHERE id_compte = :id_compte";
     $exercices = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 
-    if(isset($_POST["type"]) && $_POST["type"] == "new"){
-        if(isset($_POST["token"]) && $_POST["token"]==$_SESSION["token"]){
-            $titre = "Brouillon " . strval(count($brouillons));
-            $text = "";
-            $req = "INSERT INTO brouillons (id_compte, titre, texte) VALUES (:id_compte, :titre, :texte)";
-            action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre, ":texte"=>$texte]);
-            //
-            $id = $db->lastInsertId();
-            $_SESSION["request"] = "brouillon";
-            $_SESSION["brouillon_id"] = $id;
-            header("Location: brouillon.php");
-        }
+    if(isset($_POST["type"]) && $_POST["type"] == "new" && test_token($_POST)){
+        $titre = "Brouillon " . strval(count($brouillons));
+        $text = "";
+        $req = "INSERT INTO brouillons (id_compte, titre, texte) VALUES (:id_compte, :titre, :texte)";
+        action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre, ":texte"=>$texte]);
+        //
+        $id = $db->lastInsertId();
+        $_SESSION["request"] = "brouillon";
+        $_SESSION["brouillon_id"] = $id;
+        header("Location: brouillon.php");
     }
 
 
