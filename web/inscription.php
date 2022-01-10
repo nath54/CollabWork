@@ -15,7 +15,9 @@ $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
-if(array_key_exists("request",$_POST)){
+// clog("POST : " . array_to_str($_POST));
+
+if(isset($_POST["type"]) && $_POST["type"] == "request"){
     // On vérifie que la page provient bien de ce site
     if(!isset($_SESSION["token"]) || !isset($_SESSION["num_tok"])){
         // $_SESSION["error"] = "";
@@ -29,7 +31,7 @@ if(array_key_exists("request",$_POST)){
     // On a une requete d'inscription correcte
     $pseudo = $_POST["pseudo"];
     $email = $_POST["email"];
-    $password = $_POS["password"];
+    $password = $_POST["password"];
     // On vérifie les conditions
     if(strlen($pseudo) < 4){
         $error = "Le pseudo doit faire au moins 4 caractères !";
@@ -48,10 +50,11 @@ if(array_key_exists("request",$_POST)){
 
     // Je vais quand même faire les tests des pseudos/emails
     $req = "SELECT pseudo, email FROM comptes WHERE comptes.pseudo=:pseudo OR comptes.email=:email;";
-    $lsts_id_comptes = requete_prep($db, $req, [":email"=>$email, ":pseudo"=>$pseudo]);
+    $lst_comptes = requete_prep($db, $req, [":email"=>$email, ":pseudo"=>$pseudo]);
+    // clog("DEBUG 1 : " . array_to_str($lst_comptes));
     $e=false;
     $p=false;
-    foreach($lsts_id_comptes as $data){
+    foreach($lst_comptes as $data){
         if($data[0]==$pseudo){
             $p=true;
         }
@@ -59,14 +62,14 @@ if(array_key_exists("request",$_POST)){
             $e=true;
         }
     }
-    if(count($lsts_id_comptes)>0){
+    if(count($lst_comptes)>0){
         if($p && !$e){
             $error = "Ce pseudo est déjà pris !";
         }
         else if($e && !$p){
             $error = "Cet email est déjà prise !";
         }
-        else if($e && $f){
+        else if($e && $p){
             $error = "Ce pseudo et cet email sont déjà pris !";
         }
         else{
@@ -79,17 +82,26 @@ if(array_key_exists("request",$_POST)){
         // On peut donc lui créer son compte
         // Et le connecter
         
-        $req = "INSERT INTO comptes (pseudo, email, _password) VALUES (:pseudo, :email, :pass);";
-        action_prep($db, $req, [":pseudo"=>$pseudo, ":email"=>$email, ":pass"=>md5($password)]);
-
         $_SESSION["est_connecte"] = true;
         $_SESSION["pseudo"] = $pseudo;
         $_SESSION["token_connection"] = random_str(32);
-        
-        $req = "UPDATE comptes (token) VALUES (:token);";
-        action_prep($db, $req, [":token"=>$_SESSION["token_connection"]]);
 
-        header("main.php");
+        $req = "INSERT INTO comptes (pseudo, email, _password, token) VALUES (:pseudo, :email, MD5(:pass), :token)";
+        action_prep($db, $req, [":pseudo"=>$pseudo, ":email"=>$email, ":pass"=>$password, ":token"=>$_SESSION["token_connection"]]);
+
+        $req = "SELECT id FROM comptes WHERE pseudo=:pseudo;";
+        $data = requete_prep($db, $req, [":pseudo"=>$pseudo]);
+
+        // clog("DEBUG 2 : " . array_to_str($data));
+
+        if(count($data)>0){
+            $_SESSION["id_compte"] = $data[0][0];
+            header("Location: main.php");
+        }
+        else{
+            //ERROR
+            $error = "Il y a eu une erreur lors de la création du compte";
+        }
     }
 }
 
@@ -130,14 +142,14 @@ if(array_key_exists("request",$_POST)){
                         <div style="padding: 1vh; background-color:rgb(15, 114, 172);" class="grossi">
                             <img src="../res/person.svg" class="img_car" />
                         </div>
-                        <input name="pseudo" id="input_pseudo" placeholder="Pseudo" maxlength=32/>
+                        <input name="pseudo" id="input_pseudo" placeholder="Pseudo" maxlength=32 value="<?php echo $pseudo; ?>"/>
                     </div>
                     <!-- INPUT EMAIL -->
                     <div class="row" style="margin:2vh; margin-top:0;" >
                         <div style="padding: 1vh; background-color:rgb(15, 114, 172);" class="grossi">
                             <img src="../res/email.svg" class="img_car" />
                         </div>
-                        <input name="email" id="input_email" placeholder="addresse.email@domain" type="email"/>
+                        <input name="email" id="input_email" placeholder="addresse.email@domain" type="email" value="<?php echo $email; ?>"/>
                     </div>
                     <!-- INPUT PASSWORD -->
                     <div class="row" style="margin:2vh; margin-top:0;">

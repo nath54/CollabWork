@@ -59,13 +59,19 @@ function array_to_str($array){
     $txt = "{";
     $virg = false;
     foreach($array as $k=>$v){
+        if(is_array($v)){
+            $txt_v = array_to_str($v);
+        }
+        else{
+            $txt_v = $v;
+        }
         if($virg){
             $txt .= ", ";
         }
         else{
             $virg = true;
         }
-        $txt .= "$k : $v";
+        $txt .= "$k : $txt_v";
     }
     $txt .= "}";
     return $txt;

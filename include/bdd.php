@@ -109,5 +109,6 @@ function action_prep($db, $requested, $vars=array(), $debug=false){
         echo $statement->errorCode();
         print_r($statement->errorInfo());
     }
+    $statement->debugDumpParams();
     return $succeed;
 }
