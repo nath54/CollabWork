@@ -9,6 +9,7 @@ $db = load_db();
 include "../include/test_connecte.php";
 
 
+$_SESSION["last_page"] = "index.php";
 ?>
 
 <!doctype HTML>

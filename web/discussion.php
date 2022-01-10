@@ -42,6 +42,7 @@ $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
 
+$_SESSION["last_page"] = "discussion.php";
 ?>
 
 <!doctype HTML>

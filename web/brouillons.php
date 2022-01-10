@@ -14,8 +14,23 @@ if($est_connecte){
 
     $req = "SELECT id, titre, texte, last_modif FROM brouillons_exercices WHERE id_compte = :id_compte";
     $exercices = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
-}
 
+    if(isset($_POST["type"]) && $_POST["type"] == "new"){
+        if(isset($_POST["token"]) && $_POST["token"]==$_SESSION["token"]){
+            $titre = "Brouillon " . strval(count($brouillons));
+            $text = "";
+            $req = "INSERT INTO brouillons (id_compte, titre, texte) VALUES (:id_compte, :titre, :texte)";
+            action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre, ":texte"=>$texte]);
+            //
+            $id = $db->lastInsertId();
+            $_SESSION["request"] = "brouillon";
+            $_SESSION["brouillon_id"] = $id;
+            header("Location: brouillon.php");
+        }
+    }
+
+
+}
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
@@ -23,6 +38,7 @@ $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
 
+$_SESSION["last_page"] = "brouillons.php";
 ?>
 
 <!doctype HTML>
@@ -52,6 +68,8 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        
+        <?php include "../include/form.php"; ?>
 
     </body>
     <script src="../js/menus.js"></script>

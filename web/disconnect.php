@@ -23,4 +23,5 @@ unset($_SESSION["id_compte"]       );
 header("Location: ../web/index.php");
 
 
+$_SESSION["last_page"] = "disconnect.php";
 ?>

@@ -9,7 +9,27 @@ $db = load_db();
 include "../include/test_connecte.php";
 
 if(!$est_connecte){
-    header("../web/index.php");
+    header("Location: ../web/index.php");
+}
+
+$id = null;
+
+if(isset($_POST["type"]) && $_POST["type"]=="request" && $_POST["id_brouillon"] && test_token($_POST)){
+    $id = $_POST["id_brouillon"];
+}
+else if(isset($_SESSION["request"]) && isset($_SESSION["id_brouillon"]) && $_SESSION["request"]=="brouillon"){
+    $id = $_SESSION["id_brouillon"];
+}
+
+if($id==null){
+    header("Location: ../web/index.php");
+}
+
+$req = "SELECT titre, texte FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
+$data = requete_prep($db, $req, [":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
+
+if(count($data) != 1){
+    header("Location: ../web/index.php");
 }
 
 $titre = "";
@@ -21,7 +41,7 @@ $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
-
+$_SESSION["last_page"] = "brouillon.php";
 
 ?>
 <!doctype HTML>

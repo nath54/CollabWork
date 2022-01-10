@@ -105,6 +105,7 @@ if(isset($_POST["type"]) && $_POST["type"] == "request"){
     }
 }
 
+$_SESSION["last_page"] = "inscription.php";
 ?>
 
 <!doctype HTML>
