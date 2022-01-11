@@ -14,20 +14,19 @@ if(!$est_connecte){
 
 $id = null;
 
-clog("SESSION : " . array_to_str($_SESSION));
-
-clog("POST : " . array_to_str($_POST));
-
-if(isset($_SESSION["request"]) && isset($_SESSION["brouillon_id"]) && $_SESSION["request"]=="brouillon"){
-    $id = $_SESSION["brouillon_id"];
-}
-else if(isset($_POST["type"]) && $_POST["type"]=="request" && isset($_POST["brouillon_id"]) && test_token($_POST)){
+if(isset($_POST["type"]) && $_POST["type"]=="request" && isset($_POST["brouillon_id"]) && test_token($_POST)){
     $id = $_POST["brouillon_id"];
 }
+else if(isset($_SESSION["request"]) && isset($_SESSION["brouillon_id"]) && $_SESSION["request"]=="brouillon"){
+    $id = $_SESSION["brouillon_id"];
+    unset($_SESSION["request"]);
+    unset($_SESSION["brouillon_id"]);
+}
+
 
 if($id==null){
-    //header("Location: ../web/index.php");
-    die();
+    header("Location: ../web/index.php");
+    // die();
 }
 
 $req = "SELECT titre, texte FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
@@ -37,8 +36,8 @@ if(count($data) != 1){
     header("Location: ../web/index.php");
 }
 
-$titre = $data[0][0];
-$texte = $data[0][1];
+$titre = $data[0]["titre"];
+$texte = $data[0]["texte"];
 
 
 $taille_toks = 32;
@@ -73,7 +72,7 @@ $_SESSION["last_page"] = "brouillon.php";
 
                 <input id="input_titre" value="<?php echo $titre; ?>" placeholder="Titre" style="margin: 8px;"/>
 
-                <img src="../res/save.svg" class="bt_svg" style="margin-right:auto; margin-left: 0px;"/>
+                <img src="../res/save.svg" class="bt_svg" onclick="save_brouillon();" style="margin-right:auto; margin-left: 0px;"/>
 
 
             </div>
@@ -107,6 +106,8 @@ $_SESSION["last_page"] = "brouillon.php";
             </div>
 
         </div>
+
+        <?php include "../include/form.php"; ?>
 
     </body>
 

@@ -18,15 +18,20 @@ if($est_connecte){
     $exercices = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 
     if(isset($_POST["type"]) && $_POST["type"] == "new" && test_token($_POST)){
-        $titre = "Brouillon " . strval(count($brouillons));
-        $text = "";
-        $req = "INSERT INTO brouillons (id_compte, titre, texte) VALUES (:id_compte, :titre, :texte)";
-        action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre, ":texte"=>$texte]);
+        $titre = "Brouillon " . strval(count($brouillons)+1);
+        $req = "INSERT INTO brouillons (id_compte, titre, texte, last_modif) VALUES (:id_compte, :titre, \"\", NOW())";
+        action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
         //
         $id = $db->lastInsertId();
-        $_SESSION["request"] = "brouillon";
         $_SESSION["brouillon_id"] = $id;
+        $_SESSION["request"] = "brouillon";
         $redirect = "brouillon.php";
+    }
+
+    if(isset($_POST["type"]) && $_POST["type"] == "delete" && test_token($_POST) && isset($_POST["brouillon_id"])){
+        $req = "DELETE FROM brouillons WHERE id=:id_b;";
+        action_prep($db, $req, [":id_b"=>$_POST["brouillon_id"]]);
+        header("Location: brouillons.php");
     }
 
 

@@ -59,3 +59,14 @@ function view() {
     document.getElementById("div_result").style.display = "initial";
     compile();
 }
+
+function save_brouillon() {
+    var texte = input.value;
+    var titre = document.getElementById("input_titre").value;
+    send_form("../web/brouillon.php", [
+        ["type", "save"],
+        ["titre", titre],
+        ["text", texte],
+        ["id_brouillon", id_brouillon]
+    ]);
+}
