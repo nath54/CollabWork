@@ -14,8 +14,17 @@ if(!$est_connecte){
 
 $id = null;
 
+clog("POST : " . array_to_str($_POST));
+
 if(isset($_POST["type"]) && $_POST["type"]=="request" && isset($_POST["brouillon_id"]) && test_token($_POST)){
     $id = $_POST["brouillon_id"];
+}
+else if(isset($_POST["type"]) && $_POST["type"]=="save" && isset($_POST["brouillon_id"]) && isset($_POST["titre"])  && isset($_POST["texte"]) && test_token($_POST)){
+    $id = $_POST["brouillon_id"];
+    $titre = $_POST["titre"];
+    $texte = $_POST["texte"];
+    $req = "UPDATE brouillons SET titre=:titre, texte=:texte, last_modif=NOW() WHERE id=:id_b AND id_compte=:id_c;";
+    action_prep($db, $req, [":texte"=>$texte, ":titre"=>$titre, ":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 }
 else if(isset($_SESSION["request"]) && isset($_SESSION["brouillon_id"]) && $_SESSION["request"]=="brouillon"){
     $id = $_SESSION["brouillon_id"];
@@ -25,8 +34,8 @@ else if(isset($_SESSION["request"]) && isset($_SESSION["brouillon_id"]) && $_SES
 
 
 if($id==null){
-    header("Location: ../web/index.php");
-    // die();
+    // header("Location: ../web/index.php");
+     die();
 }
 
 $req = "SELECT titre, texte FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
@@ -39,6 +48,7 @@ if(count($data) != 1){
 $titre = $data[0]["titre"];
 $texte = $data[0]["texte"];
 
+script("window.id_brouillon = $id;");
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);

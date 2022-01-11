@@ -67,6 +67,6 @@ function save_brouillon() {
         ["type", "save"],
         ["titre", titre],
         ["text", texte],
-        ["id_brouillon", id_brouillon]
+        ["id_brouillon", window.id_brouillon]
     ]);
 }
