@@ -61,7 +61,7 @@ function view() {
 }
 
 function save_brouillon() {
-    var texte = input.value;
+    var texte = encodeURI(input.value);
     var titre = document.getElementById("input_titre").value;
     send_form("../web/brouillon.php", [
         ["type", "save"],
