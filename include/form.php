@@ -10,7 +10,6 @@
             echo "<input style='display:none;' name='tok$x' value='$val' />";
         }
     ?>
-    <input style="display:none;" name="type" value="request" />
 
 </form>
 
@@ -20,13 +19,27 @@
 function send_form(action, data){
     var f = document.getElementById("forme");
     f.setAttribute("action", action);
+    var est_type = false;
 
     for(d of data){
         var i = document.createElement("input");
         i.style.display = "none";
         i.setAttribute("name", d[0]);
         i.setAttribute("value", d[1]);
+        f.appendChild(i);
+        if(d[0] == "type"){
+            est_type = true;
+        }
     }
+
+    if(!est_type){
+        var i = document.createElement("input");
+        i.style.display = "none";
+        i.setAttribute("name", "type");
+        i.setAttribute("value", "request");
+        f.appendChild(i);
+    }
+
 
     f.submit();
 }

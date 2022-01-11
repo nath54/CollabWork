@@ -107,7 +107,7 @@ function random_str(
 
 
 function test_token($arr){
-    return isset($arr["token"]) && isset($_SESSION["token"]) && $arr["token"]==$_SESSION["token"];
+    return isset($_SESSION["num_tok"]) && isset($_SESSION["token"]) && $arr["tok".$_SESSION["num_tok"]]==$_SESSION["token"];
 }
 
 

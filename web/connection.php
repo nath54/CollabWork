@@ -41,7 +41,7 @@ if(isset($_POST["type"]) && $_POST["type"] == "request"){
         // On peut donc le connecter
         
         $_SESSION["est_connecte"]     = true;
-        $_SESSION["pseudo"]           = $pseudo;
+        $_SESSION["pseudo"]           = $identifiant;
         $_SESSION["token_connection"] = random_str(32);
         $_SESSION["id_compte"]        = $data[0][0];
 

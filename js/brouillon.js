@@ -5,7 +5,7 @@ var converter = new showdown.Converter();
 
 function key_compile() {
     var live_compile = (document.getElementById("div_checkbox").style.display == "block") && (document.getElementById("checkbox_live_compil").checked)
-    console.log("live_compile = ", live_compile);
+        // console.log("live_compile = ", live_compile);
     if (live_compile) {
         compile();
     }

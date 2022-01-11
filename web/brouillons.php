@@ -8,6 +8,8 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+$redirect = null;
+
 if($est_connecte){
     $req = "SELECT id, titre, texte, last_modif FROM brouillons WHERE id_compte = :id_compte";
     $brouillons = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
@@ -24,7 +26,7 @@ if($est_connecte){
         $id = $db->lastInsertId();
         $_SESSION["request"] = "brouillon";
         $_SESSION["brouillon_id"] = $id;
-        header("Location: brouillon.php");
+        $redirect = "brouillon.php";
     }
 
 
@@ -37,6 +39,10 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
 
 
 $_SESSION["last_page"] = "brouillons.php";
+
+if($redirect != null){
+    header("Location: $redirect");
+}
 ?>
 
 <!doctype HTML>
