@@ -73,7 +73,7 @@ $_SESSION["last_page"] = "brouillon.php";
         <!-- STYLES ... -->
         <link href="../style/style.css" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="compile();">
         <div class="col" style="position: absolute; top:0; bottom:0; right:0; left:0;">
             <!-- Header -->
             <div class="row">
@@ -97,7 +97,7 @@ $_SESSION["last_page"] = "brouillon.php";
                     </div>
                     <div class="row" style="height:85%; margin-bottom:2vh;">
                         <div id="div_textarea" style="width:100%; height:100%;">
-                            <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"></textarea>
+                            <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();">$texte</textarea>
                         </div>
                         <div id="div_result">
 

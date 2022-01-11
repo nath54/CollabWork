@@ -66,7 +66,7 @@ function save_brouillon() {
     send_form("../web/brouillon.php", [
         ["type", "save"],
         ["titre", titre],
-        ["text", texte],
-        ["id_brouillon", window.id_brouillon]
+        ["texte", texte],
+        ["brouillon_id", window.id_brouillon]
     ]);
 }
