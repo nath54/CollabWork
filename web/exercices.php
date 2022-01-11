@@ -9,29 +9,42 @@ $db = load_db();
 include "../include/test_connecte.php";
 
 
-$exercices = [
-    [
-        "id" => 0,
-        "titre" => "La chute des corps",
-        "id_chapitres" => [0, 2]
-    ],
-    [
-        "id" => 1,
-        "titre" => "DM : théorème de Machin"
-    ]
-];
+$exercices = [];
 
 $exercices_vosgroupes = [];
-$exercices_publics = [
-    [
-        "id" => 2,
-        "titre" => "Thermodynamique des fluides non newtonniens, exo 1"
-    ],
-    [
-        "id" => 3,
-        "titre" => "Equations différentielles, exo 2"
-    ]
-];
+
+if($est_connecte){
+
+    $req = "SELECT id, titre FROM exercices WHERE id_compte=:id_c;";
+    $exercices = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
+
+    for($i=0; $i<count($exercices); $i++){
+        $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
+        $exercices["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices[$i]["id"]]);
+    }
+
+    if(isset($_POST["type"]) && $_POST["type"]=="new" && test_token($_POST)){
+        $titre = "Exercice " . strval(count($exercices)+1);
+        $req = "INSERT INTO exercices (id_compte, titre) VALUES (:id_compte, :titre)";
+        action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+        //
+        $id = $db->lastInsertId();
+        $_SESSION["brouillon_id"] = $id;
+        $_SESSION["request"] = "brouillon";
+        $redirect = "brouillon.php";
+    }
+
+    //TODO : exercices_vosgroupes
+}
+
+$req = "SELECT id, titre FROM exercices WHERE NOT est_prive;";
+
+$exercices_publics = requete_prep($db, $req);
+
+for($i=0; $i<count($exercices_publics); $i++){
+    $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
+    $exercices_publics["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices_publics[$i]["id"]]);
+}
 
 
 $taille_toks = 32;
@@ -133,6 +146,7 @@ $_SESSION["last_page"] = "exercices.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
 
     </body>
     <script src="../js/cours.js"></script>
