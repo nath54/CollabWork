@@ -12,12 +12,15 @@ if(!$est_connecte){
     header("Location: ../web/index.php");
 }
 
+if(!test_token($_POST)){
+    header("Location: index.php");
+}
+
 $id = null;
 
 if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "request"){
     $id = $_POST["id_exercice"];
 }
-
 
 if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["titre"]) && isset($_POST["est_public"]) && $_POST["type"] == "save"){
     $titre = $_POST["titre"];
@@ -162,7 +165,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
                     <h2 id="titre_nouveau"></h2>
                     <textarea id="input_nouveau" placeholder=""></textarea>
                     <div class="row">
-                        <button class="bt1" style="margin:1vh;">Ajouter</button>
+                        <button class="bt1" style="margin:1vh;" onclick="send_nouveau();">Ajouter</button>
                         <button class="bt1" onclick="annule_nouveau();" style="margin:1vh;">Annuler</button>
                     </div>
                 </div>

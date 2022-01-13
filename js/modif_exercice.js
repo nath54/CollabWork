@@ -1,3 +1,6 @@
+window.type_nouveau = "texte";
+
+
 function modif_titre() {
     document.getElementById("titre").style.display = "none";
     document.getElementById("bt_modif_titre").style.display = "none";
@@ -66,6 +69,7 @@ function supprime_contenu(id) {
 }
 
 function nouvelle_question() {
+    window.type_nouveau = "question";
     document.getElementById("div_nouveau").style.display = "block";
     document.getElementById("input_nouveau").placeholder = "Énoncé de la question";
     document.getElementById("input_nouveau").value = "";
@@ -73,10 +77,21 @@ function nouvelle_question() {
 }
 
 function nouveau_texte() {
+    window.type_nouveau = "texte";
     document.getElementById("div_nouveau").style.display = "block";
     document.getElementById("input_nouveau").placeholder = "Texte...";
     document.getElementById("input_nouveau").value = "";
     document.getElementById("titre_nouveau").innerHTML = "Nouveau texte";
+}
+
+function send_nouveau() {
+    texte = document.getElementById("input_nouveau").value;
+    type = window.type_nouveau;
+    send_form("modif_exercice.php", [
+        ["type", "add_element"],
+        ["_type", type],
+        ["texte", texte]
+    ])
 }
 
 function annule_nouveau() {
