@@ -19,7 +19,8 @@ if($est_connecte){
 
     for($i=0; $i<count($exercices); $i++){
         $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
-        $exercices["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices[$i]["id"]]);
+        $exercices[$i]["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices[$i]["id"]]);
+        clog("exerice[$i] = " . array_to_str($exercices[$i]));
     }
 
     if(isset($_POST["type"]) && $_POST["type"]=="new" && test_token($_POST)){
@@ -36,13 +37,14 @@ if($est_connecte){
     //TODO : exercices_vosgroupes
 }
 
-$req = "SELECT id, titre FROM exercices WHERE NOT est_prive;";
+$req = "SELECT id, titre FROM exercices WHERE est_public;";
 
 $exercices_publics = requete_prep($db, $req);
 
 for($i=0; $i<count($exercices_publics); $i++){
     $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
-    $exercices_publics["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices_publics[$i]["id"]]);
+    $exercices_publics[$i]["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices_publics[$i]["id"]]);
+    clog("exerice[$i] = " . array_to_str($exercices_publics[$i]));
 }
 
 

@@ -10,7 +10,10 @@
                 echo "<p>Vous n'avez pas créé d'exercices</p>";
             }
             else{
+                $i = 0;         
                 foreach($exercices as $ex){
+                    $i++;
+                    clog("exerice[$i] = " . array_to_str($ex));
                     $id = $ex["id"];
                     $titre = $ex["titre"];
                     $chapitres = $ex["id_chapitres"];

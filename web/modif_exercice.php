@@ -8,57 +8,67 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+if(!$est_connecte){
+    header("Location: ../web/index.php");
+}
+
+$id = null;
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "request"){
+    $id = $_POST["id_exercice"];
+}
+
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["titre"]) && isset($_POST["est_public"]) && $_POST["type"] == "save"){
+    $titre = $_POST["titre"];
+    $est_public = $_POST["est_public"];
+    $id = $_POST["id_exercice"];
+    $req = "UPDATE exercices SET titre=:titre, est_public=:est_public WHERE id=:id AND id_compte=:id_compte;";
+    requete_prep($db, $req, [":titre"=>$titre, ":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+}
+
+if($id == null){
+    header("Location: ../web/index.php");
+}
+
+$req = "SELECT titre, est_public FROM exercices WHERE id=:id AND id_compte=:id_compte;";
+$data = requete_prep($db, $req, [":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+
+if(count($data) != 1){
+    header("Location: ../web/index.php");
+}
+
 $est_auteur = true;
 
-$titre = "Titre de l'exercice";
+$titre = $data[0]["titre"];
+$est_public = $data[0]["est_public"];
 
-$est_prive = true;
-$groupes = ["MP2I LLG"];
-$mes_groupes = ["MP2I LLG", "Poink"];
+$req = "SELECT groupe.nom FROM groupes
+                          INNER JOIN groupes_comptes ON groupes_comptes.id_groupe = cours_groupes.id_groupe
+        WHERE groupes_comptes.id_compte = :id_compte OR groupes.est_public;";
+$groupes = requete_prep($db, $req);
 
-$mes_chapitres = [];
-$chapitres = [];
-$titres_chapitres = [];
+$req = "SELECT id_groupe FROM groupes_comptes WHERE id_compte=:id_c;";
+$mes_groupes = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
 
-$contenu = [
-    [
-        "id" => 0,
-        "type" => "texte",
-        "texte" => "On va ici démontrer le théorème de Truc Bidule.<br/> On pose \$f(x) = 5x^2+3\cos(x)$ "
-    ],
-    [
-        "id" => 1,
-        "type" => "question",
-        "texte" => "Question 1 : Donner le domaine de définition de la fonction $ f $."
-    ],
-    [
-        "id" => 2,
-        "type" => "question",
-        "texte" => "Question 2 : Etudier les variations de la fonction $ f $"
-    ],
-    [
-        "id" => 3,
-        "type" => "question",
-        "texte" => "Question 3 : Etudier la convexité de la fonction $ f $"
-    ],
-    [
-        "id" => 4,
-        "type" => "texte",
-        "texte" => "Le théorème de Truc Bidule montre que toute fonction de la forme $ ax^2 + b\cos(x) $ est convexe sur un sous-ensemble non vide de $ \R $"
-    ],
-    [
-        "id" => 5,
-        "type" => "question",
-        "texte" => "Question 4 : Démontrer le théorème de Truc Bidule"
-    ]
-];
+$req = "SELECT titre FROM chapitres WHERE id_compte=:id_c";
+$mes_chapitres = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
+
+$req = "SELECT chapitres.titre FROM chapitres
+                               INNER JOIN cours_chapitres ON chapitres.id = cours_chapitres.id_chapitre
+                               INNER JOIN cours_groupes ON cours_groupes.id_cours = cours_chapitres.id_cours
+                               INNER JOIN groupes_comptes ON groupes_comptes.id_groupe = cours_groupes.id_groupe
+        WHERE groupes_comptes.id_compte = :id_compte;";
+$chapitres = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
+
+$req = "SELECT id, _type, texte FROM questions_exercices WHERE id_exercice=:id_e;";
+$contenu = [requete_prep($db, $req, [":id_e"=>$id])];
 
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
-
 
 $_SESSION["last_page"] = "modif_exercice.php";
 ?>

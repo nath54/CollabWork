@@ -33,7 +33,7 @@ CREATE TABLE `brouillons` (
   `id_compte` int(11) NOT NULL,
   `titre` varchar(255) NOT NULL,
   `texte` text NOT NULL,
-  `last_modif` date NOT NULL DEFAULT current_timestamp()
+  `last_modif` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -59,7 +59,7 @@ CREATE TABLE `brouillon_exercice` (
   `id_exercice` int(11) NOT NULL,
   `id_compte` int(11) NOT NULL,
   `texte` text NOT NULL,
-  `last_modif` date NOT NULL DEFAULT current_timestamp()
+  `last_modif` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
