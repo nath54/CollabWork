@@ -64,8 +64,41 @@ function annule_modif_contenu(id) {
     bt_annule.style.display = "none";
 }
 
-function supprime_contenu(id) {
 
+function save_titre() {
+    var titre = document.getElementById("input_titre").value;
+    send_form("modif_exercice.php", [
+        ["type", "save_titre"],
+        ["titre", titre],
+        ["id_exercice", window.id_exercice]
+    ])
+}
+
+function save_est_public() {
+    var est_public = document.getElementById("input_est_public").checked;
+    send_form("modif_exercice.php", [
+        ["type", "save_est_public"],
+        ["est_public", est_public],
+        ["id_exercice", window.id_exercice]
+    ])
+}
+
+function supprime_contenu(id) {
+    send_form("modif_exercice.php", [
+        ["type", "delete_element"],
+        ["id_question", id],
+        ["id_exercice", window.id_exercice]
+    ])
+}
+
+function sauvegarde_contenu(id) {
+    var texte = document.getElementById("input_contenu_" + id).value;
+    send_form("modif_exercice.php", [
+        ["type", "save_element"],
+        ["texte", texte],
+        ["id_question", id],
+        ["id_exercice", window.id_exercice]
+    ])
 }
 
 function nouvelle_question() {
@@ -90,10 +123,18 @@ function send_nouveau() {
     send_form("modif_exercice.php", [
         ["type", "add_element"],
         ["_type", type],
-        ["texte", texte]
+        ["texte", texte],
+        ["id_exercice", window.id_exercice]
     ])
 }
 
 function annule_nouveau() {
     document.getElementById("div_nouveau").style.display = "none";
+}
+
+function supprime_exercice() {
+    send_form("modif_exercice.php", [
+        ["type", "supprime_exercice"],
+        ["id_exercice", window.id_exercice]
+    ])
 }

@@ -22,23 +22,51 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "r
     $id = $_POST["id_exercice"];
 }
 
-if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["titre"]) && isset($_POST["est_public"]) && $_POST["type"] == "save"){
-    $titre = $_POST["titre"];
-    $est_public = $_POST["est_public"];
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "supprime_exercice"){
     $id = $_POST["id_exercice"];
-    $req = "UPDATE exercices SET titre=:titre, est_public=:est_public WHERE id=:id AND id_compte=:id_compte;";
-    action_prep($db, $req, [":titre"=>$titre, ":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+    $req = "DELETE FROM questions_exercices WHERE id_exercice=:id_e;";
+    action_prep($db, $req, [":id_e"=>$id]);
+    $req = "DELETE FROM exercices WHERE id=:id_e;";
+    action_prep($db, $req, [":id_e"=>$id]);
+    sleep(0.01);
+    header("Location: ../web/exercices.php");
+    die();
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["titre"]) == "save_titre"){
+    $titre = $_POST["titre"];
+    $id = $_POST["id_exercice"];
+    $req = "UPDATE exercices SET titre=:titre WHERE id=:id AND id_compte=:id_compte;";
+    action_prep($db, $req, [":titre"=>$titre, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["est_public"]) == "save_est_public"){
+    $est_public = 0;
+    if($_POST["est_public"]){
+        $est_public = 1;
+    }
+    $id = $_POST["id_exercice"];
+    $req = "UPDATE exercices SET est_public=:est_public WHERE id=:id AND id_compte=:id_compte;";
+    action_prep($db, $req, [":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
 }
 
 if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["texte"]) && isset($_POST["_type"]) && $_POST["type"]=="add_element"){
     $id = $_POST["id_exercice"];
-    $enonce = $_POST["texte"];
+    $texte = $_POST["texte"];
     $_type = $_POST["_type"];
     $req = "INSERT INTO questions_exercices (id_exercice, _type, texte) VALUES (:id_e, :_type, :texte);";
     action_prep($db, $req, [":id_e"=>$id, ":_type"=>$_type, ":texte"=>$texte]);
 }
 
-if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_question"]) && $_POST["type"]=="delete"){
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_question"]) && isset($_POST["texte"]) && $_POST["type"]=="save_element"){
+    $id = $_POST["id_exercice"];
+    $texte = $_POST["texte"];
+    $id_question = $_POST["id_question"];
+    $req = "UPDATE questions_exercices SET texte=:texte WHERE id_exercice=:id_e AND id=:id_q;";
+    action_prep($db, $req, [":id_e"=>$id, ":texte"=>$texte, ":id_q"=>$id_question]);
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_question"]) && $_POST["type"]=="delete_element"){
     $id = $_POST["id_exercice"];
     $id_q = $_POST["id_question"];
     $req = "DELETE FROM questions_exercices WHERE id=:id_q AND id_exercice=:id_e;";
@@ -89,6 +117,7 @@ $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
 $_SESSION["last_page"] = "modif_exercice.php";
+script("window.id_exercice = $id;");
 ?>
 
 <!doctype HTML>
@@ -118,7 +147,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
                     <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">
                         <input id="input_titre" value="<?php echo $titre; ?>" style="display:none;"/>
                         <button id="bt_modif_titre" onclick="modif_titre();" class="bt1" style="margin:2vh;">Modifier</button>
-                        <button id="bt_save_titre" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
+                        <button id="bt_save_titre" class="bt1" style="margin:2vh; display:none;" onclick="save_titre();">Sauvegarder</button>
                         <button id="bt_annule_titre" onclick="annule_titre();" class="bt1" style="margin:2vh; display:none;">Annuler</button>
                     </div>
                 </div>
@@ -136,7 +165,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
                             foreach($contenu as $c){
                                 $id = $c["id"];
                                 $texte = $c["texte"];
-                                $type = $c["type"];
+                                $type = $c["_type"];
                                 $balise_texte = "h2";
                                 if($type == "texte"){
                                     $balise_texte = "p";
@@ -146,7 +175,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
                                 echo "<textarea id='input_contenu_$id' style='display:none;'>$texte</textarea>";
                                 echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_modif_contenu_$id' class='bt1' onclick='modif_contenu($id);'>Modifier</button></div>";
                                 echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_supprime_contenu_$id' class='bt3' onclick='supprime_contenu($id);'>Supprimer</button></div>";
-                                echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_save_contenu_$id' class='bt1' style='display:none;'>Sauvegarder</button></div>";
+                                echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_save_contenu_$id' class='bt1' style='display:none;' onclick='sauvegarde_contenu($id);'>Sauvegarder</button></div>";
                                 echo "<div style='margin-left:2vh; margin-top:auto; margin-bottom:auto;'><button id='bt_annule_contenu_$id' class='bt1' style='display:none;' onclick='annule_modif_contenu($id);'>Annuler</button></div>";
                                 echo "</div>";
                             }
@@ -171,7 +200,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
                 </div>
 
                 <div style="margin-top:4vh;">
-                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_prive" />
+                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_public" onclick="save_est_public();" <?php if($est_public){ echo "checked"; } ?> />
                     <label>Public</label>
                 </div>
                 
@@ -243,7 +272,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
                 </div>
 
                 <div>
-                    <button class="bt3" style="margin:2vh;">Supprimer l'exercice</button>
+                    <button class="bt3" style="margin:2vh;" onclick="supprime_exercice();">Supprimer l'exercice</button>
                 </div>
 
             </div>

@@ -110,7 +110,7 @@ $_SESSION["last_page"] = "exercices.php";
                                     foreach($exercices_vosgroupes as $cr){
                                         $id = $cr["id"];
                                         $titre = $cr["titre"];
-                                        echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                        echo "<div id='$id' class='bt_item row' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_exercice\", $id]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
                                     }
                                 }
                             }
@@ -132,7 +132,7 @@ $_SESSION["last_page"] = "exercices.php";
                                     foreach($exercices_publics as $cr){
                                         $id = $cr["id"];
                                         $titre = $cr["titre"];
-                                        echo "<div id='$id' class='bt_item row' onclick='window.location.href=\"exercice.php\";'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                        echo "<div id='$id' class='bt_item row' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_exercice\", $id]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
                                     }
                                 }
 

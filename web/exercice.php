@@ -8,50 +8,34 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+$id = null;
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "request"){
+    $id = $_POST["id_exercice"];
+}
 
 
-$titre = "Titre de l'exercice";
-
-$contenu = [
-    [
-        "id" => 0,
-        "type" => "texte",
-        "texte" => "On va ici démontrer le théorème de Truc Bidule.<br/> On pose \$f(x) = 5x^2+3\cos(x)$ "
-    ],
-    [
-        "id" => 1,
-        "type" => "question",
-        "texte" => "Question 1 : Donner le domaine de définition de la fonction $ f $."
-    ],
-    [
-        "id" => 2,
-        "type" => "question",
-        "texte" => "Question 2 : Etudier les variations de la fonction $ f $"
-    ],
-    [
-        "id" => 3,
-        "type" => "question",
-        "texte" => "Question 3 : Etudier la convexité de la fonction $ f $"
-    ],
-    [
-        "id" => 4,
-        "type" => "texte",
-        "texte" => "Le théorème de Truc Bidule montre que toute fonction de la forme $ ax^2 + b\cos(x) $ est convexe sur un sous-ensemble non vide de $ \R $"
-    ],
-    [
-        "id" => 5,
-        "type" => "question",
-        "texte" => "Question 4 : Démontrer le théorème de Truc Bidule"
-    ]
-];
+if($id==null){
+    header("Location: ../web/index.php");
+    die();
+}
 
 
-$reponses = [
-    1 => "\$f$ est définie sur $\R$",
-    2 => "",
-    3 => "",
-    5 => ""
-];
+$req = "SELECT titre FROM exercices WHERE id=:id AND id_compte=:id_compte;";
+$data = requete_prep($db, $req, [":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+
+if(count($data) != 1){
+    header("Location: ../web/index.php");
+}
+
+
+$titre = $data[0]["titre"];
+
+$req = "SELECT id, _type, texte FROM questions_exercices WHERE id_exercice=:id_e;";
+$contenu = requete_prep($db, $req, [":id_e"=>$id]);
+
+// TODO : AMENAGER POUR CREER UN NOUVEAU BROUILLON EXERCICE
+$reponses = [];
 
 
 $taille_toks = 32;
@@ -96,11 +80,11 @@ $_SESSION["last_page"] = "exercice.php";
 
                             echo "<div style='margin-top:5vh;'>";
 
-                            if($el["type"] == "texte"){
+                            if($el["_type"] == "texte"){
                                 $txt = $el["texte"];
                                 echo "<p>$txt</p>";
                             }
-                            elseif($el["type"] == "question"){
+                            elseif($el["_type"] == "question"){
                                 $txt = $el["texte"];
                                 $aff_bt_repondre = "display: block;";
                                 $aff_bt_modif = "display: none;";
