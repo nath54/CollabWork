@@ -47,7 +47,6 @@ function modif_contenu(id) {
 }
 
 function annule_modif_contenu(id) {
-
     var txt = document.getElementById("texte_contenu_" + id);
     var input = document.getElementById("input_contenu_" + id);
     var bt_modif = document.getElementById("bt_modif_contenu_" + id);
@@ -60,6 +59,10 @@ function annule_modif_contenu(id) {
     bt_supprime.style.display = "block";
     bt_save.style.display = "none";
     bt_annule.style.display = "none";
+}
+
+function supprime_contenu(id) {
+
 }
 
 function nouvelle_question() {

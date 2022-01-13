@@ -24,7 +24,22 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["titre"
     $est_public = $_POST["est_public"];
     $id = $_POST["id_exercice"];
     $req = "UPDATE exercices SET titre=:titre, est_public=:est_public WHERE id=:id AND id_compte=:id_compte;";
-    requete_prep($db, $req, [":titre"=>$titre, ":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+    action_prep($db, $req, [":titre"=>$titre, ":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["texte"]) && isset($_POST["_type"]) && $_POST["type"]=="add_element"){
+    $id = $_POST["id_exercice"];
+    $enonce = $_POST["texte"];
+    $_type = $_POST["_type"];
+    $req = "INSERT INTO questions_exercices (id_exercice, _type, texte) VALUES (:id_e, :_type, :texte);";
+    action_prep($db, $req, [":id_e"=>$id, ":_type"=>$_type, ":texte"=>$texte]);
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_question"]) && $_POST["type"]=="delete"){
+    $id = $_POST["id_exercice"];
+    $id_q = $_POST["id_question"];
+    $req = "DELETE FROM questions_exercices WHERE id=:id_q AND id_exercice=:id_e;";
+    action_prep($db, $req, [":id_q"=>$id_q, ":id_e"=>$id]);
 }
 
 if($id == null){
@@ -62,7 +77,7 @@ $req = "SELECT chapitres.titre FROM chapitres
 $chapitres = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 
 $req = "SELECT id, _type, texte FROM questions_exercices WHERE id_exercice=:id_e;";
-$contenu = [requete_prep($db, $req, [":id_e"=>$id])];
+$contenu = requete_prep($db, $req, [":id_e"=>$id]);
 
 
 $taille_toks = 32;
@@ -232,7 +247,8 @@ $_SESSION["last_page"] = "modif_exercice.php";
 
         </div>
 
-        <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/accountmenu.php"; ?>
+        <?php include "../include/form.php"; ?>
 
     </body>
     <script src="../js/modif_exercice.js"></script>
