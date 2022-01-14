@@ -19,7 +19,16 @@ if(isset($_POST["id_brouillon"])){
     $id_brouillon = $_POST["id_brouillon"];
 }
 
-if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "new_brouillon"){
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_brouillon"]) && $_POST["type"] == "delete_brouillon_exercice" && test_token($_POST)){
+    $id = $_POST["id_exercice"];
+    $id_brouillon = $_POST["id_brouillon"];
+    $req = "DELETE FROM brouillon_exercice WHERE id_compte=:id_c AND id_exercice=:id_e AND id=:id_brouillon;";
+    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id_e"=>$id, ":id_brouillon"=>$id_brouillon]);
+    header("Location: ../web/brouillons.php");
+    die();
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "new_brouillon" && test_token($_POST)){
     $id = $_POST["id_exercice"];
     $req = "SELECT id FROM brouillon_exercice WHERE id_compte=:id_c AND id_exercice=:id_e;";
     $data = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id_e"=>$id]);
@@ -38,7 +47,7 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "n
 }
 
 
-if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_brouillon"]) && isset($_POST["id_question"]) && isset($_POST["texte"]) && $_POST["type"] == "save_question"){
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_brouillon"]) && isset($_POST["id_question"]) && isset($_POST["texte"]) && $_POST["type"] == "save_question" && test_token($_POST)){
     $id = $_POST["id_exercice"];
     $idq = $_POST["id_question"];
     $id_brouillon = $_POST["id_brouillon"];
@@ -46,8 +55,9 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_bro
     // TODO SECURITY UPDATE VERIFY BON COMPTE AUSSI
     $req = "SELECT id FROM reponses_questions_exercices WHERE id_question=:id_question AND id_brouillon_exercice=:id_b";
     $data = requete_prep($db, $req, [":id_question"=>$idq, ":id_b"=>$id_brouillon]);
+    clog("data : " . array_to_str($data));
     if(count($data)==0){
-        $req = "INSERT INTO reponses_questions_exercices VALUES (texte, id_question, id_brouillon_exercice, id_exercice) VALUES (:txt, :id_question, :id_b, :id_exercice);";
+        $req = "INSERT INTO reponses_questions_exercices (texte, id_question, id_brouillon_exercice, id_exercice) VALUES (:txt, :id_question, :id_b, :id_exercice);";
         action_prep($db, $req, [":txt"=>$texte, ":id_question"=>$idq, ":id_b"=>$id_brouillon, ":id_exercice"=>$id]);
     }
     else{
@@ -113,7 +123,7 @@ if($id_brouillon != null){
 
             <div class="container col" style="margin:5vh;">
 
-                <button class="bt1" style="display:block; margin-bottom:2vh;" onclick="window.location.href='exercices.php';">Retour</button>
+                <button class="bt1" style="display:block; margin-bottom:2vh;" onclick="window.location.href='<?php if(isset($_SESSION['last_page']) && false){ echo $_SESSION['last_page']; }else{ echo 'exercices.php'; } ?>';">Retour</button>
 
                 <div style="margin-top: 2vh; margin-bottom:3vh;">
                     <button class="bt1" onclick="send_form('exercice.php', [['type','new_brouillon'], ['id_exercice', <?php echo $id; ?>]]);"><?php if($id_brouillon==null){ echo "Répondre à cet exercice"; }else{ echo "Créer un nouveau brouillon sur cet exercice"; }?></button>

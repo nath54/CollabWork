@@ -14,7 +14,7 @@ if($est_connecte){
     $req = "SELECT id, titre, texte, last_modif FROM brouillons WHERE id_compte = :id_compte";
     $brouillons = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 
-    $req = "SELECT id, titre, texte, last_modif FROM brouillons_exercices WHERE id_compte = :id_compte";
+    $req = "SELECT id, titre, last_modif, id_exercice FROM brouillon_exercice WHERE id_compte = :id_compte";
     $exercices = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 
     if(isset($_POST["type"]) && $_POST["type"] == "new" && test_token($_POST)){
