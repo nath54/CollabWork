@@ -17,11 +17,6 @@ if($est_connecte){
     $req = "SELECT id, titre FROM exercices WHERE id_compte=:id_c;";
     $exercices = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
 
-    for($i=0; $i<count($exercices); $i++){
-        $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
-        $exercices[$i]["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices[$i]["id"]]);
-        clog("exerice[$i] = " . array_to_str($exercices[$i]));
-    }
 
     if(isset($_POST["type"]) && $_POST["type"]=="new" && test_token($_POST)){
         $titre = "Exercice " . strval(count($exercices)+1);
@@ -29,9 +24,14 @@ if($est_connecte){
         action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
         //
         $id = $db->lastInsertId();
-        $_SESSION["brouillon_id"] = $id;
-        $_SESSION["request"] = "brouillon";
-        $redirect = "brouillon.php";
+    }
+
+    $req = "SELECT id, titre FROM exercices WHERE id_compte=:id_c;";
+    $exercices = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
+
+    for($i=0; $i<count($exercices); $i++){
+        $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
+        $exercices[$i]["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices[$i]["id"]]);
     }
 
     //TODO : exercices_vosgroupes
@@ -44,7 +44,6 @@ $exercices_publics = requete_prep($db, $req);
 for($i=0; $i<count($exercices_publics); $i++){
     $req = "SELECT id FROM chapitres_exercices WHERE id_exercice=:id_e;";
     $exercices_publics[$i]["id_chapitres"] = requete_prep($db, $req, [":id_e"=>$exercices_publics[$i]["id"]]);
-    clog("exerice[$i] = " . array_to_str($exercices_publics[$i]));
 }
 
 

@@ -86,11 +86,9 @@ $reponses = [];
 if($id_brouillon != null){
     $req = "SELECT id_question, texte FROM reponses_questions_exercices WHERE id_exercice=:id_e AND id_brouillon_exercice=:id_b;";
     $data = requete_prep($db, $req, [":id_e"=>$id, ":id_b"=>$id_brouillon]);
-    clog("data : " . array_to_str($data));
     foreach($data as $el){
         $reponses[$el["id_question"]] = $el["texte"];
     }
-    clog("reponses : " . array_to_str($reponses));
 }
 
 $taille_toks = 32;
@@ -135,9 +133,7 @@ if($id_brouillon != null){
                 <div class="col" style="margin-bottom:20vh;">
 
                     <?php 
-
                         foreach($contenu as $el){
-
                             $id_el = $el["id"];
 
                             echo "<div style='margin-top:5vh;'>";
@@ -152,8 +148,8 @@ if($id_brouillon != null){
                                 $aff_bt_modif = "display: none;";
                                 echo "<h2>$txt</h2>";
                                 if($id_brouillon != null){
-                                    if(array_key_exists($id, $reponses)){
-                                        $txt_reponse = $reponses[$id];
+                                    if(isset($reponses[$id_el])){
+                                        $txt_reponse = $reponses[$id_el];
                                     }
                                     else{
                                         $txt_reponse = "";
