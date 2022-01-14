@@ -9,42 +9,80 @@ $db = load_db();
 include "../include/test_connecte.php";
 
 $id = null;
+$id_brouillon = null;
+$titre = null;
 
 if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "request"){
     $id = $_POST["id_exercice"];
 }
+if(isset($_POST["id_brouillon"])){
+    $id_brouillon = $_POST["id_brouillon"];
+}
 
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "new_brouillon"){
+    $id = $_POST["id_exercice"];
+    $req = "SELECT id FROM brouillon_exercice WHERE id_compte=:id_c AND id_exercice=:id_e;";
+    $data = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id_e"=>$id]);
+    $num = count($data) + 1;
+    $req = "SELECT titre FROM exercices WHERE id=:id;";
+    $data = requete_prep($db, $req, [":id"=>$id]);
+    if($data==1){
+        $titre = $data[0]["titre"] . ", brouillon n°$num";
+        $req = "INSERT INTO brouillon_exercice (id_exercice, id_compte, titre, last_modif) VALUES (:id_e, :id_c, :titre, NOW());";
+        action_prep($db, $req, [":id_e"=>$id, ":id_c"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+        $id_brouillon = $db->lastInsertId();
+    }
+    else{
+        header("Location: ../web/index.php");
+    }
+}
+
+
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_brouillon"]) && isset($_POST["id_question"]) && isset($_POST["texte"]) && $_POST["type"] == "save_question"){
+    $id = $_POST["id_exercice"];
+    $idq = $_POST["id_question"];
+    $texte = $_POST["texte"];
+    // TODO SECURITY UPDATE VERIFY BON COMPTE AUSSI
+    $req = "UPDATE reponses_questions_exercices SET WHERE id_question=:id_question AND id_;";
+}
 
 if($id==null){
     header("Location: ../web/index.php");
     die();
 }
 
-
-$req = "SELECT titre FROM exercices WHERE id=:id AND id_compte=:id_compte;";
-$data = requete_prep($db, $req, [":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
-
-if(count($data) != 1){
-    header("Location: ../web/index.php");
+if($titre == null){
+    $req = "SELECT titre FROM exercices WHERE id=:id;";
+    $data = requete_prep($db, $req, [":id"=>$id]);//, ":id_compte"=>$_SESSION["id_compte"]]);       
+    if(count($data) != 1){
+        header("Location: ../web/index.php");
+    }
+    $titre = $data[0]["titre"];
 }
-
-
-$titre = $data[0]["titre"];
 
 $req = "SELECT id, _type, texte FROM questions_exercices WHERE id_exercice=:id_e;";
 $contenu = requete_prep($db, $req, [":id_e"=>$id]);
 
-// TODO : AMENAGER POUR CREER UN NOUVEAU BROUILLON EXERCICE
 $reponses = [];
-
+if($id_brouillon != null){
+    $req = "SELECT id_question, texte FROM reponses_questions_exercices WHERE id_exercice=:id_e AND id_brouillon_exercice=:id_b;";
+    $data = requete_prep($db, $req, [":id_e"=>$id, ":id_b"=>$id_b]);
+    foreach($data as $el){
+        $reponses[$el["id_question"]] = $el["texte"];
+    }
+}
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
-
 $_SESSION["last_page"] = "exercice.php";
+
+script("window.id_exercice = $id;");
+of($id_brouillon != null){
+    script("window.id_brouillon = $id_brouillon;");
+}
 ?>
 
 <!doctype HTML>
@@ -69,14 +107,17 @@ $_SESSION["last_page"] = "exercice.php";
 
                 <h1><?php echo $titre; ?></h1>
 
-                <div class="col" style="margin-bottom:20vh;">
+                <div>
+                    <button class="bt1" onclick="send_form('request', [['type','new_brouillon'], ['id_exercice', <?php echo $id; ?>]]);"><?php if($id_brouillon==null){ echo "Répondre à cet exercice"; }else{ echo ""; }?></button>
+                </div>
 
+                <div class="col" style="margin-bottom:20vh;">
 
                     <?php 
 
                         foreach($contenu as $el){
 
-                            $id = $el["id"];
+                            $id_el = $el["id"];
 
                             echo "<div style='margin-top:5vh;'>";
 
@@ -88,17 +129,19 @@ $_SESSION["last_page"] = "exercice.php";
                                 $txt = $el["texte"];
                                 $aff_bt_repondre = "display: block;";
                                 $aff_bt_modif = "display: none;";
-                                $txt_reponse = $reponses[$id];
-                                if($txt_reponse != ""){ $aff_bt_repondre = "display:none;"; $aff_bt_modif = "display:block;"; }
                                 echo "<h2>$txt</h2>";
-                                echo "<div class=\"row\">";
-                                echo "  <p id=\"reponse_q_$id\">$txt_reponse</p>";
-                                echo "  <textarea id=\"input_reponse_q_$id\" style=\"display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto;\">$txt_reponse</textarea>";
-                                echo "  <div id=\"bt_repondre_q_$id\" style='margin-left:2vh; margin-top:auto; margin-bottom:auto; $aff_bt_repondre'> <button onclick='modif_reponse($id);' class=\"bt1\">Répondre</button> </div>";
-                                echo "  <div id=\"bt_modif_q_$id\" style='margin-left:2vh; margin-top:auto; margin-bottom:auto; $aff_bt_modif'> <button onclick='modif_reponse($id);' class=\"bt1\">Modifier</button> </div>";
-                                echo "  <div id=\"bt_save_q_$id\" style='display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto; '> <button class=\"bt1\">Sauvegarder</button> </div>";
-                                echo "  <div id=\"bt_annule_q_$id\" style='display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto; '> <button onclick='annule_reponse($id);' class=\"bt1\">Annuler</button> </div>";
-                                echo "</div>";
+                                if($id_brouillon != null){
+                                    $txt_reponse = $reponses[$id];
+                                    if($txt_reponse != ""){ $aff_bt_repondre = "display:none;"; $aff_bt_modif = "display:block;"; }
+                                    echo "<div class=\"row\">";
+                                    echo "  <p id=\"reponse_q_$id_el\">$txt_reponse</p>";
+                                    echo "  <textarea id=\"input_reponse_q_$id_el\" style=\"display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto;\">$txt_reponse</textarea>";
+                                    echo "  <div id=\"bt_repondre_q_$id_el\" style='margin-left:2vh; margin-top:auto; margin-bottom:auto; $aff_bt_repondre'> <button onclick='modif_reponse($id_el);' class=\"bt1\">Répondre</button> </div>";
+                                    echo "  <div id=\"bt_modif_q_$id_el\" style='margin-left:2vh; margin-top:auto; margin-bottom:auto; $aff_bt_modif'> <button onclick='modif_reponse($id_el);' class=\"bt1\">Modifier</button> </div>";
+                                    echo "  <div id=\"bt_save_q_$id_el\" style='display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto; '> <button class=\"bt1\" onclick='save_reponse($id_el);'>Sauvegarder</button> </div>";
+                                    echo "  <div id=\"bt_annule_q_$id_el\" style='display:none; margin-left:2vh; margin-top:auto; margin-bottom:auto; '> <button onclick='annule_reponse($id_el);' class=\"bt1\">Annuler</button> </div>";
+                                    echo "</div>";
+                                }
                             }
                             echo "</div>";
 
@@ -127,6 +170,7 @@ $_SESSION["last_page"] = "exercice.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
 
     </body>
     <script src="../js/menus.js"></script>
@@ -174,6 +218,13 @@ function annule_reponse(idq){
     bt_annule.style.display = "none";
 }
 
+function save_reponse(idq){
+    var txt = document.getElementById("input_reponse_q_"+idq).value;
+    send_form(
+        "exercice.php",
+        [["type", "save_question"],["id_exercice", window.id_exercice], ["id_question", idq], ["texte", txt]],
+    );
+}
 
     </script>
 </html>
