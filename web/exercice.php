@@ -55,7 +55,6 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["id_bro
     // TODO SECURITY UPDATE VERIFY BON COMPTE AUSSI
     $req = "SELECT id FROM reponses_questions_exercices WHERE id_question=:id_question AND id_brouillon_exercice=:id_b";
     $data = requete_prep($db, $req, [":id_question"=>$idq, ":id_b"=>$id_brouillon]);
-    clog("data : " . array_to_str($data));
     if(count($data)==0){
         $req = "INSERT INTO reponses_questions_exercices (texte, id_question, id_brouillon_exercice, id_exercice) VALUES (:txt, :id_question, :id_b, :id_exercice);";
         action_prep($db, $req, [":txt"=>$texte, ":id_question"=>$idq, ":id_b"=>$id_brouillon, ":id_exercice"=>$id]);
@@ -87,9 +86,11 @@ $reponses = [];
 if($id_brouillon != null){
     $req = "SELECT id_question, texte FROM reponses_questions_exercices WHERE id_exercice=:id_e AND id_brouillon_exercice=:id_b;";
     $data = requete_prep($db, $req, [":id_e"=>$id, ":id_b"=>$id_brouillon]);
+    clog("data : " . array_to_str($data));
     foreach($data as $el){
         $reponses[$el["id_question"]] = $el["texte"];
     }
+    clog("reponses : " . array_to_str($reponses));
 }
 
 $taille_toks = 32;
