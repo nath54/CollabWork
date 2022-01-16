@@ -45,6 +45,7 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["est_pu
     if($_POST["est_public"]){
         $est_public = 1;
     }
+    alert("est_public : $est_public");
     $id = $_POST["id_exercice"];
     $req = "UPDATE exercices SET est_public=:est_public WHERE id=:id AND id_compte=:id_compte;";
     action_prep($db, $req, [":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);

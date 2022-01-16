@@ -106,11 +106,12 @@ function requete_prep($db, $requested, $vars=array(), $debug=false){
 function action_prep($db, $requested, $vars=array(), $debug=false){
     $statement = $db->prepare($requested, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $succeed = $statement->execute($vars);
-    // if($debug){
-    //     $statement->debugDumpParams();
-    //     echo $statement->errorCode();
-    //     print_r($statement->errorInfo());
-    // }
+    if($debug){
+        $statement->debugDumpParams();
+        echo $statement->errorCode();
+        print_r($statement->errorInfo());
+        die();
+    }
     // $statement->debugDumpParams();
     // die();
     return $succeed;
