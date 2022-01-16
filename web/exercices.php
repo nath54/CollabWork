@@ -91,7 +91,7 @@ $_SESSION["last_page"] = "exercices.php";
 
                     <div class="row" style="margin:3vh;">
                         <div style="border:1px solid black; padding:2px;" class="row">
-                            <input id="input_search" placeholder="search..." style="border:none; width:100%; height:100%;">
+                            <input id="input_search" onkeyup="search();" placeholder="search..." style="border:none; width:100%; height:100%;">
                             <img src="../res/loupe.svg" style="width: 3vh; height:3vh; margin:1vh; background:none; cursor:pointer;" onclick="search();"/>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ $_SESSION["last_page"] = "exercices.php";
                                     foreach($exercices_vosgroupes as $cr){
                                         $id = $cr["id"];
                                         $titre = $cr["titre"];
-                                        echo "<div id='$id' class='bt_item row' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_exercice\", $id]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                        echo "<div id='$id' class='bt_item row' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_exercice\", $id]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2 class='titre_elt'>$titre</h2></div> </div>";
                                     }
                                 }
                             }
@@ -129,7 +129,7 @@ $_SESSION["last_page"] = "exercices.php";
                                     foreach($exercices_publics as $cr){
                                         $id = $cr["id"];
                                         $titre = $cr["titre"];
-                                        echo "<div id='$id' class='bt_item row' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_exercice\", $id]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                        echo "<div id='$id' class='bt_item row' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_exercice\", $id]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2 class='titre_elt'>$titre</h2></div> </div>";
                                     }
                                 }
 
@@ -149,4 +149,20 @@ $_SESSION["last_page"] = "exercices.php";
     </body>
     <script src="../js/cours.js"></script>
     <script src="../js/menus.js"></script>
+    <script>
+
+function search(){
+    var txt_search = document.getElementById("input_search").value;
+    for(t of document.getElementsByClassName("titre_elt")){
+        var d = t.parentNode.parentNode;
+        if(t.innerHTML.toLowerCase().includes(txt_search)){
+            d.style.display = "block";
+        }
+        else{
+            d.style.display = "none";
+        }
+    }
+}
+
+    </script>
 </html>

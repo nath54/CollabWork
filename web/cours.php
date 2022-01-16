@@ -8,36 +8,36 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+$cours = [];
 
-$cours = [
-    [
-        "id" => 0,
-        "titre" => "Cour n°1"
-    ],
-    [
-        "id" => 1,
-        "titre" => "Cour n°2"
-    ]
-];
+if($est_connecte){
+    $req = "SELECT id, titre FROM cours WHERE id_createur=:id_c;";
+    $cours = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
+
+    if(isset($_POST["type"]) && $_POST["type"] == "new_cour" && test_token($_POST)){
+        $titre = "Cour n°" . (count($cours) + 1);
+        $req = "INSERT INTO cours (titre, id_createur, est_public) VALUES (:t, :id_c, 0);";
+        action_prep($db, $req, [":t"=>$titre, ":id_c"=>$_SESSION["id_compte"]]);
+        $id_cour = $db->lastInsertId();
+        $_SESSION["request"]="cour";
+        $_SESSION["id_cour"]=$id_cour;
+        header("Location: cour.php");
+        die();
+    }
+
+}
 
 $cours_vosgroupes = [];
-$cours_publics = [
-    [
-        "id" => 2,
-        "titre" => "Thermodynamique des fluides non newtonniens"
-    ],
-    [
-        "id" => 3,
-        "titre" => "Equations différentielles"
-    ]
-];
+$cours_publics = [];
+
+$req = "SELECT id, titre FROM cours WHERE est_public=1;";
+$cours_publics = requete_prep($db, $req);
 
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
-
 
 $_SESSION["last_page"] = "cours.php";
 ?>
@@ -131,7 +131,8 @@ $_SESSION["last_page"] = "cours.php";
 
         </div>
 
-        <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/accountmenu.php"; ?>
+        <?php include "../include/form.php"; ?>
 
     </body>
     <script src="../js/cours.js"></script>

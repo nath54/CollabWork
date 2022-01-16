@@ -8,7 +8,23 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+$id = null;
+
+if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request" && test_token($_POST)){
+    
+}
+
+
+
+if($id == null){
+    header("Location: index.php");
+    die();
+}
+
+
+
 $est_auteur = true;
+
 
 $titre = "Titre du cour";
 $description = "Voici la description de ce cour, elle peut être tellement longue qu'elle peut prendre plusieurs lignes, il faut donc faire bien attention à l'affichage résultant de la page dans ces situations suivantes, pour qu'il soit quand même joli et agréable pour l'utilisateur";
