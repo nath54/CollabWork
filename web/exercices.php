@@ -96,8 +96,6 @@ $_SESSION["last_page"] = "exercices.php";
                         </div>
                     </div>
 
-
-
                     <div id="div_vosgroupes" class="col">
 
                         <?php
