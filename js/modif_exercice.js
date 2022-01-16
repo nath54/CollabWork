@@ -75,12 +75,11 @@ function save_titre() {
 }
 
 function save_est_public() {
-    var est_public = document.getElementById("input_est_public").checked;
-    alert(est_public);
-    alert(!est_public);
+    var inp = document.getElementById("input_est_public");
+    var est_public = inp.value;
     send_form("modif_exercice.php", [
         ["type", "save_est_public"],
-        ["est_public", !est_public],
+        ["est_public", est_public],
         ["id_exercice", window.id_exercice]
     ])
 }

@@ -41,11 +41,7 @@ if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["titre"
 }
 
 if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && isset($_POST["est_public"]) == "save_est_public"){
-    $est_public = 0;
-    if($_POST["est_public"]){
-        $est_public = 1;
-    }
-    alert("est_public : $est_public");
+    $est_public = $_POST["est_public"];
     $id = $_POST["id_exercice"];
     $req = "UPDATE exercices SET est_public=:est_public WHERE id=:id AND id_compte=:id_compte;";
     action_prep($db, $req, [":est_public"=>$est_public, ":id"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
@@ -201,7 +197,7 @@ script("window.id_exercice = $id;");
                 </div>
 
                 <div style="margin-top:4vh;">
-                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_public" onclick="save_est_public();" <?php if($est_public){ echo "checked"; } ?> />
+                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_public" onclick="save_est_public();" <?php if($est_public){ echo "checked"; } ?>/>
                     <label>Public</label>
                 </div>
                 
