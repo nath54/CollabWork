@@ -37,3 +37,18 @@ function ajout_groupe() {
 function annule_ajout_groupe() {
     document.getElementById("div_ajout_groupe").style.display = "none";
 }
+
+function save_est_public() {
+    var inp = document.getElementById("input_est_public");
+    var est_public = inp.checked;
+    if (est_public) {
+        est_public = 1;
+    } else {
+        est_public = 0;
+    }
+    send_form("cour.php", [
+        ["type", "save_est_public"],
+        ["est_public", est_public],
+        ["id_cour", window.id_exercice]
+    ])
+}

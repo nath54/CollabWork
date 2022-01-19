@@ -15,6 +15,12 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request
 }
 
 
+if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $est_public = $_POST["est_public"];
+    $req = "UPDATE cour SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+}
 
 if($id == null){
     header("Location: index.php");
@@ -23,7 +29,7 @@ if($id == null){
 
 
 $req = "SELECT titre, _description, id_createur, est_public FROM cours WHERE id=:id;";
-$data = requete_prep($db, $db, [":id"=>$id]);
+$data = requete_prep($db, $req, [":id"=>$id]);
 
 if(count($data) != 1){
     header("Location: index.php");
@@ -120,7 +126,7 @@ $_SESSION["last_page"] = "cour.php";
                 </div>
 
                 <div style="margin-top:2vh; <?php if(!$est_auteur){ echo "display:none;"; } ?>">
-                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_prive" />
+                    <input style="margin-left:2vh; margin-bottom:2vh; " type="checkbox" id="input_est_public" onclick="save_est_public();" <?php if($est_public){ echo "checked"; } ?>/>
                     <label>Public</label>
                 </div>
 
