@@ -107,7 +107,7 @@ $_SESSION["last_page"] = "cour.php";
                             foreach($chapitres as $c){
                                 $id = $c["id"];
                                 $titre = $c["titre"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"cour.php\", [[\"type\", \"request\"], [\"id_cour\", $id]]);' ><h2>$titre</h2></div> </div>";
                             }
                         }
 
@@ -164,6 +164,7 @@ $_SESSION["last_page"] = "cour.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
 
     </body>
     <script src="../js/cour.js"></script>
