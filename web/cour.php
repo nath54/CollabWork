@@ -172,9 +172,9 @@ $_SESSION["last_page"] = "cour.php";
         <?php include "../include/accountmenu.php" ?>
         <?php include "../include/form.php" ?>
 
+        <script src="../js/cour.js"></script>
+        <script src="../js/menus.js"></script>
+        <script src="../js/MATHJAX_CONFIG.js"></script>
+        <script src="../js/tex-mml-chtml.js"></script>
     </body>
-    <script src="../js/cour.js"></script>
-    <script src="../js/menus.js"></script>
-    <script src="../js/MATHJAX_CONFIG.js"></script>
-    <script src="../js/tex-mml-chtml.js"></script>
 </html>

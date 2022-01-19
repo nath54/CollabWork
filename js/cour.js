@@ -50,5 +50,5 @@ function save_est_public() {
         ["type", "save_est_public"],
         ["est_public", est_public],
         ["id_cour", window.id_exercice]
-    ])
+    ]);
 }
