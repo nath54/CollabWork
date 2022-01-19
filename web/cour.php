@@ -11,7 +11,7 @@ include "../include/test_connecte.php";
 $id = null;
 
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request" && test_token($_POST)){
-    
+    $id = $_POST["id_cour"];
 }
 
 
@@ -22,37 +22,25 @@ if($id == null){
 }
 
 
+$req = "SELECT titre, _description, id_createur, est_public FROM cours WHERE id=:id;";
+$data = requete_prep($db, $db, [":id"=>$id]);
 
-$est_auteur = true;
+if(count($data) != 1){
+    header("Location: index.php");
+    die();
+}
+
+$est_auteur = $data[0]["id_createur"] == $_SESSION["id_compte"];
+$titre = $data[0]["titre"];
+$est_public = $data[0]["est_public"];
+$description = $data[0]["_description"];
 
 
-$titre = "Titre du cour";
-$description = "Voici la description de ce cour, elle peut être tellement longue qu'elle peut prendre plusieurs lignes, il faut donc faire bien attention à l'affichage résultant de la page dans ces situations suivantes, pour qu'il soit quand même joli et agréable pour l'utilisateur";
+$groupes = [];
+$mes_groupes = [];
 
-$est_prive = true;
-$groupes = ["MP2I LLG", "Poink"];
-$mes_groupes = ["MP2I LLG", "Poink"];
-
-$chapitres = [
-
-    [
-        "id" => 0,
-        "titre" => "1. La construction du monde"
-    ],
-    [
-        "id" => 1,
-        "titre" => "2. Le développement des hommes"
-    ],
-    [
-        "id" => 2,
-        "titre" => "3. La destruction"
-    ],
-    [
-        "id" => 3,
-        "titre" => "Conclusion"
-    ]
-
-];
+$req = "SELECT chapitre.id, chapitre.titre FROM chapitres INNER JOIN cours_chapitre ON chapitre.id = cours_chapitre.id_chapitre WHERE cours_chapitre.id_cours = :id_c;";
+$chapitres = requete_prep($db, $req, [":id_c"=>$id]);
 
 
 $taille_toks = 32;
