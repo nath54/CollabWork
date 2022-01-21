@@ -49,6 +49,6 @@ function save_est_public() {
     send_form("cour.php", [
         ["type", "save_est_public"],
         ["est_public", est_public],
-        ["id_cour", window.id_exercice]
+        ["id_cour", window.id_cour]
     ]);
 }

@@ -56,6 +56,7 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
 
 
 $_SESSION["last_page"] = "cour.php";
+script("window.id_cour = $id;");
 ?>
 
 <!doctype HTML>
