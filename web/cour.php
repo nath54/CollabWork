@@ -19,7 +19,7 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["est_public
     $id = $_POST["id_cour"];
     $est_public = $_POST["est_public"];
     $req = "UPDATE cour SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
-    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"]]);
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
 }
 
 if($id == null){
