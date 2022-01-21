@@ -30,10 +30,19 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["titre"]) &
 
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
     $id = $_POST["id_cour"];
-    $titre = $_POST["description"];
+    $_description = $_POST["description"];
     $req = "UPDATE cours SET _description=:_description WHERE id=:id_c AND id_createur=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
 }
+
+if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau_chapitre" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $nb_titre = count(requete_prep($db, "SELECT chapitres.id FROM chapitres INNER JOIN cours_chapitres ON cours_chapitres.id_chapitre = chapitres.id WHERE id_compte = :id_compte AND cours_chapitres.id_cour = :idc;", [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id]));
+    $titre = "Chapitre n°$nb_titre";
+    $req = "INSERT INTO chapitres (titre, id_compte) VALUES (:titre, :id_compte);";
+    action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+}
+
 
 if($id == null){
     header("Location: index.php");
@@ -132,7 +141,7 @@ script("window.id_cour = $id;");
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php';">+ Nouveau chapitre</button>
+                    <button class="bt1" style="margin:2vh;" onclick="send_form('cour.php', [['type', 'nouveau_chapitre'], ['id_cour', window.id_cour]]);">+ Nouveau chapitre</button>
                 </div>
 
                 <div style="margin-top:2vh; <?php if(!$est_auteur){ echo "display:none;"; } ?>">
