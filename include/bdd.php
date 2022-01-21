@@ -79,9 +79,12 @@ function requete($db, $requested){
 function requete_prep($db, $requested, $vars=array(), $debug=false){
     $statement = $db->prepare($requested, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $reponse = $statement->execute($vars);
-    // if($debug){
-    //     $statement->debugDumpParams();
-    // }
+    if($debug){
+        $statement->debugDumpParams();
+        echo $statement->errorCode();
+        print_r($statement->errorInfo());
+        die();
+    }
     $arr = $statement->fetchAll();
     // $statement->debugDumpParams();
     // clog("aaaaa");
