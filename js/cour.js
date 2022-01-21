@@ -52,3 +52,21 @@ function save_est_public() {
         ["id_cour", window.id_cour]
     ]);
 }
+
+function save_titre() {
+    var titre = document.getElementById("input_titre").value;
+    send_form("cour.php", [
+        ["type", "save_titre"],
+        ["titre", titre],
+        ["id_cour", window.id_cour]
+    ]);
+}
+
+function save_description() {
+    var description = document.getElementById("input_description").value;
+    send_form("cour.php", [
+        ["type", "save_description"],
+        ["description", description],
+        ["id_cour", window.id_cour]
+    ]);
+}

@@ -14,19 +14,31 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request
     $id = $_POST["id_cour"];
 }
 
-
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $est_public = $_POST["est_public"];
-    $req = "UPDATE cour SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
+    $req = "UPDATE cours SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $titre = $_POST["titre"];
+    $req = "UPDATE cours SET titre=:titre WHERE id=:id_c AND id_createur=:id_compte;";
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+}
+
+if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $titre = $_POST["description"];
+    $req = "UPDATE cours SET _description=:_description WHERE id=:id_c AND id_createur=:id_compte;";
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
 }
 
 if($id == null){
     header("Location: index.php");
     die();
 }
-
 
 $req = "SELECT titre, _description, id_createur, est_public FROM cours WHERE id=:id;";
 $data = requete_prep($db, $req, [":id"=>$id]);
@@ -41,19 +53,16 @@ $titre = $data[0]["titre"];
 $est_public = $data[0]["est_public"];
 $description = $data[0]["_description"];
 
-
 $groupes = [];
 $mes_groupes = [];
 
 $req = "SELECT chapitre.id, chapitre.titre FROM chapitres INNER JOIN cours_chapitre ON chapitre.id = cours_chapitre.id_chapitre WHERE cours_chapitre.id_cours = :id_c;";
 $chapitres = requete_prep($db, $req, [":id_c"=>$id]);
 
-
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
-
 
 $_SESSION["last_page"] = "cour.php";
 script("window.id_cour = $id;");
@@ -86,7 +95,7 @@ script("window.id_cour = $id;");
                     <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">
                         <input id="input_titre" value="<?php echo $titre; ?>" style="display:none;"/>
                         <button id="bt_modif_titre" onclick="modif_titre();" class="bt1" style="margin:2vh;">Modifier</button>
-                        <button id="bt_save_titre" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
+                        <button id="bt_save_titre" onclick="save_titre();" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
                         <button id="bt_annule_titre" onclick="annule_titre();" class="bt1" style="margin:2vh; display:none;">Annuler</button>
                     </div>
                 </div>
@@ -96,7 +105,7 @@ script("window.id_cour = $id;");
                     <div class="row" style="flex-wrap:wrap; <?php if(!$est_auteur){ echo 'display:none;'; } ?>">
                         <textarea id="input_description" style="width: 100%; display:none;"><?php echo $description; ?></textarea>
                         <button id="bt_modif_description" onclick="modif_description();" class="bt1" style="margin:2vh; display:block;">Modifier</button>
-                        <button id="bt_save_description" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
+                        <button id="bt_save_description" onclick="save_description();" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
                         <button id="bt_annule_description" onclick="annule_description();"class="bt1" style="margin:2vh; margin-left:0; display:none;">Annuler</button>
                     </div>
                 </div>
