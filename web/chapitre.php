@@ -65,7 +65,6 @@ $elements = [
 
 $quiz_mot = "Ajouter";
 
-
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);

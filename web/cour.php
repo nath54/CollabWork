@@ -50,8 +50,9 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau
 
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "delete_cour" && test_token($_POST)){
     $id = $_POST["id_cour"];
-    $req = "DELETE c FROM chapitres c INNER JOIN cours_chapitres d ON chapitres.id = cours_chapitres.id_chapitre WHERE id_cours = :idc;";
-    action_prep($db, $req, [":idc"=>$id]);
+    // IL faudra regarder ceux qui ne sont pas déjà dans un chapitre !
+    // $req = "DELETE c FROM chapitres c INNER JOIN cours_chapitres d ON chapitres.id = cours_chapitres.id_chapitre WHERE id_cours = :idc;";
+    // action_prep($db, $req, [":idc"=>$id]);
     $req = "DELETE FROM cours_chapitres d WHERE id_cours = :idc;";
     action_prep($db, $req, [":idc"=>$id]);
     $req = "DELETE FROM cours WHERE id_compte=:id_c AND id=:id;";
