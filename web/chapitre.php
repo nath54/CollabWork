@@ -1,6 +1,5 @@
 <?php
 
-
 include_once "../include/init.php";
 include_once "../include/bdd.php";
 
@@ -10,11 +9,9 @@ include "../include/test_connecte.php";
 
 $id = null;
 
-
 if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
 }
-
 
 if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
