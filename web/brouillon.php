@@ -106,8 +106,8 @@ $_SESSION["last_page"] = "brouillon.php";
                     </div>
                     <div style="margin:3px; display: block;" id="div_checkbox">
                         <button onclick="compile();" class="bt1" >Compile</button>
-                        <input type="checkbox" value=false id="checkbox_live_compil" />
-                        <label>Compiler à chaque changements</label>
+                        <input type="checkbox" class="visible_only_on_large_screen" value=false id="checkbox_live_compil" />
+                        <label class="visible_only_on_large_screen">Compiler à chaque changements</label>
                     </div>
 
                 </div>

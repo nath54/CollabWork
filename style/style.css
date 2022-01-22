@@ -270,6 +270,10 @@ header {
     padding: 5px;
 }
 
+.visible_only_on_large_screen {
+    display: none;
+}
+
 @media screen and (min-width: 600px) and (min-aspect-ratio: 1.1) {
     #bt_edit,
     #bt_view {
@@ -286,6 +290,15 @@ header {
         width: 100%;
         height: 100%;
         padding: 5px;
+    }
+    .visible_only_on_large_screen {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) and (max-aspect-ratio: 1.1) {
+    .visible_only_on_large_screen {
+        display: none;
     }
 }
 
