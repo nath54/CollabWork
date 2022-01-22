@@ -134,9 +134,9 @@ script("window.id_cour = $id;");
                         }
                         else{
                             foreach($chapitres as $c){
-                                $id = $c["id"];
+                                $id_chap = $c["id"];
                                 $titre = $c["titre"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"cour.php\", [[\"type\", \"request\"], [\"id_cour\", $id]]);' ><h2>$titre</h2></div> </div>";
+                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"chapitre.php\", [[\"type\", \"request\"], [\"id_chapitre\", $id_chap]]);' ><h2>$titre</h2></div> </div>";
                             }
                         }
 

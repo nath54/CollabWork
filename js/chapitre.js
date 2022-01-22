@@ -29,3 +29,23 @@ function annule_description() {
     document.getElementById("bt_save_description").style.display = "none";
     document.getElementById("bt_annule_description").style.display = "none";
 }
+
+
+
+function save_titre() {
+    var titre = document.getElementById("input_titre").value;
+    send_form("chapitre.php", [
+        ["type", "save_titre"],
+        ["titre", titre],
+        ["id_chapitre", window.id_chapitre]
+    ]);
+}
+
+function save_description() {
+    var description = document.getElementById("input_description").value;
+    send_form("chapitre.php", [
+        ["type", "save_description"],
+        ["description", description],
+        ["id_chapitre", window.id_chapitre]
+    ]);
+}

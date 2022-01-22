@@ -8,22 +8,62 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
-$est_auteur = true;
+$id = null;
 
-$titre = "Titre du chapitre";
-$description = "Description du chapitre";
+
+if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="request" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+}
+
+
+if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $titre = $_POST["titre"];
+    $req = "UPDATE chapitres SET titre=:titre WHERE id=:id_c AND id_compte=:id_compte;";
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+}
+
+
+if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $_description = $_POST["description"];
+    $req = "UPDATE chapitres SET _description=:_description WHERE id=:id_c AND id_compte=:id_compte;";
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
+}
+
+
+if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nouveau_element" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    // $req = "SELECT chapitres.id FROM chapitres INNER JOIN cours_chapitres ON cours_chapitres.id_chapitre = chapitres.id WHERE id_compte = :id_compte AND cours_chapitres.id_cour = :idc;";
+    // $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id])) + 1;
+    // $titre = "Chapitre n°$nb_titre";
+    // $req = "INSERT INTO chapitres (titre, id_compte) VALUES (:titre, :id_compte);";
+    // action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+    // $id_chapitre = $db->lastInsertId();
+    // $req = "INSERT INTO cours_chapitres (id_chapitre, id_chapitre) VALUES (:id_chapitre, :id_chapitre);";
+    // action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
+}
+
+
+if($id == null){
+    header("Location: index.php");
+    die();
+}
+
+$req = "SELECT titre, _description, id_compte FROM chapitres WHERE id=:id;";
+$data = requete_prep($db, $req, [":id"=>$id]);
+
+if(count($data) != 1){
+    header("Location: index.php");
+    die();
+}
+
+
+$titre = $data[0]["titre"];
+$description = $data[0]["_description"];
+$est_auteur = $data[0]["id_compte"] == $_SESSION["id_compte"];
 
 $elements = [
-    [
-        "id" => 0,
-        "type" => "definition",
-        "titre" => "Ensemble"
-    ],
-    [
-        "id" => 1,
-        "type" => "theoreme",
-        "titre" => "Propriété fondamentale de $\N$"
-    ],
 ];
 
 $quiz_mot = "Ajouter";
@@ -34,7 +74,7 @@ $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
-
+script("window.id_chapitre = $id;");
 $_SESSION["last_page"] = "chapitre.php";
 ?>
 
@@ -63,7 +103,7 @@ $_SESSION["last_page"] = "chapitre.php";
                     <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
                         <input id="input_titre" value="<?php echo $titre; ?>" style="display:none;"/>
                         <button id="bt_modif_titre" onclick="modif_titre();" class="bt1" style="margin:2vh;">Modifier</button>
-                        <button id="bt_save_titre" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
+                        <button id="bt_save_titre" class="bt1" onclick="save_titre();" style="margin:2vh; display:none;">Sauvegarder</button>
                         <button id="bt_annule_titre" onclick="annule_titre();" class="bt1" style="margin:2vh; display:none;">Annuler</button>
                     </div>
                 </div>
@@ -73,7 +113,7 @@ $_SESSION["last_page"] = "chapitre.php";
                     <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
                         <textarea id="input_description" style="width: 100%; display:none;"><?php echo $description; ?></textarea>
                         <button id="bt_modif_description" onclick="modif_description();" class="bt1" style="margin:2vh; display:block;">Modifier</button>
-                        <button id="bt_save_description" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
+                        <button id="bt_save_description" onclick="save_description();" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
                         <button id="bt_annule_description" onclick="annule_description();"class="bt1" style="margin:2vh; margin-left:0; display:none;">Annuler</button>
                     </div>
                 </div>
@@ -122,6 +162,7 @@ $_SESSION["last_page"] = "chapitre.php";
 
         </div>
 
+        <?php include "../include/form.php" ?>
         <?php include "../include/accountmenu.php" ?>
 
     </body>
