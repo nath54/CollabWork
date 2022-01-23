@@ -31,14 +31,14 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["descri
 
 if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nouveau_element" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
-    // $req = "SELECT chapitres.id FROM chapitres INNER JOIN cours_chapitres ON cours_chapitres.id_chapitre = chapitres.id WHERE id_compte = :id_compte AND cours_chapitres.id_cour = :idc;";
-    // $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id])) + 1;
-    // $titre = "Chapitre n°$nb_titre";
-    // $req = "INSERT INTO chapitres (titre, id_compte) VALUES (:titre, :id_compte);";
-    // action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
-    // $id_chapitre = $db->lastInsertId();
-    // $req = "INSERT INTO cours_chapitres (id_chapitre, id_chapitre) VALUES (:id_chapitre, :id_chapitre);";
-    // action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
+    $req = "SELECT element.id FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE id_compte = :id_compte AND chapitres_elements.id_chapitre = :idc;";
+    $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id])) + 1;
+    $titre = "Element n°$nb_titre";
+    $req = "INSERT INTO element (titre, id_compte, _type) VALUES (:titre, :id_compte, 1);";
+    action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+    $id_elt = $db->lastInsertId();
+    $req = "INSERT INTO chapitres_elements (id_chapitre, id_element) VALUES (:id_chapitre, :id_elt);";
+    action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
 }
 
 

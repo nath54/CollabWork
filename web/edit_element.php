@@ -35,7 +35,7 @@ if($id==null){
     header("Location: ../web/index.php");
 }
 
-$req = "SELECT titre, texte FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
+$req = "SELECT titre, texte, _type FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
 $data = requete_prep($db, $req, [":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 
 if(count($data) != 1){
@@ -44,15 +44,20 @@ if(count($data) != 1){
 
 $titre = $data[0]["titre"];
 $texte = $data[0]["texte"];
+$type_elt = $data[0]["_type"];
 
 script("window.id_brouillon = $id;");
+
+$req = "SELECT * FROM types_elements;";
+$types_elements = requete_prep($db, $req);
+
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
-$_SESSION["last_page"] = "brouillon.php";
+$_SESSION["last_page"] = "edit_element.php";
 
 ?>
 <!doctype HTML>
@@ -66,7 +71,7 @@ $_SESSION["last_page"] = "brouillon.php";
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no">
-        <title>CollabWork - Feuille de brouillon</title>
+        <title>CollabWork - Edit Element</title>
         <!-- STYLES ... -->
         <link href="../style/style.css" rel="stylesheet" />
     </head>
@@ -79,7 +84,21 @@ $_SESSION["last_page"] = "brouillon.php";
 
                 <input id="input_titre" value="<?php echo $titre; ?>" placeholder="Titre" style="margin: 8px;"/>
 
-                <img src="../res/save.svg" class="bt_svg" onclick="save_brouillon();" style="margin-right:auto; margin-left: 0px;"/>
+                <select>
+                    <?php
+                        foreach($types_elements as $tp){
+                            $nom = $tp["nom"];
+                            $id_tp = $tp["id"];
+                            $sel = "";
+                            if($id_tp == $type_elt){
+                                $sel = "selected";
+                            }
+                            echo "<option $sel>$nom</option>";
+                        }
+                    ?>
+                </select>
+
+                <img src="../res/save.svg" class="bt_svg" onclick="save_element();" style="margin-right:auto; margin-left: 0px;"/>
 
 
             </div>
