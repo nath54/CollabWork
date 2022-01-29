@@ -154,12 +154,23 @@ $_SESSION["last_page"] = "chapitre.php";
                         }
                         else{
                             foreach($elements as $el){
-                                $id = $el["id"];
+                                $ide = $el["id"];
                                 $titre = $el["titre"];
                                 $type = $tp_elts[$el["_type"]]["nom"];
                                 $displaynone = "";
-                                if(!$est_auteur){ $displaynone = 'style="display:none;">'; } 
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
+                                if(!$est_auteur){ $displaynone = 'style="display:none;">'; }
+                                echo "<div id='$ide' class='bt_item row' >
+                                    <div class='col' style='width:100%; padding:5px; margin:auto; ' onclick='send_form(\"../web/element.php\", [[\"type\", \"request\"], [\"id_element\", $ide]])'>
+                                        <h2>$titre</h2>
+                                    </div>
+                                    <div style='margin:2vh; margin-left:auto;'>
+                                        <img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'request'], ['id_element', $ide]]);\"  />
+                                    </div>
+                                    <div style='margin:2vh; margin-left:auto;'>
+                                        <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'delete'], ['id_element', $ide]]);\"  />
+                                    </div>
+                                </div>";
+                                # echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                             }
                         }
 

@@ -14,20 +14,20 @@ if(!$est_connecte){
 
 $id = null;
 
-if(isset($_POST["type"]) && $_POST["type"]=="request" && isset($_POST["element_id"]) && test_token($_POST)){
-    $id = $_POST["element_id"];
+if(isset($_POST["type"]) && $_POST["type"]=="request" && isset($_POST["id_element"]) && test_token($_POST)){
+    $id = $_POST["id_element"];
 }
-else if(isset($_POST["type"]) && $_POST["type"]=="save" && isset($_POST["element_id"]) && isset($_POST["titre"])  && isset($_POST["texte"]) && test_token($_POST)){
-    $id = $_POST["element_id"];
+else if(isset($_POST["type"]) && $_POST["type"]=="save" && isset($_POST["id_element"]) && isset($_POST["titre"])  && isset($_POST["texte"]) && test_token($_POST)){
+    $id = $_POST["id_element"];
     $titre = $_POST["titre"];
     $texte = $_POST["texte"];
     $req = "UPDATE element SET titre=:titre, texte=:texte WHERE id=:id_b AND id_compte=:id_c;";
     action_prep($db, $req, [":texte"=>$texte, ":titre"=>$titre, ":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 }
-else if(isset($_SESSION["request"]) && isset($_SESSION["element_id"]) && $_SESSION["request"]=="element"){
-    $id = $_SESSION["element_id"];  
+else if(isset($_SESSION["request"]) && isset($_SESSION["id_element"]) && $_SESSION["request"]=="element"){
+    $id = $_SESSION["id_element"];  
     unset($_SESSION["request"]);
-    unset($_SESSION["element_id"]);
+    unset($_SESSION["id_element"]);
 }
 
 
