@@ -10,9 +10,10 @@ include "../include/test_connecte.php";
 
 $id = null;
 
+
 if(isset($_SESSION["id_cour"])){
+    clog("SESSION ; " . array_to_str($_SESSION));
     $id = $_SESSION["id_cour"];
-    unset($_SESSION["id_cour"]);
 }
 
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request" && test_token($_POST)){

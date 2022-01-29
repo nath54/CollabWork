@@ -50,10 +50,10 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="sup
     $req = "DELETE FROM chapitres_elements WHERE id_chapitre = :idc;";
     action_prep($db, $req, [":idc"=>$id]);
     $req = "DELETE FROM chapitres WHERE id_compte=:id_c AND id=:id;";
-    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id], true);
+    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
     $req = "DELETE FROM chapitres WHERE id_compte=:id_c AND id=:id;";
-    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id], true);
-    header("Location: ../web/cours.php");
+    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
+    header("Location: ../web/cour.php");
 }
 
 
@@ -77,6 +77,13 @@ $est_auteur = $data[0]["id_compte"] == $_SESSION["id_compte"];
 
 $req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element WHERE chapitres_elements.id_chapitre = :id;";
 $elements = requete_prep($db, $req, [":id"=>$id]);
+
+$req = "SELECT * FROM `types elements`";
+$tmp = requete_prep($db, $req);
+$tp_elts = [];
+foreach($tmp as $t){
+    $tp_elts[$t["id"]] = $t;
+}
 
 $quiz_mot = "Ajouter";
 
@@ -150,10 +157,10 @@ $_SESSION["last_page"] = "chapitre.php";
                             foreach($elements as $el){
                                 $id = $el["id"];
                                 $titre = $el["titre"];
-                                $type = $el["type"];
+                                $type = $tp_elts[$el["_type"]]["nom"];
                                 $displaynone = "";
                                 if(!$est_auteur){ $displaynone = 'style="display:none;">'; } 
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$Type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
+                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                             }
                         }
 
