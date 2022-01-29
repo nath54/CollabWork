@@ -70,7 +70,6 @@ if(count($data) != 1){
     die();
 }
 
-
 $titre = $data[0]["titre"];
 $description = $data[0]["_description"];
 $est_auteur = $data[0]["id_compte"] == $_SESSION["id_compte"];
