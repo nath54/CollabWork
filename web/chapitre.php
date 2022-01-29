@@ -42,6 +42,21 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nou
 }
 
 
+
+if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="supprime_chapitre" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $req = "DELETE t1 FROM element t1 INNER JOIN chapitres_elements t2 ON t2.id_element = t1.id WHERE t2.id_chapitre = :idc; ";
+    action_prep($db, $req, [":idc"=>$id]);
+    $req = "DELETE FROM chapitres_elements WHERE id_chapitre = :idc;";
+    action_prep($db, $req, [":idc"=>$id]);
+    $req = "DELETE FROM chapitres WHERE id_compte=:id_c AND id=:id;";
+    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id], true);
+    $req = "DELETE FROM chapitres WHERE id_compte=:id_c AND id=:id;";
+    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id], true);
+    header("Location: ../web/cours.php");
+}
+
+
 if($id == null){
     header("Location: index.php");
     die();
@@ -60,8 +75,8 @@ $titre = $data[0]["titre"];
 $description = $data[0]["_description"];
 $est_auteur = $data[0]["id_compte"] == $_SESSION["id_compte"];
 
-$elements = [
-];
+$req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element WHERE chapitres_elements.id_chapitre = :id;";
+$elements = requete_prep($db, $req, [":id"=>$id]);
 
 $quiz_mot = "Ajouter";
 
@@ -147,11 +162,11 @@ $_SESSION["last_page"] = "chapitre.php";
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;">+ Nouvel élément</button>
+                    <button class="bt1" style="margin:2vh;" onclick="send_form('chapitre.php', [['type', 'nouveau_element'], ['id_chapitre', window.id_chapitre]]);">+ Nouvel élément</button>
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh; margin-top:0;">Supprimer le chapitre</button>
+                    <button class="bt3" style="margin:2vh; margin-top:0;" onclick="send_form('chapitre.php', [['type', 'supprime_chapitre'], ['id_chapitre', window.id_chapitre]]);">Supprimer le chapitre</button>
                 </div>
 
             </div>

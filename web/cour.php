@@ -10,6 +10,11 @@ include "../include/test_connecte.php";
 
 $id = null;
 
+if(isset($_SESSION["id_cour"])){
+    $id = $_SESSION["id_cour"];
+    unset($_SESSION["id_cour"]);
+}
+
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_cour"];
 }
@@ -90,6 +95,7 @@ $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
+$_SESSION["id_cour"] = $id;
 
 $_SESSION["last_page"] = "cour.php";
 script("window.id_cour = $id;");
