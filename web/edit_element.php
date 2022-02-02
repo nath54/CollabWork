@@ -35,7 +35,7 @@ if($id==null){
     header("Location: ../web/index.php");
 }
 
-$req = "SELECT titre, texte, _type FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
+$req = "SELECT titre, texte, _type FROM element WHERE id=:id_b AND id_compte=:id_c";
 $data = requete_prep($db, $req, [":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 
 if(count($data) != 1){
@@ -46,7 +46,7 @@ $titre = $data[0]["titre"];
 $texte = $data[0]["texte"];
 $type_elt = $data[0]["_type"];
 
-script("window.id_brouillon = $id;");
+script("window.id_element = $id;");
 
 $req = "SELECT * FROM types_elements;";
 $types_elements = requete_prep($db, $req);
@@ -71,7 +71,7 @@ $_SESSION["last_page"] = "edit_element.php";
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no">
-        <title>CollabWork - Edit Element</title>
+        <title>CollabWork - Edit element</title>
         <!-- STYLES ... -->
         <link href="../style/style.css" rel="stylesheet" />
     </head>
@@ -84,21 +84,7 @@ $_SESSION["last_page"] = "edit_element.php";
 
                 <input id="input_titre" value="<?php echo $titre; ?>" placeholder="Titre" style="margin: 8px;"/>
 
-                <select>
-                    <?php
-                        foreach($types_elements as $tp){
-                            $nom = $tp["nom"];
-                            $id_tp = $tp["id"];
-                            $sel = "";
-                            if($id_tp == $type_elt){
-                                $sel = "selected";
-                            }
-                            echo "<option $sel>$nom</option>";
-                        }
-                    ?>
-                </select>
-
-                <img src="../res/save.svg" class="bt_svg" onclick="save_element();" style="margin-right:auto; margin-left: 0px;"/>
+                <img src="../res/save.svg" class="bt_svg" onclick="save_brouillon();" style="margin-right:auto; margin-left: 0px;"/>
 
 
             </div>
@@ -112,7 +98,7 @@ $_SESSION["last_page"] = "edit_element.php";
                         <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
                     </div>
                     <div class="row" style="height:85%; margin-bottom:2vh;">
-                        <div id="div_textarea" style="width:100%; height:100%;">
+                        <div id="div_textarea" style="max-width:100%; height:100%;">
                             <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"><?php echo  urldecode($texte); ?></textarea>
                         </div>
                         <div id="div_result">
@@ -137,7 +123,7 @@ $_SESSION["last_page"] = "edit_element.php";
 
     </body>
 
-    <script src="../js/brouillon.js"></script>
+    <script src="../js/edit_elt.js"></script>
 </html>
 
 

@@ -56,6 +56,10 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="sup
     header("Location: ../web/cour.php");
 }
 
+if(isset($_SESSION["id_chapitre"])){
+    $id = $_SESSION["id_chapitre"];
+}
+
 
 if($id == null){
     header("Location: index.php");
@@ -92,6 +96,7 @@ $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
 
 script("window.id_chapitre = $id;");
+$_SESSION["id_chapitre"] = $id;
 $_SESSION["last_page"] = "chapitre.php";
 ?>
 
