@@ -20,7 +20,10 @@ h1 {
 }
 
 textarea {
-    resize: none;
+    animation-duration: 0ms;
+    animation-delay: 0ms;
+    resize: horizontal;
+    min-width: 100px;
 }
 
 .centerFlex {
@@ -283,6 +286,7 @@ header {
     #div_result {
         display: flex;
         margin: 5px;
+        width: auto;
     }
     #div_result {
         overflow: scroll;
