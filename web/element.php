@@ -43,8 +43,21 @@ $type_elt = $data[0]["_type"];
 
 script("window.id_element = $id;");
 
-$req = "SELECT * FROM types_elements;";
-$types_elements = requete_prep($db, $req);
+$req = "SELECT nom, couleur, forme FROM types_elements WHERE id=:id_t;";
+$data_type = requete_prep($db, $req, [":id_t"=>$type_elt]);
+
+
+if(count($data_type) != 1){
+    $nom_type="texte";
+    $couleur = "";
+    $forme = "none";
+}
+else{
+    $nom_type=$data_type[0]["nom"];
+    $couleur = $data_type[0]["couleur"];
+    $forme = $data_type[0]["forme"];
+}
+
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
@@ -78,7 +91,7 @@ $_SESSION["last_page"] = "element.php";
 
             <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php'">Retour</button>
 
-            <div style="margin: 5em;">
+            <div style="margin: 5em; border:<?php echo "$forme $couleur"; ?>;">
 
                 <div>
                     <h1><?php  echo  urldecode($titre); ?></h1>
