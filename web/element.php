@@ -43,7 +43,7 @@ $type_elt = $data[0]["_type"];
 
 script("window.id_element = $id;");
 
-$req = "SELECT nom, couleur, forme FROM types_elements WHERE id=:id_t;";
+$req = "SELECT nom, couleur, forme FROM `types elements` WHERE id=:id_t;";
 $data_type = requete_prep($db, $req, [":id_t"=>$type_elt]);
 
 
@@ -91,7 +91,7 @@ $_SESSION["last_page"] = "element.php";
 
             <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php'">Retour</button>
 
-            <div style="margin: 5em; border:<?php echo "$forme $couleur"; ?>;">
+            <div style="margin: 5em; padding:2em; border:<?php echo "$forme $couleur"; ?>;">
 
                 <div>
                     <h1><?php  echo  urldecode($titre); ?></h1>
