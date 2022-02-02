@@ -61,6 +61,11 @@ $_SESSION["last_page"] = "element.php";
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CollabWork - Element</title>
+        
+        <script src="../js/MATHJAX_CONFIG.js"></script>
+        <script src="../js/tex-mml-chtml.js"></script>
+        <script src="../js/showdown.min.js"></script>
+
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
@@ -76,12 +81,12 @@ $_SESSION["last_page"] = "element.php";
             <div>
 
                 <div>
-                    <h1><?php  echo  urldecode($titre); ?></h1>
+                    <h1 class="comp"><?php  echo  urldecode($titre); ?></h1>
                 </div>
 
                 <div>
 
-                    <p><?php  echo  urldecode($texte); ?></p>
+                    <p class="comp"><?php  echo  urldecode($texte); ?></p>
 
                 </div>
 
@@ -94,14 +99,14 @@ $_SESSION["last_page"] = "element.php";
     </body>
     <script src="../js/menus.js"></script>
     <script>
-    
-var input = document.getElementById("texte")
-var div_result = document.getElementById("result");
+
 var converter = new showdown.Converter();
 
 
 function update_md() {
-    div_result.innerHTML = converter.makeHtml(div_result.innerHTML);
+    for(document.getElementsByClassName("comp") of div){    
+        div_result.innerHTML = converter.makeHtml(div_result.innerHTML);
+    }
 }
 
 function compile() {
@@ -109,9 +114,6 @@ function compile() {
     for (c of div_result.children) {
         div_result.removeChild(c);
     }
-
-    div_result.innerHTML = input.value;
-
     // Compilation latex
     MathJax.typesetPromise();
 
