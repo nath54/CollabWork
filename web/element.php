@@ -78,11 +78,13 @@ $_SESSION["last_page"] = "element.php";
 
             <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php'">Retour</button>
 
-            <div>
+            <div style="margin: 5em;">
 
                 <div>
                     <h1 class="comp"><?php  echo  urldecode($titre); ?></h1>
                 </div>
+                
+                <hr />
 
                 <div>
 
@@ -105,7 +107,7 @@ var converter = new showdown.Converter();
 
 function update_md() {
     for(document.getElementsByClassName("comp") of div){    
-        div_result.innerHTML = converter.makeHtml(div_result.innerHTML);
+        div.innerHTML = converter.makeHtml(div.innerHTML);
     }
 }
 
