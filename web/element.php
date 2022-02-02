@@ -81,7 +81,7 @@ $_SESSION["last_page"] = "element.php";
             <div style="margin: 5em;">
 
                 <div>
-                    <h1 class="comp"><?php  echo  urldecode($titre); ?></h1>
+                    <h1><?php  echo  urldecode($titre); ?></h1>
                 </div>
                 
                 <hr />
@@ -106,16 +106,12 @@ var converter = new showdown.Converter();
 
 
 function update_md() {
-    for(document.getElementsByClassName("comp") of div){    
+    for(div of document.getElementsByClassName("comp") ){    
         div.innerHTML = converter.makeHtml(div.innerHTML);
     }
 }
 
 function compile() {
-    // Nettoyage
-    for (c of div_result.children) {
-        div_result.removeChild(c);
-    }
     // Compilation latex
     MathJax.typesetPromise();
 
