@@ -11,17 +11,23 @@ function key_compile() {
     }
 }
 
+function update_md() {
+    div_result.innerHTML = converter.makeHtml(div_result.innerHTML);
+}
+
 function compile() {
     // Nettoyage
     for (c of div_result.children) {
         div_result.removeChild(c);
     }
-    // Update
-    div_result.innerHTML = converter.makeHtml(input.value);
+
+    div_result.innerHTML = input.value;
+
     // Compilation latex
     MathJax.typesetPromise();
+
     // Compilation markdown
-    // div_result.innerHTML = div_result.innerHTML);
+    setTimeout(update_md(), 1000);
 }
 
 function retour() {

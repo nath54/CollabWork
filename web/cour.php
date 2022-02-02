@@ -59,11 +59,11 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "delet
     // IL faudra regarder ceux qui ne sont pas déjà dans un chapitre !
     // $req = "DELETE c FROM chapitres c INNER JOIN cours_chapitres d ON chapitres.id = cours_chapitres.id_chapitre WHERE id_cours = :idc;";
     // action_prep($db, $req, [":idc"=>$id]);
-    $req = "DELETE FROM cours_chapitres d WHERE id_cours = :idc;";
+    $req = "DELETE FROM cours_chapitres d WHERE id_cour = :idc;";
     action_prep($db, $req, [":idc"=>$id]);
-    $req = "DELETE FROM cours WHERE id_compte=:id_c AND id=:id;";
+    $req = "DELETE FROM cours WHERE id_createur=:id_c AND id=:id;";
     action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
-    header("Location: ../web/brouillons.php");
+    header("Location: ../web/cours.php");
     die();
 }
 
@@ -206,7 +206,7 @@ script("window.id_cour = $id;");
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh;">Supprimer le cour</button>
+                    <button class="bt3" style="margin:2vh;" onclick="send_form('cour.php', [['type', 'delete_cour'], ['id_cour', window.id_cour]]);">Supprimer le cour</button>
                 </div>
 
             </div>
