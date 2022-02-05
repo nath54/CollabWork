@@ -112,6 +112,12 @@ $_SESSION["last_page"] = "chapitre.php";
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CollabWork - Chapitre</title>
+        <!-- SCRIPTS -->
+        
+        <script src="../js/MATHJAX_CONFIG.js"></script>
+        <script src="../js/tex-mml-chtml.js"></script>
+        <script src="../js/showdown.min.js"></script>
+
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
@@ -203,7 +209,6 @@ var converter = new showdown.Converter();
 function update_md() {
     for(div of document.getElementsByClassName("comp") ){    
         div.innerHTML = converter.makeHtml(div.innerHTML);
-        alert(div);
     }
 }
 
