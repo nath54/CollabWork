@@ -39,7 +39,7 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nou
     $id_elt = $db->lastInsertId();
     $req = "INSERT INTO chapitres_elements (id_chapitre, id_element) VALUES (:id_chapitre, :id_elt);";
     action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
-    $req = "INSERT INTO position_elements (id_chapitre, id_element, position) VALUES (:id_chapitre, :id_elt, COUNT(SELECT id_element FROM chapitres_elements WHERE id_chapitre=:id_chapitre)+1);";
+    $req = "INSERT INTO position_elements (id_chapitre, id_element, position) VALUES (:id_chapitre, :id_elt, (SELECT COUNT(id_element) FROM chapitres_elements WHERE id_chapitre=:id_chapitre)+1);";
     action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
 }
 
