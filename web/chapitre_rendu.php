@@ -115,7 +115,7 @@ $_SESSION["last_page"] = "chapitre.php";
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body onload="init();">
+    <body onload="compile();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -127,8 +127,8 @@ $_SESSION["last_page"] = "chapitre.php";
                 <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'">Retour</button>
 
                 <div class="row">
-                    <button id="bt_view_list" class="bt4" style="margin-right: 2em;" onclick="change_view_list();">Liste</button>
-                    <button id="bt_view_rendu" class="bt4_fill" onclick="change_view_rendu();">Rendu</button>
+                    <button id="bt_view_list" class="bt4" style="margin: 1em;" onclick="change_view_list();">Liste</button>
+                    <button id="bt_view_rendu" class="bt4_fill" style="margin: 1em;" onclick="change_view_rendu();">Rendu</button>
                 </div>
 
                 <div class="row">
@@ -160,12 +160,12 @@ $_SESSION["last_page"] = "chapitre.php";
                             foreach($elements as $el){
                                 $ide = $el["id"];
                                 $titre = urldecode($el["titre"]);
-                                $texte = urldecode($el["text>e"]);
+                                $texte = urldecode($el["texte"]);
                                 $nom_type = $tp_elts[$el["_type"]]["nom"];
                                 $forme = $tp_elts[$el["_type"]]["forme"];
-                                $couleur =  $tp_elts[$el["_type"]]["forme"];
+                                $couleur =  $tp_elts[$el["_type"]]["couleur"];
                                 $displaynone = "";
-                                echo "  <div style=\"margin: 5em; padding:2em; padding-top: 0.1em; border:$forme $couleur;\">
+                                echo "  <div style=\"margin: 1em; padding:1em; padding-top: 0.1em; border:$forme $couleur;\">
                                             <div>
                                                 <p style=\"text-align: right; color:$couleur\">$nom_type</p>
                                             </div>
@@ -198,8 +198,20 @@ $_SESSION["last_page"] = "chapitre.php";
     <script src="../js/tex-mml-chtml.js"></script>
     <script>
 
-function init(){
+var converter = new showdown.Converter();
+
+function update_md() {
+    for(div of document.getElementsByClassName("comp") ){    
+        div.innerHTML = converter.makeHtml(div.innerHTML);
+    }
+}
+
+function compile() {
+    // Compilation latex
     MathJax.typesetPromise();
+
+    // Compilation markdown
+    setTimeout(update_md(), 1000);
 }
 
     </script>
