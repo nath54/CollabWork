@@ -52,7 +52,7 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau
     $req = "INSERT INTO cours_chapitres (id_cour, id_chapitre) VALUES (:id_cour, :id_chapitre);";
     action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
     $req = "INSERT INTO position_chapitres (id_cour, id_chapitre, position) VALUES (:id_cour, :id_chapitre, COUNT(SELECT id_chapitre FROM cours_chapitres WHERE id_cour=:id_cour)+1);";
-    action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_elt]);
+    action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
 }
 
 
