@@ -49,3 +49,7 @@ function save_description() {
         ["id_chapitre", window.id_chapitre]
     ]);
 }
+
+function change_view_list() {
+    document.getElementById("");
+}

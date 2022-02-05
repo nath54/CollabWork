@@ -127,28 +127,16 @@ $_SESSION["last_page"] = "chapitre.php";
                 <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'">Retour</button>
 
                 <div class="row">
-                    <button id="bt_view_list" class="bt4_fill" onclick="change_view_list();">Liste</button>
-                    <button id="bt_view_rendu" class="bt4" onclick="change_view_rendu();">Rendu</button>
+                    <button id="bt_view_list" class="bt4" onclick="change_view_list();">Liste</button>
+                    <button id="bt_view_rendu" class="bt4_fill" onclick="change_view_rendu();">Rendu</button>
                 </div>
 
                 <div class="row">
                     <h2 id="titre" style="margin-top:auto; margin-bottom:auto;"><?php echo $titre; ?></h2>
-                    <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                        <input id="input_titre" value="<?php echo $titre; ?>" style="display:none;"/>
-                        <button id="bt_modif_titre" onclick="modif_titre();" class="bt1" style="margin:2vh;">Modifier</button>
-                        <button id="bt_save_titre" class="bt1" onclick="save_titre();" style="margin:2vh; display:none;">Sauvegarder</button>
-                        <button id="bt_annule_titre" onclick="annule_titre();" class="bt1" style="margin:2vh; display:none;">Annuler</button>
-                    </div>
                 </div>
                 
                 <div class="row">
                     <p id="description" style="display:block;"><?php echo $description; ?></p>
-                    <div class="row" <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                        <textarea id="input_description" style="width: 100%; display:none;"><?php echo $description; ?></textarea>
-                        <button id="bt_modif_description" onclick="modif_description();" class="bt1" style="margin:2vh; display:block;">Modifier</button>
-                        <button id="bt_save_description" onclick="save_description();" class="bt1" style="margin:2vh; display:none;">Sauvegarder</button>
-                        <button id="bt_annule_description" onclick="annule_description();"class="bt1" style="margin:2vh; margin-left:0; display:none;">Annuler</button>
-                    </div>
                 </div>
 
                 <div>
@@ -171,22 +159,24 @@ $_SESSION["last_page"] = "chapitre.php";
                         else{
                             foreach($elements as $el){
                                 $ide = $el["id"];
-                                $titre = $el["titre"];
-                                $type = $tp_elts[$el["_type"]]["nom"];
+                                $titre = urldecode($el["titre"]);
+                                $texte = urldecode($el["texte"]);
+                                $nom_type = $tp_elts[$el["_type"]]["nom"];
+                                $forme = $tp_elts[$el["_type"]]["forme"];
+                                $couleur =  $tp_elts[$el["_type"]]["forme"];
                                 $displaynone = "";
-                                if(!$est_auteur){ $displaynone = 'style="display:none;">'; }
-                                echo "<div id='$ide' class='bt_item row' >
-                                    <div class='col' style='width:100%; padding:5px; margin:auto; ' onclick='send_form(\"../web/element.php\", [[\"type\", \"request\"], [\"id_element\", $ide]])'>
-                                        <h2>$titre</h2>
-                                    </div>
-                                    <div style='margin:2vh; margin-left:auto;'>
-                                        <img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'request'], ['id_element', $ide]]);\"  />
-                                    </div>
-                                    <div style='margin:2vh; margin-left:auto;'>
-                                        <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'delete'], ['id_element', $ide]]);\"  />
-                                    </div>
-                                </div>";
-                                # echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
+                                echo "  <div style=\"margin: 5em; padding:2em; padding-top: 0.1em; border:$forme $couleur;\">
+                                            <div>
+                                                <p style=\"text-align: right; color:$couleur\">$nom_type</p>
+                                            </div>
+                                            <div>
+                                                <h1>$titre</h1>
+                                            </div>
+                                            <hr />
+                                            <div>
+                                                <p class=\"comp\">$texte</p>
+                                            </div>
+                                        </div>";
                             }
                         }
 

@@ -17,6 +17,7 @@ MathJax = {
             Q: "\\bb{Q}",
             C: "\\bb{C}",
             R: "\\bb{R}",
+            K: "\\bb{K}",
             cR: "\\cal{R}",
             B: "\\cal{B}",
             bdot: ["\\dot{ \\raise{6pt}{} #1\\ } \\!", 1],
@@ -29,7 +30,8 @@ MathJax = {
             cV: "\\cal{V}",
             cP: "\\cal{P}",
             eq: "\\equiv",
-            part: "\\partial"
+            part: "\\partial",
+            ve: "\\varepsilon"
         }
     }
 };

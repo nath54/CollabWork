@@ -96,6 +96,32 @@ textarea {
     background: rgb(143, 13, 13);
 }
 
+.bt4_fill {
+    color: white;
+    background: rgb(17, 135, 204);
+    border-radius: 2px;
+    border: none;
+    padding: 1.2vh;
+}
+
+.bt4_fill:hover {
+    border-radius: 1px;
+    background: rgb(13, 133, 202);
+}
+
+.bt4 {
+    color: white;
+    background: transparent;
+    border-radius: 2px;
+    border: 1px solid rgb(17, 135, 204);
+    padding: 1.2vh;
+}
+
+.bt4:hover {
+    border-radius: 1px;
+    border: 1px solid rgb(13, 133, 202);
+}
+
 .bt_item {
     display: flex;
     background-color: rgb(240, 240, 240);
