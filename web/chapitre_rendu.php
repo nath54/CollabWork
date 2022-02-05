@@ -127,7 +127,7 @@ $_SESSION["last_page"] = "chapitre.php";
                 <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'">Retour</button>
 
                 <div class="row">
-                    <button id="bt_view_list" class="bt4" onclick="change_view_list();">Liste</button>
+                    <button id="bt_view_list" class="bt4" style="margin-right: 2em;" onclick="change_view_list();">Liste</button>
                     <button id="bt_view_rendu" class="bt4_fill" onclick="change_view_rendu();">Rendu</button>
                 </div>
 
@@ -160,7 +160,7 @@ $_SESSION["last_page"] = "chapitre.php";
                             foreach($elements as $el){
                                 $ide = $el["id"];
                                 $titre = urldecode($el["titre"]);
-                                $texte = urldecode($el["texte"]);
+                                $texte = urldecode($el["text>e"]);
                                 $nom_type = $tp_elts[$el["_type"]]["nom"];
                                 $forme = $tp_elts[$el["_type"]]["forme"];
                                 $couleur =  $tp_elts[$el["_type"]]["forme"];
@@ -182,14 +182,6 @@ $_SESSION["last_page"] = "chapitre.php";
 
                     ?>
 
-                </div>
-
-                <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;" onclick="send_form('chapitre.php', [['type', 'nouveau_element'], ['id_chapitre', window.id_chapitre]]);">+ Nouvel élément</button>
-                </div>
-
-                <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh; margin-top:0;" onclick="send_form('chapitre.php', [['type', 'supprime_chapitre'], ['id_chapitre', window.id_chapitre]]);">Supprimer le chapitre</button>
                 </div>
 
             </div>

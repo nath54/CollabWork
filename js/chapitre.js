@@ -51,5 +51,15 @@ function save_description() {
 }
 
 function change_view_list() {
-    document.getElementById("");
+    send_form("chapitre.php", [
+        ["type", "request"],
+        ["id_chapitre", window.id_chapitre]
+    ])
+}
+
+function change_view_rendu() {
+    send_form("chapitre_rendu.php", [
+        ["type", "request"],
+        ["id_chapitre", window.id_chapitre]
+    ])
 }
