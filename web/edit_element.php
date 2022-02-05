@@ -17,11 +17,12 @@ $id = null;
 if(isset($_POST["type"]) && $_POST["type"]=="request" && isset($_POST["id_element"]) && test_token($_POST)){
     $id = $_POST["id_element"];
 }
-else if(isset($_POST["type"]) && $_POST["type"]=="save" && isset($_POST["id_element"]) && isset($_POST["titre"])  && isset($_POST["texte"]) && test_token($_POST)){
+else if(isset($_POST["type"]) && $_POST["type"]=="save" && isset($_POST["id_element"]) && isset($_POST["titre"])  && isset($_POST["texte"]) && isset($_POST["type_elt"]) && test_token($_POST)){
     $id = $_POST["id_element"];
     $titre = $_POST["titre"];
     $texte = $_POST["texte"];
-    $req = "UPDATE element SET titre=:titre, texte=:texte WHERE id=:id_b AND id_compte=:id_c;";
+    $type_elt = $_POST["type_elt"];
+    $req = "UPDATE element SET titre=:titre, texte=:texte, _type=:tp_elt WHERE id=:id_b AND id_compte=:id_c;";
     action_prep($db, $req, [":texte"=>$texte, ":titre"=>$titre, ":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 }
 else if(isset($_SESSION["request"]) && isset($_SESSION["id_element"]) && $_SESSION["request"]=="element"){
@@ -48,7 +49,7 @@ $type_elt = $data[0]["_type"];
 
 script("window.id_element = $id;");
 
-$req = "SELECT * FROM types_elements;";
+$req = "SELECT * FROM `types elements`;";
 $types_elements = requete_prep($db, $req);
 
 
@@ -83,6 +84,23 @@ $_SESSION["last_page"] = "edit_element.php";
                 <button onclick="retour();" id="retour_bt"><- Retour</button>
 
                 <input id="input_titre" value="<?php echo $titre; ?>" placeholder="Titre" style="margin: 8px;"/>
+
+                <select id="type_elt">
+
+                    <?php 
+
+                        foreach($types_elements as $t){
+                            $nom = $t["nom"];
+                            $sel = "";
+                            $i = $t["id"];
+                            if($type_elt == $t["id"]){ $sel = "selected"; }
+                            echo "<option value=$i $sel>$nom</option>";
+                        }
+
+                    ?>
+
+                </select>
+
 
                 <img src="../res/save.svg" class="bt_svg" onclick="save_brouillon();" style="margin-right:auto; margin-left: 0px;"/>
 
