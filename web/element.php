@@ -91,7 +91,11 @@ $_SESSION["last_page"] = "element.php";
 
             <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php'">Retour</button>
 
-            <div style="margin: 5em; padding:2em; border:<?php echo "$forme $couleur"; ?>;">
+            <div style="margin: 5em; padding:2em; padding-top: 0.1em; border:<?php echo "$forme $couleur"; ?>;">
+
+                <div>
+                    <p style="text-align: right; color:<?php echo $couleur; ?>"><?php echo $nom_type; ?></p>
+                </div>
 
                 <div>
                     <h1><?php  echo  urldecode($titre); ?></h1>

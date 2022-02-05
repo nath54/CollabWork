@@ -39,6 +39,8 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nou
     $id_elt = $db->lastInsertId();
     $req = "INSERT INTO chapitres_elements (id_chapitre, id_element) VALUES (:id_chapitre, :id_elt);";
     action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
+    $req = "INSERT INTO position_elements (id_chapitre, id_element, position) VALUES (:id_chapitre, :id_elt, COUNT(SELECT id_element FROM chapitres_elements WHERE id_chapitre=:id_chapitre)+1);";
+    action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
 }
 
 
@@ -78,7 +80,7 @@ $titre = $data[0]["titre"];
 $description = $data[0]["_description"];
 $est_auteur = $data[0]["id_compte"] == $_SESSION["id_compte"];
 
-$req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element WHERE chapitres_elements.id_chapitre = :id;";
+$req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element INNER JOIN position_elements ON element.id = position_elements.id_element WHERE chapitres_elements.id_chapitre = :id ORDER BY position_elements.position;";
 $elements = requete_prep($db, $req, [":id"=>$id]);
 
 $req = "SELECT * FROM `types elements`";

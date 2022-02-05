@@ -51,6 +51,8 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau
     $id_chapitre = $db->lastInsertId();
     $req = "INSERT INTO cours_chapitres (id_cour, id_chapitre) VALUES (:id_cour, :id_chapitre);";
     action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
+    $req = "INSERT INTO position_chapitres (id_cour, id_chapitre, position) VALUES (:id_cour, :id_chapitre, COUNT(SELECT id_chapitre FROM cours_chapitres WHERE id_cour=:id_cour)+1);";
+    action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_elt]);
 }
 
 
@@ -89,7 +91,7 @@ $description = $data[0]["_description"];
 $groupes = [];
 $mes_groupes = [];
 
-$req = "SELECT chapitres.id, chapitres.titre FROM chapitres INNER JOIN cours_chapitres ON chapitres.id = cours_chapitres.id_chapitre WHERE cours_chapitres.id_cour = :id_c;";
+$req = "SELECT chapitres.id, chapitres.titre FROM chapitres INNER JOIN cours_chapitres ON chapitres.id = cours_chapitres.id_chapitre INNER JOIN position_chapitres ON chapitres.id = position_chapitres.id_chapitre WHERE cours_chapitres.id_cour = :id_c ORDER BY position_chapitres.position;";
 $chapitres = requete_prep($db, $req, [":id_c"=>$id]);
 
 $taille_toks = 32;

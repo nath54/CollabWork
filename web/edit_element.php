@@ -23,7 +23,7 @@ else if(isset($_POST["type"]) && $_POST["type"]=="save" && isset($_POST["id_elem
     $texte = $_POST["texte"];
     $type_elt = $_POST["type_elt"];
     $req = "UPDATE element SET titre=:titre, texte=:texte, _type=:tp_elt WHERE id=:id_b AND id_compte=:id_c;";
-    action_prep($db, $req, [":texte"=>$texte, ":titre"=>$titre, ":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
+    action_prep($db, $req, [":texte"=>$texte, ":titre"=>$titre, ":id_b"=>$id, "id_c"=>$_SESSION["id_compte"], ":tp_elt"=>$type_elt]);
 }
 else if(isset($_SESSION["request"]) && isset($_SESSION["id_element"]) && $_SESSION["request"]=="element"){
     $id = $_SESSION["id_element"];  
