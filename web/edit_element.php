@@ -85,7 +85,7 @@ $_SESSION["last_page"] = "edit_element.php";
 
                 <input id="input_titre" value="<?php echo $titre; ?>" placeholder="Titre" style="margin: 8px;"/>
 
-                <select id="type_elt">
+                <select id="select_type">
 
                     <?php 
 

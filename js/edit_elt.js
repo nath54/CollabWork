@@ -69,10 +69,12 @@ function view() {
 function save_brouillon() {
     var texte = encodeURI(input.value);
     var titre = document.getElementById("input_titre").value;
+    var tp_elt = document.getElementById("select_type").value;
     send_form("../web/edit_element.php", [
         ["type", "save"],
         ["titre", titre],
         ["texte", texte],
+        ["type_elt", tp_elt],
         ["id_element", window.id_element]
     ]);
 }
