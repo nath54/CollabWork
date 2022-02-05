@@ -95,7 +95,7 @@ $_SESSION["last_page"] = "cours.php";
                                     foreach($cours_vosgroupes as $cr){
                                         $id = $cr["id"];
                                         $titre = $cr["titre"];
-                                        echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                        echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto;'  onclick='send_form(\"cour.php\", [[\"type\", \"request\"], [\"id_cour\", $id]]);'><h2>$titre</h2></div> </div>";
                                     }
                                 }
                             }
@@ -117,7 +117,7 @@ $_SESSION["last_page"] = "cours.php";
                                     foreach($cours_publics as $cr){
                                         $id = $cr["id"];
                                         $titre = $cr["titre"];
-                                        echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                        echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; ' onclick='send_form(\"cour.php\", [[\"type\", \"request\"], [\"id_cour\", $id]]);'><h2>$titre</h2></div> </div>";
                                     }
                                 }
 
