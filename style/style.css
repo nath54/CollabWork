@@ -108,6 +108,7 @@ textarea {
 .bt4_fill:hover {
     border-radius: 1px;
     background: rgb(13, 133, 202);
+    box-shadow: 0px 0px 3px 3px rgb(111, 198, 248);
 }
 
 .bt4 {
@@ -122,6 +123,7 @@ textarea {
 .bt4:hover {
     border-radius: 1px;
     border: 1px solid rgb(13, 133, 202);
+    box-shadow: 0px 0px 3px 3px rgb(111, 198, 248);
 }
 
 .bt_item {
