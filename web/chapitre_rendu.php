@@ -128,7 +128,7 @@ $_SESSION["last_page"] = "chapitre.php";
 
                 <div class="row">
                     <button id="bt_view_list" class="bt4" style="margin: 1em;" onclick="change_view_list();">Liste</button>
-                    <button id="bt_view_rendu" class="bt4_fill" style="margin: 1em;" onclick="change_view_rendu();">Rendu</button>
+                    <button id="bt_view_rendu" class="bt4_fill" style="margin: 1em; margin-left:0;" onclick="change_view_rendu();">Rendu</button>
                 </div>
 
                 <div class="row">
@@ -203,6 +203,7 @@ var converter = new showdown.Converter();
 function update_md() {
     for(div of document.getElementsByClassName("comp") ){    
         div.innerHTML = converter.makeHtml(div.innerHTML);
+        alert(div);
     }
 }
 
