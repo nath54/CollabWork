@@ -127,6 +127,7 @@ $_SESSION["last_page"] = "chapitre.php";
                 <button class="bt1" style="margin:2vh;" onclick="window.location.href='cour.php'">Retour</button>
 
                 <div class="row">
+                    <p style="margin-top: auto; margin-bottom: auto;">Style : </p>
                     <button id="bt_view_list" class="bt4_fill" style="margin: 1em;" onclick="change_view_list();">Liste</button>
                     <button id="bt_view_rendu" class="bt4" style="margin: 1em; margin-left:0;" onclick="change_view_rendu();">Rendu</button>
                 </div>
