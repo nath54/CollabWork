@@ -69,9 +69,13 @@ if($id == null){
 }
 
 $req = "SELECT titre, _description, id_compte FROM chapitres WHERE id=:id;";
-$data = requete_prep($db, $req, [":id"=>$id]);
+$data = requete_prep($db, $req, [":id"=>$id], true);
 
 if(count($data) != 1){
+    clog("post : " . array_to_str($_POST));
+    clog("session : " . array_to_str($_SESSION));
+    clog("data : " . array_to_str($data));
+    die();
     header("Location: index.php");
     die();
 }
