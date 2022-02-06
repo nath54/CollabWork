@@ -25,7 +25,7 @@ function save_est_public() {
     send_form("groupe.php", [
         ["type", "save_est_public"],
         ["est_public", est_public],
-        ["id_cour", window.id_cour]
+        ["id_groupe", window.id_groupe]
     ]);
 }
 
@@ -34,6 +34,6 @@ function save_nom() {
     send_form("groupe.php", [
         ["type", "save_nom"],
         ["nom", nom],
-        ["id_cour", window.id_cour]
+        ["id_groupe", window.id_groupe]
     ]);
 }

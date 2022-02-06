@@ -1,7 +1,7 @@
 
 <div class="row">
     <div style="flex-wrap:wrap;" class="row">
-        <h1>Groupe : <?php echo $nom_groupe; ?></h1>
+        <h1 id="nom">Groupe : <?php echo $nom_groupe; ?></h1>
         <div class="row" style="flex-wrap:wrap; <?php if(!$est_createur){ echo 'display:none;'; } ?>">
             <input id="input_nom" value="<?php echo $nom_groupe; ?>" style="display:none;"/>
             <button id="bt_modif_nom" onclick="modif_nom();" class="bt1" style="margin:2vh;">Modifier</button>

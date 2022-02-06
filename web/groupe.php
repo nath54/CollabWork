@@ -107,6 +107,7 @@ $_SESSION["last_page"] = "groupe.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
 
     </body>
     <script src="../js/menus.js"></script>
