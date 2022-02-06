@@ -62,7 +62,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
     // S'il existe on récupère la position du précédent et on l'échange avec celle du chapitre que l'on veut
     if(count($data2) >= 1){
         $id_chapitre2 = $data2[0]["id_chapitre"];
-        $position_chapitre2 = $data2[1]["position"];
+        $position_chapitre2 = $data2[0]["position"];
         alert("Position initiale : $position_chapitre, id_chapitre : $id_chapitre => Position finale : $position_chapitre2, chapitre à échanger : $id_chapitre2");
         // Echange
         $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
@@ -87,7 +87,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
     // S'il existe on récupère la position du précédent et on l'échange avec celle du chapitre que l'on veut
     if(count($data2) >= 1){
         $id_chapitre2 = $data2[0]["id_chapitre"];
-        $position_chapitre2 = $data2[1]["position"];
+        $position_chapitre2 = $data2[0]["position"];
         alert("Position initiale : $position_chapitre, id_chapitre : $id_chapitre => Position finale : $position_chapitre2, chapitre à échanger : $id_chapitre2");
         // Echange
         $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
