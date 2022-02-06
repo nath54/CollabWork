@@ -25,12 +25,10 @@ if($id == null){
 $req = "SELECT id, titre FROM cours INNER JOIN cours_groupes ON cours.id = cours_groupes.id_cour WHERE cours_groupes.id_groupe = :id_g;";
 $cours = requete_prep($db, $req, [":id_g"=>$id]);
 
-
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
 $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
-
 
 $_SESSION["last_page"] = "groupe_cour.php";
 ?>
