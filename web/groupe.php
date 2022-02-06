@@ -32,6 +32,8 @@ else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["est
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
 }
 else if(isset($_POST["type"])){ // ON protège des mauvaises requetes
+    clog("POST" . array_to_str($_POST));
+    die();
     header("Location: index.php");
     die();
 }
