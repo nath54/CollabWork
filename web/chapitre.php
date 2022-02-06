@@ -37,6 +37,56 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=
     $req = "INSERT INTO position_elements (id_chapitre, id_element, position) VALUES (:id_chapitre, :id_elt, (SELECT COUNT(id_element) FROM chapitres_elements WHERE id_chapitre=:id_chapitre)+1);";
     action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
 }
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"]=="position_up" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $id_element = $_POST["id_element"];
+    // On récupère la position de l'élément actuel
+    $req = "SELECT position FROM position_elements WHERE id_chapitre = :id_chapitre AND id_element = :id_element;";
+    $data = requete_prep($db, $req, [":id_chapitre"=>$id, ":id_element"=>$id_element]);
+    if(count($data) == 0){
+        header("Location: index.php");
+        die();
+    }
+    $position_element = $data[0]["position"];
+    // On récupère la liste des éléments qui sont après
+    $req = "SELECT id_element, position FROM position_elements WHERE id_chapitre = :id_chapitre AND position < :pos ORDER BY position DESC;";
+    $data2 = requete_prep($db, $req, [":id_chapitre"=>$id, ":pos"=>$position_element]);
+    // S'il existe on récupère la position du précédent et on l'échange avec celle du element que l'on veut
+    if(count($data2) >= 1){
+        $id_element2 = $data2[0]["id_element"];
+        $position_element2 = $data2[0]["position"];
+        // alert("Position initiale : $position_element, id_element : $id_element => Position finale : $position_element2, element à échanger : $id_element2");
+        // Echange
+        $req = "UPDATE position_elements SET position=:pos WHERE id_chapitre=:id_chapitre AND id_element=:id_element;";
+        action_prep($db, $req, [":pos"=>$position_element, ":id_element"=>$id_element2, ":id_chapitre"=>$id]);
+        action_prep($db, $req, [":pos"=>$position_element2, ":id_element"=>$id_element, ":id_chapitre"=>$id]);
+    }
+}
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"]=="position_down" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $id_element = $_POST["id_element"];
+    // On récupère la position de l'élément actuel
+    $req = "SELECT position FROM position_elements WHERE id_chapitre = :id_chapitre AND id_element = :id_element;";
+    $data = requete_prep($db, $req, [":id_chapitre"=>$id, ":id_element"=>$id_element]);
+    if(count($data) == 0){
+        header("Location: index.php");
+        die();
+    }
+    $position_element = $data[0]["position"];
+    // On récupère la liste des éléments qui sont après
+    $req = "SELECT id_element, position FROM position_elements WHERE id_chapitre = :id_chapitre AND position > :pos ORDER BY position;";
+    $data2 = requete_prep($db, $req, [":id_chapitre"=>$id, ":pos"=>$position_element]);
+    // S'il existe on récupère la position du précédent et on l'échange avec celle du element que l'on veut
+    if(count($data2) >= 1){
+        $id_element2 = $data2[0]["id_element"];
+        $position_element2 = $data2[0]["position"];
+        // alert("Position initiale : $position_element, id_element : $id_element => Position finale : $position_element2, element à échanger : $id_element2");
+        // Echange
+        $req = "UPDATE position_elements SET position=:pos WHERE id_chapitre=:id_chapitre AND id_element=:id_element;";
+        action_prep($db, $req, [":pos"=>$position_element, ":id_element"=>$id_element2, ":id_chapitre"=>$id]);
+        action_prep($db, $req, [":pos"=>$position_element2, ":id_element"=>$id_element, ":id_chapitre"=>$id]);
+    }
+}
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="supprime_chapitre" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $req = "DELETE t1 FROM element t1 INNER JOIN chapitres_elements t2 ON t2.id_element = t1.id WHERE t2.id_chapitre = :idc; ";
@@ -176,6 +226,10 @@ $_SESSION["last_page"] = "chapitre.php";
                                             </div>
                                             <div style='margin:2vh; margin-left:auto;'>
                                                 <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'delete'], ['id_element', $ide]]);\"  />
+                                            </div>
+                                            <div style='margin-left:auto; margin-right: 1em;' class='col'>
+                                                <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_up'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />
+                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_down'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />
                                             </div>
                                         </div>";
                                         # echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";

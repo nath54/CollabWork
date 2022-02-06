@@ -89,4 +89,6 @@ function page_init() {
             div.scrollTop = val;
         }
     }
+    sessionStorage.removeItem('page_path');
+    sessionStorage.removeItem('scroll_page');
 }
