@@ -69,7 +69,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
         action_prep($db, $req, [":pos"=>$pos, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
     }
 }
-else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="position_up" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="position_down" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $id_chapitre = $_POST["id_chapitre"];
     // On récupère la position de l'élément actuel
@@ -206,8 +206,8 @@ script("window.id_cour = $id;");
                                                 <h2>$titre</h2>
                                             </div>
                                             <div style='margin-left:auto; margin-right: 1em;' class='col'>
-                                                <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_element', $id_chap]]);\"  />
-                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_down'], ['id_element', $id_chap]]);\"  />
+                                                <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
+                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_down'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
                                             </div>
                                         </div>";
                             }
