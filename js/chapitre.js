@@ -64,10 +64,12 @@ function change_view_rendu() {
     ])
 }
 
+
 function save_scroll_position() {
+    var div = document.getElementById("main_body");
     var path = window.location.pathname;
     sessionStorage["page_path"] = path;
-    sessionStorage["scroll_page"] = document.documentElement.scrollTop || document.body.scrollTop;
+    sessionStorage["scroll_page"] = div.scrollTop;
 }
 
 function page_init() {
@@ -76,7 +78,8 @@ function page_init() {
     if (path == sessionStorage.getItem("page_path")) {
         var val = sessionStorage.getItem("scroll_page");
         if (val != null) {
-            document.documentElement.scrollTop = document.body.scrollTop = val;
+            var div = document.getElementById("main_body");
+            div.scrollTop = val;
         }
     }
 }

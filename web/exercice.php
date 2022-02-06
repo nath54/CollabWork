@@ -118,7 +118,7 @@ if($id_brouillon != null){
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
 
-        <div style="position: absolute; top:8%; bottom: 0; left: 0; right: 0; overflow:auto;">
+        <div id="main_body" style="position: absolute; top:8%; bottom: 0; left: 0; right: 0; overflow:auto;">
 
             <div class="container col" style="margin:5vh;">
 

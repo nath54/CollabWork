@@ -87,7 +87,7 @@ $_SESSION["last_page"] = "element.php";
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
 
-        <div style="position: absolute; top:8%; bottom: 0; left: 0; right: 0; overflow:auto;">
+        <div id="main_body" style="position: absolute; top:8%; bottom: 0; left: 0; right: 0; overflow:auto;">
 
             <button class="bt1" style="margin:2vh;" onclick="window.location.href='chapitre.php'">Retour</button>
 
