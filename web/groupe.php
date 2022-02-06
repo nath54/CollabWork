@@ -13,7 +13,7 @@ $id = null;
 if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_groupe"];
 }
-if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["nom"]) && $_POST["type"]=="save_nom_groupe" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["nom"]) && $_POST["type"]=="save_nom_groupe" && test_token($_POST)){
     $id = $_POST["id_groupe"];
     $nom = $_POST["nom"];
     $req = "UPDATE groupes SET nom=:nom WHERE id=:id_groupe;";
@@ -40,6 +40,8 @@ else if(isset($_POST["type"])){ // ON protège des mauvaises requetes
 else if(isset($_SESSION["id_groupe"])){
     $id = $_SESSION["id_groupe"];
 }
+
+
 if($id == null){
     header("Location: index.php");
     die();
