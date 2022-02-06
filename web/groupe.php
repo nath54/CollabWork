@@ -10,7 +10,6 @@ include "../include/test_connecte.php";
 
 $id = null;
 
-
 if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_groupe"];
 }
@@ -25,6 +24,16 @@ else if(isset($_POST["type"]) && $_POST["type"] == "nouveau_groupe" && test_toke
     $req = "INSERT INTO groupes (id_creator, nom, est_public) VALUES (:id_c, :nom, FALSE);";
     action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":nom"=>$nom_groupe]);
     $id = $db->lastInsertId();
+}
+else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
+    $id = $_POST["id_groupe"];
+    $est_public = $_POST["est_public"];
+    $req = "UPDATE cours SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
+}
+else if(isset($_POST["type"])){ // ON protège des mauvaises requetes
+    header("Location: index.php");
+    die();
 }
 else if(isset($_SESSION["id_groupe"])){
     $id = $_SESSION["id_groupe"];
@@ -51,7 +60,6 @@ if($est_connecte){
 $nom_groupe = $data[0]["nom"];
 
 
-
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
 $_SESSION["token"] = random_str($taille_toks);
@@ -59,6 +67,7 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
 
 $_SESSION["id_groupe"] = $id;
 $_SESSION["last_page"] = "groupe.php";
+script("window.id_groupe = $id");
 ?>
 
 <!DOCTYPE html>
