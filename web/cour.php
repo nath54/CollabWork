@@ -148,7 +148,7 @@ $_SESSION["last_page"] = "cour.php";
 script("window.id_cour = $id;");
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />

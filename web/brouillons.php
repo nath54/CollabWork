@@ -50,7 +50,7 @@ if($redirect != null){
 }
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />

@@ -68,7 +68,7 @@ $_SESSION["last_page"] = "element.php";
 
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />

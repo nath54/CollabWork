@@ -349,7 +349,7 @@
         if (!r.completeHTMLDocument) return e;
         e = t.converter._dispatch("completeHTMLDocument.before", e, r, t);
         var a = "html",
-            n = "<!DOCTYPE HTML>\n",
+            n = "<!DOCTYPE html>\n",
             s = "",
             o = '<meta charset="utf-8">\n',
             i = "",

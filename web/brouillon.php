@@ -57,7 +57,7 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
 $_SESSION["last_page"] = "brouillon.php";
 
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
 
 

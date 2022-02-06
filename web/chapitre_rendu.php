@@ -106,7 +106,7 @@ $_SESSION["id_chapitre"] = $id;
 $_SESSION["last_page"] = "chapitre.php";
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />

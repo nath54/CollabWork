@@ -42,7 +42,7 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
 $_SESSION["last_page"] = "cours.php";
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
