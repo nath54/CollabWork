@@ -14,6 +14,12 @@ $id = null;
 if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_groupe"];
 }
+if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["nom"]) && $_POST["type"]=="save_nom_groupe" && test_token($_POST)){
+    $id = $_POST["id_groupe"];
+    $nom = $_POST["nom"];
+    $req = "UPDATE groupes SET nom=:nom WHERE id=:id_groupe;";
+    action_prep($db, $req, [":id_groupe"=>$id, ":nom"=>$nom]);
+}
 else if(isset($_POST["type"]) && $_POST["type"] == "nouveau_groupe" && test_token($_POST) && $est_connecte){
     $nom_groupe = "Groupe : " . random_str(10, "0123456789");
     $req = "INSERT INTO groupes (id_creator, nom, est_public) VALUES (:id_c, :nom, FALSE);";
@@ -36,7 +42,7 @@ if(count($data) != 1){
     die();
 }
 
-$groupe_public = $data[0]["est_public"];
+$est_public = $data[0]["est_public"];
 $appartient_au_groupe = true;
 $est_createur = false;
 if($est_connecte){
@@ -61,6 +67,8 @@ $_SESSION["last_page"] = "groupe.php";
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CollabWork - Groupe</title>
+        <!-- SCRIPTS -->
+        <script src="../js/groupe.js"></script>
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
@@ -80,7 +88,7 @@ $_SESSION["last_page"] = "groupe.php";
                 <?php
 
                     if(!$appartient_au_groupe){
-                        if(!$groupe_public){
+                        if(!$est_public){
                             echo "<p>Vous n'êtes pas autorisés à accéder à ce groupe</p>";
                         }
                         else{
