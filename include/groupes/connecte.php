@@ -10,15 +10,15 @@
         }
         else{
             foreach($mes_groupes as $grp){
-                $id = $grp["id"];
+                $idg = $grp["id"];
                 $nom = $grp["nom"];
-                echo "<div id='$id' class='bt_item row' onclick='window.location.href=\"groupe.php\"'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$nom</h2></div> </div>";
+                echo "<div id='$idg' class='bt_item row' onclick='send_form(\"groupe.php\", [[\"type\", \"request\"], [\"id_groupe\", $idg]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$nom</h2></div> </div>";
             }
         }
 
     ?>
     <div>
-        <button class="bt1" style="margin:2vh;" onclick="window.location.href='groupe.php'" >+ Créer un groupe</button>
+        <button class="bt1" style="margin:2vh;" onclick="send_form('groupe.php', [['type', 'nouveau_groupe']]);" >+ Créer un groupe</button>
     </div>
 </div>
 
@@ -34,9 +34,9 @@
         }
         else{
             foreach($groupes as $grp){
-                $id = $grp["id"];
+                $idg = $grp["id"];
                 $nom = $grp["nom"];
-                echo "<div id='$id' class='bt_item row' onclick='window.location.href=\"groupe.php\"'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$nom</h2></div> </div>";
+                echo "<div id='$idg' class='bt_item row' onclick='send_form(\"groupe.php\", [[\"type\", \"request\"], [\"id_groupe\", $idg]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$nom</h2></div> </div>";
             }
         }
 

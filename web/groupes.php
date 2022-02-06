@@ -66,9 +66,9 @@ $_SESSION["last_page"] = "groupes.php";
                         }
                         else{
                             foreach($groupes_publics as $grp){
-                                $id = $grp["id"];
+                                $idg = $grp["id"];
                                 $nom = $grp["nom"];
-                                echo "<div id='$id' class='bt_item row' onclick='window.location.href=\"groupe.php\"'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$nom</h2></div> </div>";
+                                echo "<div id='$idg' class='bt_item row' onclick='send_form(\"groupe.php\", [[\"type\", \"request\"], [\"id_groupe\", $idg]]);'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$nom</h2></div> </div>";
                             }
                         }
 
@@ -80,6 +80,7 @@ $_SESSION["last_page"] = "groupes.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php"; ?>
 
     </body>
     <script src="../js/menus.js"></script>
