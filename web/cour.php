@@ -11,37 +11,28 @@ include "../include/test_connecte.php";
 $id = null;
 
 
-if(isset($_SESSION["id_cour"])){
-    clog("SESSION ; " . array_to_str($_SESSION));
-    $id = $_SESSION["id_cour"];
-}
-
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_cour"];
 }
-
-if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $est_public = $_POST["est_public"];
     $req = "UPDATE cours SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
 }
-
-if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $titre = $_POST["titre"];
     $req = "UPDATE cours SET titre=:titre WHERE id=:id_c AND id_createur=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
 }
-
-if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $_description = $_POST["description"];
     $req = "UPDATE cours SET _description=:_description WHERE id=:id_c AND id_createur=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
 }
-
-if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau_chapitre" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau_chapitre" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $req = "SELECT chapitres.id FROM chapitres INNER JOIN cours_chapitres ON cours_chapitres.id_chapitre = chapitres.id WHERE id_compte = :id_compte AND cours_chapitres.id_cour = :idc;";
     $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id])) + 1;
@@ -54,9 +45,55 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau
     $req = "INSERT INTO position_chapitres (id_cour, id_chapitre, position) VALUES (:id_cour, :id_chapitre, (SELECT COUNT(id_chapitre) FROM cours_chapitres WHERE id_cour=:id_cour)+1);";
     action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
 }
-
-
-if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "delete_cour" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="position_up" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $id_chapitre = $_POST["id_chapitre"];
+    // On récupère la position de l'élément actuel
+    $req = "SELECT position FROM position_chapitres WHERE id_cour = :id_cour AND id_chapitre = :id_chapitre;";
+    $data = requete_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
+    if(count($data) == 0){
+        header("Location: index.php");
+        die();
+    }
+    $pos_chapitre = $data[0]["position"];
+    // On récupère la liste des éléments qui sont avant
+    $req = "SELECT id_chapitre, position FROM position_chapitres WHERE id_cour = :id_cour AND position < :pos ORDER BY position DESC;";
+    $data = requete_prep($db, $req, [":id_cour"=>$id, ":pos"=>$pos_chapitre]);
+    // S'il existe on récupère la position du précédent et on l'échange avec celle du chapitre que l'on veut
+    if(count($data) > 1){
+        $id_c = $data[0]["id_chapitre"];
+        $pos = $data[1]["position"];
+        // Echange
+        $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
+        action_prep($db, $req, [":pos"=>$pos_chapitre, ":id_chapitre"=>$id_c, ":id_cour"=>$id]);
+        action_prep($db, $req, [":pos"=>$pos, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
+    }
+}
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="position_up" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $id_chapitre = $_POST["id_chapitre"];
+    // On récupère la position de l'élément actuel
+    $req = "SELECT position FROM position_chapitres WHERE id_cour = :id_cour AND id_chapitre = :id_chapitre;";
+    $data = requete_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
+    if(count($data) == 0){
+        header("Location: index.php");
+        die();
+    }
+    $pos_chapitre = $data[0]["position"];
+    // On récupère la liste des éléments qui sont après
+    $req = "SELECT id_chapitre, position FROM position_chapitres WHERE id_cour = :id_cour AND position > :pos ORDER BY position;";
+    $data = requete_prep($db, $req, [":id_cour"=>$id, ":pos"=>$pos_chapitre]);
+    // S'il existe on récupère la position du précédent et on l'échange avec celle du chapitre que l'on veut
+    if(count($data) > 1){
+        $id_c = $data[0]["id_chapitre"];
+        $pos = $data[1]["position"];
+        // Echange
+        $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
+        action_prep($db, $req, [":pos"=>$pos_chapitre, ":id_chapitre"=>$id_c, ":id_cour"=>$id]);
+        action_prep($db, $req, [":pos"=>$pos, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
+    }
+}
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "delete_cour" && test_token($_POST)){
     $id = $_POST["id_cour"];
     // IL faudra regarder ceux qui ne sont pas déjà dans un chapitre !
     // $req = "DELETE c FROM chapitres c INNER JOIN cours_chapitres d ON chapitres.id = cours_chapitres.id_chapitre WHERE id_cours = :idc;";
@@ -69,6 +106,11 @@ if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "delet
     die();
 }
 
+
+else if(isset($_SESSION["id_cour"])){
+    clog("SESSION ; " . array_to_str($_SESSION));
+    $id = $_SESSION["id_cour"];
+}
 
 if($id == null){
     header("Location: index.php");
@@ -163,9 +205,9 @@ script("window.id_cour = $id;");
                                             <div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"chapitre.php\", [[\"type\", \"request\"], [\"id_chapitre\", $id_chap]]);' >
                                                 <h2>$titre</h2>
                                             </div>
-                                            <div style='margin-left:auto' class='col'>
-                                                <img class='bt_svg' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_element', $id_chap]]);\"  />                                                <img class='bt_svg' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_element', $ide]]);\"  />
-                                                <img class='bt_svg' src='../res/down_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_down'], ['id_element', $id_chap]]);\"  />
+                                            <div style='margin-left:auto; margin-right: 1em;' class='col'>
+                                                <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_element', $id_chap]]);\"  />
+                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_down'], ['id_element', $id_chap]]);\"  />
                                             </div>
                                         </div>";
                             }
