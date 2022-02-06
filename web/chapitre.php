@@ -12,24 +12,19 @@ $id = null;
 if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
 }
-
-if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $titre = $_POST["titre"];
     $req = "UPDATE chapitres SET titre=:titre WHERE id=:id_c AND id_compte=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
 }
-
-
-if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $_description = $_POST["description"];
     $req = "UPDATE chapitres SET _description=:_description WHERE id=:id_c AND id_compte=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
 }
-
-
-if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nouveau_element" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nouveau_element" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $req = "SELECT element.id FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE id_compte = :id_compte AND chapitres_elements.id_chapitre = :idc;";
     $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id])) + 1;
@@ -42,10 +37,7 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="nou
     $req = "INSERT INTO position_elements (id_chapitre, id_element, position) VALUES (:id_chapitre, :id_elt, (SELECT COUNT(id_element) FROM chapitres_elements WHERE id_chapitre=:id_chapitre)+1);";
     action_prep($db, $req, [":id_chapitre"=>$id, ":id_elt"=>$id_elt]);
 }
-
-
-
-if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="supprime_chapitre" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="supprime_chapitre" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $req = "DELETE t1 FROM element t1 INNER JOIN chapitres_elements t2 ON t2.id_element = t1.id WHERE t2.id_chapitre = :idc; ";
     action_prep($db, $req, [":idc"=>$id]);
@@ -57,8 +49,7 @@ if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="sup
     action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
     header("Location: ../web/cour.php");
 }
-
-if(isset($_SESSION["id_chapitre"])){
+else if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
 }
 
