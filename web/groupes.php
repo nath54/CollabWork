@@ -8,32 +8,20 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+if($est_connecte){
+    $req = "SELECT * FROM groupes WHERE id_creator=:id_compte;";
+    $mes_groupes = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
+    $req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.nom_public FROM groupes INNER JOIN groupes_comptes ON groupes.id = groupes_comptes.id_groupe WHERE groupes_comptes.id_compte = :id_compte;";
+    $groupes = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
+}
+else{
+    $mes_groupes = [];
+    $groupes = [];
+}
 
-$mes_groupes = [
 
-];
-
-$groupes = [
-    [
-        "id" => 3,
-        "nom" => "Le cheval, c'est génial"
-    ]
-];
-
-$groupes_publics = [
-    [
-        "id" => 0,
-        "nom" => "Vive les maths !"
-    ],
-    [
-        "id" => 1,
-        "nom" => "Les livres, c'est trop bien"
-    ],
-    [
-        "id" => 2,
-        "nom" => "Le salon des geeks"
-    ]
-];
+$req = "SELECT * FROM groupes WHERE est_public = TRUE;";
+$groupes_publics = requete_prep($db, $req);
 
 
 $taille_toks = 32;
