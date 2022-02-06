@@ -228,7 +228,7 @@ $_SESSION["last_page"] = "chapitre.php";
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;" onclick="send_form('chapitre.php', [['type', 'nouveau_element'], ['id_chapitre', window.id_chapitre]]);">+ Nouvel élément</button>
+                    <button class="bt1" style="margin:2vh;" onclick="send_form('edit_element.php', [['type', 'nouveau_element'], ['id_chapitre', window.id_chapitre]]);">+ Nouvel élément</button>
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
