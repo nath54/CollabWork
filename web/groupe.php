@@ -30,7 +30,7 @@ else if(isset($_POST["type"]) && $_POST["type"] == "nouveau_groupe" && test_toke
 else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
     $id = $_POST["id_groupe"];
     $est_public = $_POST["est_public"];
-    $req = "UPDATE cours SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
+    $req = "UPDATE groupes SET est_public=:ep WHERE id=:id_c AND id_creator=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
 }
 else if(isset($_POST["type"])){ // ON protège des mauvaises requetes

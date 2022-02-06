@@ -8,17 +8,22 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+$id = null;
 
-$cours = [
-    [
-        "id" => 2,
-        "titre" => "Thermodynamique des fluides non newtonniens"
-    ],
-    [
-        "id" => 3,
-        "titre" => "Equations différentielles"
-    ]
-];
+if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="request" && test_token($_POST)){
+    $id = $_POST["id_groupe"];
+}
+else if(isset($_SESSION["id_groupe"])){
+    $id = $_SESSION["id_groupe"];
+}
+
+if($id == null){
+    header("Location: index.php");
+    die();
+}
+
+$req = "SELECT id, titre FROM cours INNER JOIN cours_groupes ON cours.id = cours_groupes.id_cour WHERE cours_groupes.id_groupe = :id_q;";
+$cours = requete_prep($db, $req, [":id_g"=>$id]);
 
 
 $taille_toks = 32;
