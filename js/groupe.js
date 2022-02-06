@@ -32,7 +32,7 @@ function save_est_public() {
 function save_nom() {
     var nom = document.getElementById("input_nom").value;
     send_form("groupe.php", [
-        ["type", "save_nom"],
+        ["type", "save_nom_groupe"],
         ["nom", nom],
         ["id_groupe", window.id_groupe]
     ]);

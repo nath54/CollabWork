@@ -24,6 +24,8 @@ else if(isset($_POST["type"]) && $_POST["type"] == "nouveau_groupe" && test_toke
     $req = "INSERT INTO groupes (id_creator, nom, est_public) VALUES (:id_c, :nom, FALSE);";
     action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":nom"=>$nom_groupe]);
     $id = $db->lastInsertId();
+    $req = "INSERT INTO groupes_comptes (id_groupe, id_compte) VALUES (:id_g, :id_c);";
+    action_prep($db, $req, [":id_g"=>$id, ":id_c"=>$_SESSION["id_compte"]]);
 }
 else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["est_public"]) && $_POST["type"]=="save_est_public" && test_token($_POST)){
     $id = $_POST["id_groupe"];
