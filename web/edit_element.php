@@ -61,7 +61,7 @@ $_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va gé
 $_SESSION["last_page"] = "edit_element.php";
 
 ?>
-<!doctype HTML>
+<!DOCTYPE HTML>
 <html lang="fr">
 
 

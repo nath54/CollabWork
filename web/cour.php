@@ -63,7 +63,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
     if(count($data2) >= 1){
         $id_chapitre2 = $data2[0]["id_chapitre"];
         $position_chapitre2 = $data2[0]["position"];
-        alert("Position initiale : $position_chapitre, id_chapitre : $id_chapitre => Position finale : $position_chapitre2, chapitre à échanger : $id_chapitre2");
+        // alert("Position initiale : $position_chapitre, id_chapitre : $id_chapitre => Position finale : $position_chapitre2, chapitre à échanger : $id_chapitre2");
         // Echange
         $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
         action_prep($db, $req, [":pos"=>$position_chapitre, ":id_chapitre"=>$id_chapitre2, ":id_cour"=>$id]);
@@ -88,7 +88,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
     if(count($data2) >= 1){
         $id_chapitre2 = $data2[0]["id_chapitre"];
         $position_chapitre2 = $data2[0]["position"];
-        alert("Position initiale : $position_chapitre, id_chapitre : $id_chapitre => Position finale : $position_chapitre2, chapitre à échanger : $id_chapitre2");
+        // alert("Position initiale : $position_chapitre, id_chapitre : $id_chapitre => Position finale : $position_chapitre2, chapitre à échanger : $id_chapitre2");
         // Echange
         $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
         action_prep($db, $req, [":pos"=>$position_chapitre, ":id_chapitre"=>$id_chapitre2, ":id_cour"=>$id]);
@@ -148,16 +148,24 @@ $_SESSION["last_page"] = "cour.php";
 script("window.id_cour = $id;");
 ?>
 
-<!doctype HTML>
+<!DOCTYPE HTML>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CollabWork - Cour</title>
+
+        <!-- SCRIPTS -->
+
+        <script src="../js/cour.js"></script>
+        <script src="../js/menus.js"></script>
+        <script src="../js/MATHJAX_CONFIG.js"></script>
+        <script src="../js/tex-mml-chtml.js"></script>
+
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body onload="MathJax.typesetPromise();">
+    <body onload="page_init();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -208,8 +216,8 @@ script("window.id_cour = $id;");
                                                 <h2>$titre</h2>
                                             </div>
                                             <div style='margin-left:auto; margin-right: 1em;' class='col'>
-                                                <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
-                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_down'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
+                                                <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/cour.php', [['type', 'position_up'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
+                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/cour.php', [['type', 'position_down'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
                                             </div>
                                         </div>";
                             }
@@ -220,7 +228,7 @@ script("window.id_cour = $id;");
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt1" style="margin:2vh;" onclick="send_form('cour.php', [['type', 'nouveau_chapitre'], ['id_cour', window.id_cour]]);">+ Nouveau chapitre</button>
+                    <button class="bt1" style="margin:2vh;" onclick="save_scroll_position(); send_form('cour.php', [['type', 'nouveau_chapitre'], ['id_cour', window.id_cour]]);">+ Nouveau chapitre</button>
                 </div>
 
                 <div style="margin-top:2vh; <?php if(!$est_auteur){ echo "display:none;"; } ?>">
@@ -270,9 +278,6 @@ script("window.id_cour = $id;");
         <?php include "../include/accountmenu.php" ?>
         <?php include "../include/form.php" ?>
 
-        <script src="../js/cour.js"></script>
-        <script src="../js/menus.js"></script>
-        <script src="../js/MATHJAX_CONFIG.js"></script>
-        <script src="../js/tex-mml-chtml.js"></script>
+
     </body>
 </html>

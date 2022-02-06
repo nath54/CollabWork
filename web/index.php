@@ -12,7 +12,7 @@ include "../include/test_connecte.php";
 $_SESSION["last_page"] = "index.php";
 ?>
 
-<!doctype HTML>
+<!DOCTYPE HTML>
 <html lang="fr">
 
 <style>

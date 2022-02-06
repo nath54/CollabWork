@@ -117,7 +117,7 @@ $_SESSION["last_page"] = "modif_exercice.php";
 script("window.id_exercice = $id;");
 ?>
 
-<!doctype HTML>
+<!DOCTYPE HTML>
 <html lang="fr">
     <head>
         <meta charset="utf-8" />

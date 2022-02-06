@@ -63,3 +63,20 @@ function change_view_rendu() {
         ["id_chapitre", window.id_chapitre]
     ])
 }
+
+function save_scroll_position() {
+    var path = window.location.pathname;
+    sessionStorage["page_path"] = path;
+    sessionStorage["scroll_page"] = document.documentElement.scrollTop || document.body.scrollTop;
+}
+
+function page_init() {
+    MathJax.typesetPromise();
+    var path = window.location.pathname;
+    if (path == sessionStorage.getItem("page_path")) {
+        var val = sessionStorage.getItem("scroll_page");
+        if (val != null) {
+            document.documentElement.scrollTop = document.body.scrollTop = val;
+        }
+    }
+}

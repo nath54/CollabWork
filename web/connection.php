@@ -61,7 +61,7 @@ if(isset($_POST["type"]) && $_POST["type"] == "request"){
 $_SESSION["last_page"] = "connection.php";
 ?>
 
-<!doctype HTML>
+<!DOCTYPE HTML>
 <html lang="fr">
 
 
