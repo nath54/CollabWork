@@ -55,18 +55,18 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
         header("Location: index.php");
         die();
     }
-    $pos_chapitre = $data[0]["position"];
+    $position_chapitre = $data[0]["position"];
     // On récupère la liste des éléments qui sont avant
     $req = "SELECT id_chapitre, position FROM position_chapitres WHERE id_cour = :id_cour AND position < :pos ORDER BY position DESC;";
-    $data = requete_prep($db, $req, [":id_cour"=>$id, ":pos"=>$pos_chapitre]);
+    $data2 = requete_prep($db, $req, [":id_cour"=>$id, ":pos"=>$position_chapitre]);
     // S'il existe on récupère la position du précédent et on l'échange avec celle du chapitre que l'on veut
-    if(count($data) > 1){
-        $id_c = $data[0]["id_chapitre"];
-        $pos = $data[1]["position"];
+    if(count($data2) >= 1){
+        $id_chapitre2 = $data2[0]["id_chapitre"];
+        $position_chapitre2 = $data2[1]["position"];
         // Echange
         $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
-        action_prep($db, $req, [":pos"=>$pos_chapitre, ":id_chapitre"=>$id_c, ":id_cour"=>$id]);
-        action_prep($db, $req, [":pos"=>$pos, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
+        action_prep($db, $req, [":pos"=>$position_chapitre, ":id_chapitre"=>$id_chapitre2, ":id_cour"=>$id]);
+        action_prep($db, $req, [":pos"=>$position_chapitre2, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
     }
 }
 else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="position_down" && test_token($_POST)){
@@ -79,18 +79,18 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_ch
         header("Location: index.php");
         die();
     }
-    $pos_chapitre = $data[0]["position"];
+    $position_chapitre = $data[0]["position"];
     // On récupère la liste des éléments qui sont après
     $req = "SELECT id_chapitre, position FROM position_chapitres WHERE id_cour = :id_cour AND position > :pos ORDER BY position;";
-    $data = requete_prep($db, $req, [":id_cour"=>$id, ":pos"=>$pos_chapitre]);
+    $data2 = requete_prep($db, $req, [":id_cour"=>$id, ":pos"=>$position_chapitre]);
     // S'il existe on récupère la position du précédent et on l'échange avec celle du chapitre que l'on veut
-    if(count($data) > 1){
-        $id_c = $data[0]["id_chapitre"];
-        $pos = $data[1]["position"];
+    if(count($data2) >= 1){
+        $id_chapitre2 = $data2[0]["id_chapitre"];
+        $position_chapitre2 = $data2[1]["position"];
         // Echange
         $req = "UPDATE position_chapitres SET position=:pos WHERE id_cour=:id_cour AND id_chapitre=:id_chapitre;";
-        action_prep($db, $req, [":pos"=>$pos_chapitre, ":id_chapitre"=>$id_c, ":id_cour"=>$id]);
-        action_prep($db, $req, [":pos"=>$pos, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
+        action_prep($db, $req, [":pos"=>$position_chapitre, ":id_chapitre"=>$id_chapitre2, ":id_cour"=>$id]);
+        action_prep($db, $req, [":pos"=>$position_chapitre2, ":id_chapitre"=>$id_chapitre, ":id_cour"=>$id]);
     }
 }
 else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "delete_cour" && test_token($_POST)){
