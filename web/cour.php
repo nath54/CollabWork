@@ -159,7 +159,15 @@ script("window.id_cour = $id;");
                             foreach($chapitres as $c){
                                 $id_chap = $c["id"];
                                 $titre = $c["titre"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"chapitre.php\", [[\"type\", \"request\"], [\"id_chapitre\", $id_chap]]);' ><h2>$titre</h2></div> </div>";
+                                echo "  <div id='$id' class='bt_item row'>
+                                            <div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"chapitre.php\", [[\"type\", \"request\"], [\"id_chapitre\", $id_chap]]);' >
+                                                <h2>$titre</h2>
+                                            </div>
+                                            <div style='margin-left:auto' class='col'>
+                                                <img class='bt_svg' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_element', $id_chap]]);\"  />                                                <img class='bt_svg' src='../res/up_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_up'], ['id_element', $ide]]);\"  />
+                                                <img class='bt_svg' src='../res/down_arrow.svg' onclick=\"send_form('../web/cour.php', [['type', 'position_down'], ['id_element', $id_chap]]);\"  />
+                                            </div>
+                                        </div>";
                             }
                         }
 
