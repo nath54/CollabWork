@@ -22,8 +22,28 @@ if($id == null){
     die();
 }
 
+
+$req = "SELECT * FROM groupes WHERE id=:id;";
+$data = requete_prep($db, $req, [":id"=>$id]);
+
+if(count($data) != 1){
+    header("Location: index.php");
+    die();
+}
+
+$est_public = $data[0]["est_public"];
+$id_createur = $data[0]["id_creator"];
+$appartient_au_groupe = true;
+$est_createur = false;
+if($est_connecte){
+    $est_createur = $id_createur == $_SESSION["id_compte"];
+}
+$nom_groupe = $data[0]["nom"];
+
+
+
 $req = "SELECT comptes.id, comptes.pseudo FROM comptes INNER JOIN groupes_comptes ON comptes.id = groupes_comptes.id_compte WHERE groupes_comptes.id_groupe = :id_g;";
-$comptes = requete_prep($db, $req, [":id_g"=>$id], true);
+$comptes = requete_prep($db, $req, [":id_g"=>$id]);
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
@@ -60,8 +80,6 @@ $_SESSION["last_page"] = "groupe_cour.php";
 
                     <?php
 
-                        clog("Comptes : " . array_to_str($comptes));
-
                         foreach($comptes as $cr){
                             $id_c = $cr["id"];
                             $pseudo = $cr["pseudo"];
@@ -69,7 +87,14 @@ $_SESSION["last_page"] = "groupe_cour.php";
                             if($id_c == $id_createur){
                                 $pathi = "../res/crown.svg";
                             }
-                            echo "<div id='$id_c' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '> <img src=\"$pathi\" class=\"img_car\"/> <h2>$pseudo</h2></div> </div>";
+                            echo "  <div id='$id_c' class='bt_item row'>
+                                        <div class='col' style='width:100%; padding:5px; margin:auto; margin-right: 2vh; '>
+                                            <img src=\"$pathi\" class=\"img_car\"/>
+                                        </div>
+                                        <div class='col' style='width:100%; padding:5px; margin:auto; margin-left: 2vh; '>
+                                            <h2>$pseudo</h2>
+                                        </div>
+                                    </div>";
                         }
 
                     ?>
