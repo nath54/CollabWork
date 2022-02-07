@@ -88,10 +88,8 @@ $_SESSION["last_page"] = "groupe_cour.php";
                                 $pathi = "../res/crown.svg";
                             }
                             echo "  <div id='$id_c' class='bt_item row'>
-                                        <div class='col' style='width:100%; padding:5px; margin:auto; margin-right: 2vh; '>
-                                            <img src=\"$pathi\" class=\"img_car\"/>
-                                        </div>
-                                        <div class='col' style='width:100%; padding:5px; margin:auto; margin-left: 2vh; '>
+                                        <div class='row' style='width:100%; padding:2vh; margin:auto; '>
+                                            <img src=\"$pathi\" class=\"img_car\" style=\"margin-right: 2vh;\"/>
                                             <h2>$pseudo</h2>
                                         </div>
                                     </div>";

@@ -10,6 +10,11 @@ include "../include/test_connecte.php";
 
 $id = null;
 
+if($est_connecte){
+    $id_compte = $_SESSION["id_compte"];
+}else{
+    $id_compte = -1;
+}
 
 if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="request" && test_token($_POST)){
     $id = $_POST["id_cour"];
@@ -18,27 +23,27 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["est_p
     $id = $_POST["id_cour"];
     $est_public = $_POST["est_public"];
     $req = "UPDATE cours SET est_public=:ep WHERE id=:id_c AND id_createur=:id_compte;";
-    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$id_compte, ":ep"=>$est_public]);
 }
 else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["titre"]) && $_POST["type"]=="save_titre" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $titre = $_POST["titre"];
     $req = "UPDATE cours SET titre=:titre WHERE id=:id_c AND id_createur=:id_compte;";
-    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$id_compte, ":titre"=>$titre]);
 }
 else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $_description = $_POST["description"];
     $req = "UPDATE cours SET _description=:_description WHERE id=:id_c AND id_createur=:id_compte;";
-    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$id_compte, ":_description"=>$_description]);
 }
 else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"]=="nouveau_chapitre" && test_token($_POST)){
     $id = $_POST["id_cour"];
     $req = "SELECT chapitres.id FROM chapitres INNER JOIN cours_chapitres ON cours_chapitres.id_chapitre = chapitres.id WHERE id_compte = :id_compte AND cours_chapitres.id_cour = :idc;";
-    $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id])) + 1;
+    $nb_titre = count(requete_prep($db, $req, [":id_compte"=>$id_compte, ":idc"=>$id])) + 1;
     $titre = "Chapitre n°$nb_titre";
     $req = "INSERT INTO chapitres (titre, id_compte) VALUES (:titre, :id_compte);";
-    action_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+    action_prep($db, $req, [":id_compte"=>$id_compte, ":titre"=>$titre]);
     $id_chapitre = $db->lastInsertId();
     $req = "INSERT INTO cours_chapitres (id_cour, id_chapitre) VALUES (:id_cour, :id_chapitre);";
     action_prep($db, $req, [":id_cour"=>$id, ":id_chapitre"=>$id_chapitre]);
@@ -103,7 +108,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "
     $req = "DELETE FROM cours_chapitres d WHERE id_cour = :idc;";
     action_prep($db, $req, [":idc"=>$id]);
     $req = "DELETE FROM cours WHERE id_createur=:id_c AND id=:id;";
-    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
+    action_prep($db, $req, [":id_c"=>$id_compte, ":id"=>$id]);
     header("Location: ../web/cours.php");
     die();
 }
@@ -127,7 +132,7 @@ if(count($data) != 1){
     die();
 }
 
-$est_auteur = $data[0]["id_createur"] == $_SESSION["id_compte"];
+$est_auteur = $data[0]["id_createur"] == $id_compte;
 $titre = $data[0]["titre"];
 $est_public = $data[0]["est_public"];
 $description = $data[0]["_description"];
