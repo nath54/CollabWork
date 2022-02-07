@@ -59,10 +59,12 @@ if(count($data) != 1){
 
 $est_public = $data[0]["est_public"];
 $id_createur = $data[0]["id_creator"];
-$appartient_au_groupe = true;
+$appartient_au_groupe = false;
 $est_createur = false;
 if($est_connecte){
     $est_createur = $id_createur == $_SESSION["id_compte"];
+    $req = "SELECT id FROM groupes_comptes WHERE id_compte = :id_compte AND id_groupe = :id_groupe;";
+    $appartient_au_groupe = count(requete_prep($db, $req, [":id_groupe"=>$id, ":id_compte"=>$_SESSION["id_compte"]]));
 }
 $nom_groupe = $data[0]["nom"];
 
@@ -114,8 +116,6 @@ script("window.id_groupe = $id");
                     else{
                         include "../include/groupe/appartient.php";
                     }
-                    
-
                 ?>
 
             </div>
