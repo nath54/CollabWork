@@ -58,10 +58,11 @@ if(count($data) != 1){
 }
 
 $est_public = $data[0]["est_public"];
+$id_createur = $data[0]["id_creator"];
 $appartient_au_groupe = true;
 $est_createur = false;
 if($est_connecte){
-    $est_createur = $data[0]["id_creator"] == $_SESSION["id_compte"];
+    $est_createur = $id_createur == $_SESSION["id_compte"];
 }
 $nom_groupe = $data[0]["nom"];
 

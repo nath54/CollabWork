@@ -54,7 +54,7 @@ $_SESSION["last_page"] = "groupe_cour.php";
                     <button class="bt1" style="margin:2vh; margin-left:0;" onclick="window.location.href='groupe.php';">Retour</button>
                 </div>
 
-                <h1>Membres groupe : </h1>
+                <h1>Membres du groupe : </h1>
 
                 <div style="padding: 3vh;">
 
