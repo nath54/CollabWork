@@ -22,8 +22,8 @@ if($id == null){
     die();
 }
 
-$req = "SELECT id, titre FROM cours INNER JOIN cours_groupes ON cours.id = cours_groupes.id_cour WHERE cours_groupes.id_groupe = :id_g;";
-$cours = requete_prep($db, $req, [":id_g"=>$id]);
+$req = "SELECT id, pseudo FROM comptes INNER JOIN groupes_comptes ON comptes.id = groupes_comptes.id_compter WHERE groupes_comptes.id_groupe = :id_g;";
+$comptes = requete_prep($db, $req, [":id_g"=>$id]);
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
@@ -60,15 +60,10 @@ $_SESSION["last_page"] = "groupe_cour.php";
 
                     <?php
 
-                        if(count($cours) == 0){
-                            echo "<p>Il n'y a aucun cours disponible</p>";
-                        }
-                        else{
-                            foreach($cours as $cr){
-                                $id = $cr["id"];
-                                $titre = $cr["titre"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
-                            }
+                        foreach($compte as $cr){
+                            $id = $cr["id"];
+                            $pseudo = $cr["pseudo"];
+                            echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '> <img src=\"$pathi\" class=\"img_car\"/> <h2>$pseudo</h2></div> </div>";
                         }
 
                     ?>
