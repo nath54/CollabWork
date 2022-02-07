@@ -7,6 +7,13 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+if($est_connecte){
+    $id_compte = $_SESSION["id_compte"];
+}else{
+    $id_compte = -1;
+}
+
+
 $id = null;
 
 if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=="request" && test_token($_POST)){
@@ -16,13 +23,13 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["t
     $id = $_POST["id_chapitre"];
     $titre = $_POST["titre"];
     $req = "UPDATE chapitres SET titre=:titre WHERE id=:id_c AND id_compte=:id_compte;";
-    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":titre"=>$titre]);
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$id_compte, ":titre"=>$titre]);
 }
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["description"]) && $_POST["type"]=="save_description" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $_description = $_POST["description"];
     $req = "UPDATE chapitres SET _description=:_description WHERE id=:id_c AND id_compte=:id_compte;";
-    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":_description"=>$_description]);
+    action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$id_compte, ":_description"=>$_description]);
 }
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"]=="position_up" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
@@ -81,9 +88,9 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=
     $req = "DELETE FROM chapitres_elements WHERE id_chapitre = :idc;";
     action_prep($db, $req, [":idc"=>$id]);
     $req = "DELETE FROM chapitres WHERE id_compte=:id_c AND id=:id;";
-    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
+    action_prep($db, $req, [":id_c"=>$id_compte, ":id"=>$id]);
     $req = "DELETE FROM chapitres WHERE id_compte=:id_c AND id=:id;";
-    action_prep($db, $req, [":id_c"=>$_SESSION["id_compte"], ":id"=>$id]);
+    action_prep($db, $req, [":id_c"=>$id_compte, ":id"=>$id]);
     header("Location: ../web/cour.php");
 }
 else if(isset($_SESSION["id_chapitre"])){
@@ -110,7 +117,7 @@ if(count($data) != 1){
 
 $titre = $data[0]["titre"];
 $description = $data[0]["_description"];
-$est_auteur = $data[0]["id_compte"] == $_SESSION["id_compte"];
+$est_auteur = $data[0]["id_compte"] == $id_compte;
 
 $req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element INNER JOIN position_elements ON element.id = position_elements.id_element WHERE chapitres_elements.id_chapitre = :id ORDER BY position_elements.position;";
 $elements = requete_prep($db, $req, [":id"=>$id]);
