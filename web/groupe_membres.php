@@ -54,16 +54,20 @@ $_SESSION["last_page"] = "groupe_cour.php";
                     <button class="bt1" style="margin:2vh; margin-left:0;" onclick="window.location.href='groupe.php';">Retour</button>
                 </div>
 
-                <h1>Cours partagés à ce groupe : </h1>
+                <h1>Membres groupe : </h1>
 
                 <div style="padding: 3vh;">
 
                     <?php
 
-                        foreach($compte as $cr){
-                            $id = $cr["id"];
+                        foreach($comptes as $cr){
+                            $id_c = $cr["id"];
                             $pseudo = $cr["pseudo"];
-                            echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '> <img src=\"$pathi\" class=\"img_car\"/> <h2>$pseudo</h2></div> </div>";
+                            $pathi = "../res/person.svg";
+                            if($id_c == $id_createur){
+                                $pathi = "../res/crown.svg";
+                            }
+                            echo "<div id='$id_c' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '> <img src=\"$pathi\" class=\"img_car\"/> <h2>$pseudo</h2></div> </div>";
                         }
 
                     ?>
