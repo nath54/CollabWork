@@ -99,7 +99,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "DELETE FROM element WHERE id=:ide;";
-    action_prep($db, $req, [":ide"=>$ide], true);
+    action_prep($db, $req, [":ide"=>$ide]);
     $req = "DELETE FROM chapitres_elements WHERE id_element=:ide;";
     action_prep($db, $req, [":ide"=>$ide]);
     $req = "DELETE FROM position_elements WHERE id_element=:ide;";
