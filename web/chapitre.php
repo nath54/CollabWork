@@ -13,6 +13,7 @@ if($est_connecte){
     $id_compte = -1;
 }
 
+clog("POST : ".array_to_str($_POST));
 
 $id = null;
 
@@ -98,13 +99,13 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "DELETE FROM element WHERE id=:ide;";
-    action_prep($db, $req, [":ide"=>$ide]);
+    action_prep($db, $req, [":ide"=>$ide], true);
     $req = "DELETE FROM chapitres_elements WHERE id_element=:ide;";
     action_prep($db, $req, [":ide"=>$ide]);
     $req = "DELETE FROM position_elements WHERE id_element=:ide;";
     action_prep($db, $req, [":ide"=>$ide]);
 }
-else if(isset($_SESSION["id_chapitre"])){
+else if(isset($_SESSION["id_chapitre"]) && count($_POST) == 0){
     $id = $_SESSION["id_chapitre"];
 }
 
@@ -230,7 +231,7 @@ $_SESSION["last_page"] = "chapitre.php";
                                                 <img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'request'], ['id_element', $ide]]);\"  />
                                             </div>
                                             <div style='margin:2vh; margin-left:auto;'>
-                                                <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide, 'id_chapitre', $id]]);\"  />
+                                                <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
                                             </div>
                                             <div style='margin-left:auto; margin-right: 1em;' class='col'>
                                                 <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_up'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />
