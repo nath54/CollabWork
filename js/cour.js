@@ -92,3 +92,24 @@ function page_init() {
     sessionStorage.removeItem('page_path');
     sessionStorage.removeItem('scroll_page');
 }
+
+function add_groupe() {
+    var id_grp = document.getElementById("id_add_groupe").value;
+    if (id_grp) {
+        send_form("cour.php", [
+            ["type", "add_groupe"],
+            ["id_cour", window.id_cour],
+            ["id_groupe", id_grp]
+        ]);
+    } else {
+        alert("error !");
+    }
+}
+
+function remove_groupe(id_grp) {
+    send_form("cour.php", [
+        ["type", "supprime_groupe"],
+        ["id_cour", window.id_cour],
+        ["id_groupe", id_grp]
+    ]);
+}

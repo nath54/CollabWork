@@ -112,8 +112,24 @@ else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && $_POST["type"] == "
     header("Location: ../web/cours.php");
     die();
 }
-
-
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="add_groupe" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $id_grp = $_POST["id_groupe"];
+    // On vérifie s'il n'y est pas déjà
+    $req = "SELECT id FROM cours_groupes WHERE id_cour=:id_cour AND id_groupe=:id_groupe;";
+    $data = requete_prep($db, $req, [":id_cour"=>$id, ":id_groupe"=>$id_grp]);
+    if(count($data) == 0){
+        // S'il n'y est pas, on peut le rajouter
+        $req = "INSERT INTO cours_groupes (id_cour, id_groupe) VALUES (:id_cour, :id_groupe);";
+        action_prep($db, $req, [":id_cour"=>$id, ":id_groupe"=>$id_grp]);
+    }
+}
+else if(isset($_POST["type"]) && isset($_POST["id_cour"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="supprime_groupe" && test_token($_POST)){
+    $id = $_POST["id_cour"];
+    $id_grp = $_POST["id_groupe"];
+    $req = "DELETE FROM cours_groupes WHERE id_cour=:id_cour AND id_groupe=:id_groupe;";
+    action_prep($db, $req, [":id_cour"=>$id, ":id_groupe"=>$id_grp]);
+}
 else if(isset($_SESSION["id_cour"])){
     clog("SESSION ; " . array_to_str($_SESSION));
     $id = $_SESSION["id_cour"];
@@ -137,8 +153,12 @@ $titre = $data[0]["titre"];
 $est_public = $data[0]["est_public"];
 $description = $data[0]["_description"];
 
-$groupes = [];
-$mes_groupes = [];
+$req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.est_public FROM groupes INNER JOIN groupes_comptes ON groupes.id = groupes_comptes.id_groupe WHERE groupes_comptes.id_compte = :id_compte;";
+$mes_groupes = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
+
+
+$req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.est_public FROM groupes INNER JOIN cours_groupes ON groupes.id = cours_groupes.id_groupe WHERE cours_groupes.id_cours = :id_cours;";
+$groupes = requete_prep($db, $req, [":id_cours"=>$id]);
 
 $req = "SELECT chapitres.id, chapitres.titre FROM chapitres INNER JOIN cours_chapitres ON chapitres.id = cours_chapitres.id_chapitre INNER JOIN position_chapitres ON chapitres.id = position_chapitres.id_chapitre WHERE cours_chapitres.id_cour = :id_c ORDER BY position_chapitres.position;";
 $chapitres = requete_prep($db, $req, [":id_c"=>$id]);
@@ -249,7 +269,9 @@ script("window.id_cour = $id;");
                         }
                         else{
                             foreach($groupes as $grp){
-                                echo "<div class='row' style='margin:1vh; padding:0.5vh; background-color:rgb(16, 106, 158);'><p style='margin:auto;'>$grp</p> <button class='bt2'>-</button></div>";
+                                $grp_id = $grp["id"];
+                                $grp_nom = $grp["nom"];
+                                echo "<div class='row' style='margin:1vh; padding:0.5vh; background-color:rgb(16, 106, 158);'><p style='margin:auto;'>$grp_nom</p> <button class='bt2' onclick='remove_groupe($grp_id);'>-</button></div>";
                             }
                         }
                     ?>
@@ -258,16 +280,18 @@ script("window.id_cour = $id;");
                 
                 <div id="div_ajout_groupe" style="margin: 2vh; margin-left:6vh; display:none;">
                     <h3>Rajouter l'accès à un groupe</h3>
-                    <select  style="margin:2vh; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">
+                    <select id="id_add_groupe" style="margin:2vh; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">
                         <?php
                             foreach($mes_groupes as $grp){
-                                echo "<option>$grp</option>";
+                                $grp_id = $grp["id"];
+                                $grp_nom = $grp["nom"];
+                                echo "<option value=$grp_id>$grp_nom</option>";
                             }
                         ?>
                     </select>
                     <p <?php if(count($mes_groupes)!=0){ echo "style='display:none;'"; } ?>>Vous n'appartenez à aucun groupe</p>
                     <div class="row">
-                        <button class="bt1" style="margin:2vh; margin-left:0; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">Rajouter</button>
+                        <button class="bt1" onclick="add_groupe();" style="margin:2vh; margin-left:0; margin-top:0; <?php if(count($mes_groupes)==0){ echo "display:none;"; } ?>">Rajouter</button>
                         <button onclick="annule_ajout_groupe();" class="bt1" style="margin:2vh; margin-top:0; margin-left:0;">Annuler</button>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ include "../include/test_connecte.php";
 if($est_connecte){
     $req = "SELECT * FROM groupes WHERE id_creator=:id_compte;";
     $mes_groupes = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
-    $req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.nom_public FROM groupes INNER JOIN groupes_comptes ON groupes.id = groupes_comptes.id_groupe WHERE groupes_comptes.id_compte = :id_compte;";
+    $req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.est_public FROM groupes INNER JOIN groupes_comptes ON groupes.id = groupes_comptes.id_groupe WHERE groupes_comptes.id_compte = :id_compte;";
     $groupes = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 }
 else{
