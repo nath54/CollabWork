@@ -67,6 +67,7 @@ function view() {
 }
 
 function HTMLencode(text) {
+    text = text.replace("\n", "<br />");
     var encodedStr = text.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
         return '&#' + i.charCodeAt(0) + ';';
     });
