@@ -105,7 +105,7 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
     $req = "DELETE FROM position_elements WHERE id_element=:ide;";
     action_prep($db, $req, [":ide"=>$ide]);
 }
-else if(isset($_SESSION["id_chapitre"]) && count($_POST) == 0){
+else if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
 }
 
