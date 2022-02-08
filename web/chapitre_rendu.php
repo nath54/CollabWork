@@ -173,8 +173,8 @@ $_SESSION["last_page"] = "chapitre.php";
                         else{
                             foreach($elements as $el){
                                 $ide = $el["id"];
-                                $titre = urldecode($el["titre"]);
-                                $texte = urldecode($el["texte"]);
+                                $titre = html_entity_decode($el["titre"]);
+                                $texte = html_entity_decode($el["texte"]);
                                 $nom_type = $tp_elts[$el["_type"]]["nom"];
                                 $forme = $tp_elts[$el["_type"]]["forme"];
                                 $couleur =  $tp_elts[$el["_type"]]["couleur"];

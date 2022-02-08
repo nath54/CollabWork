@@ -94,14 +94,14 @@ $_SESSION["last_page"] = "element.php";
                 </div>
 
                 <div>
-                    <h1><?php  echo  urldecode($titre); ?></h1>
+                    <h1><?php  echo  html_entity_decode($titre); ?></h1>
                 </div>
                 
                 <hr />
 
                 <div>
 
-                    <p class="comp"><?php  echo  urldecode($texte); ?></p>
+                    <p class="comp"><?php  echo  html_entity_decode($texte); ?></p>
 
                 </div>
 

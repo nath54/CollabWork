@@ -66,8 +66,15 @@ function view() {
     compile();
 }
 
+function HTMLencode(text) {
+    var encodedStr = text.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+        return '&#' + i.charCodeAt(0) + ';';
+    });
+    return encodedStr;
+}
+
 function save_brouillon() {
-    var texte = encodeURI(input.value);
+    var texte = HTMLencode(input.value);
     var titre = document.getElementById("input_titre").value;
     var tp_elt = document.getElementById("select_type").value;
     send_form("../web/edit_element.php", [
