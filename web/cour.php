@@ -156,7 +156,6 @@ $description = $data[0]["_description"];
 $req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.est_public FROM groupes INNER JOIN groupes_comptes ON groupes.id = groupes_comptes.id_groupe WHERE groupes_comptes.id_compte = :id_compte;";
 $mes_groupes = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"]]);
 
-
 $req = "SELECT groupes.id, groupes.id_creator, groupes.nom, groupes.est_public FROM groupes INNER JOIN cours_groupes ON groupes.id = cours_groupes.id_groupe WHERE cours_groupes.id_cours = :id_cours;";
 $groupes = requete_prep($db, $req, [":id_cours"=>$id]);
 
