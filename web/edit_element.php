@@ -138,9 +138,9 @@ $_SESSION["last_page"] = "edit_element.php";
 
                         </div>
                     </div>
-                    <div style="margin:3px; display: block;" id="div_checkbox">
+                    <div style="margin:3px; display: block;" id="div_checkbox" class="row">
                         <button onclick="compile();" class="bt1" >Compile</button>
-                        <input type="checkbox" class="visible_only_on_large_screen" value=false id="checkbox_live_compil" />
+                        <input type="checkbox" class="visible_only_on_large_screen" value=true id="checkbox_live_compil" checked />
                         <label class="visible_only_on_large_screen">Compiler à chaque changements</label>
                     </div>
 
