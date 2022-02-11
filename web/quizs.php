@@ -61,6 +61,32 @@ $_SESSION["last_page"] = "groupes.php";
                     ?>
                 </div>
 
+
+                <div style="margin-top: 4vh;">
+                    <div class="row">
+                        <p style="margin-top: auto; margin-bottom:auto;" >Nombre de questions : </p>
+                        <select id="select_nb_questions" onchange="update_nb_questions();" style="margin-top: auto; margin-bottom:auto; margin-left: 2vh;" >
+                            <option value=1 selected>Toutes</option>
+                            <option value=2>Nombre choisi</option>
+                        </select>
+                        <div style="display:block" style="margin-top: auto; margin-bottom:auto;" >
+                            <input id="input_nb_questions" value=20 placeholder="Nombre de questions" type="number" style=" margin-left: 2vh;" />
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 4vh;">
+                        <p style="margin-top: auto; margin-bottom:auto;" >Type de quiz : </p>
+                        <select id="select_type" style="margin-top: auto; margin-bottom:auto; margin-left: 2vh;" >
+                            <option value=1 selected>Ne pas ecrire la réponse</option>
+                            <option value=2>Ecrire exactement la réponse</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 4vh; margin-left: 1vh;">
+                        <button class="bt1" onclick="lancer_quiz();">Lancer le quiz</button>
+                    </div>
+                </div>
+
             </div>
 
         </div>

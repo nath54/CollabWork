@@ -13,3 +13,11 @@ function toggle_selectionnes() {
 function save_selectionnes() {
 
 }
+
+function update_nb_questions() {
+
+}
+
+function lancer_quiz() {
+
+}
