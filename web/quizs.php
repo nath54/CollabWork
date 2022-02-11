@@ -40,7 +40,8 @@ $_SESSION["last_page"] = "groupes.php";
             <div class="container" style="margin: 20px;">
                 <div class="row c_pointer" onclick="toggle_selectionnes();">
                     <span id="triangle3" style="z-index:-1; transition: all 0.4s; transform:rotate(90deg); margin-top:auto; margin-bottom:auto; margin-right: 10px;">&#9654;</span>
-                    <h1>Chapitres / Fiches sélectionnées :</h1>
+                    <h1>Chapitres / Fiches sélectionnées </h1>
+                    <img src="../res/save.svg" class="bt_svg" onclick="save_selectionnes();" style="margin-right:auto; margin-left: 2vh;"/>
                 </div>
                 <div id="div_selectionnes" class="col">
                     <?php
@@ -69,5 +70,5 @@ $_SESSION["last_page"] = "groupes.php";
 
     </body>
     <script src="../js/menus.js"></script>
-    <script src="../js/groupes.js"></script>
+    <script src="../js/quizs.js"></script>
 </html>
