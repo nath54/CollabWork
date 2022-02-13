@@ -86,7 +86,11 @@ $_SESSION["last_page"] = "quiz.php";
 
                 <div class="col" style="height:90%;">
 
-                    <h1 id="titre"></h1>
+                    <h1 id="titre" style="text-align:center; margin:auto; margin-bottom: 5vh;"></h1>
+
+                    <div id="bt_aff" style="margin: auto; margin-top: 5vh;">
+                        <button class="bt1" onclick="next_state();"> Afficher la réponse</button>
+                    </div>
 
                     <div class="row" style="height:85%; margin-bottom:2vh;">
                         <div id="div_result">
@@ -107,6 +111,12 @@ $_SESSION["last_page"] = "quiz.php";
     
     <script src="../js/encoder.js"></script>
     <script src="../js/quiz.js"></script>
+
+    <style>
+
+
+
+    </style>
 </html>
 
 

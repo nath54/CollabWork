@@ -1,3 +1,4 @@
+var txt_result;
 var div_result;
 var titre;
 var converter = new showdown.Converter();
@@ -28,16 +29,16 @@ function key_compile() {
 }
 
 function update_md() {
-    div_result.innerHTML = converter.makeHtml(div_result.innerHTML);
+    txt_result.innerHTML = converter.makeHtml(txt_result.innerHTML);
 }
 
 function compile() {
     // Nettoyage
-    for (c of div_result.children) {
-        div_result.removeChild(c);
+    for (c of txt_result.children) {
+        txt_result.removeChild(c);
     }
 
-    div_result.innerHTML = div_result.innerHTML;
+    txt_result.innerHTML = txt_result.innerHTML;
 
     // Compilation latex
     MathJax.typesetPromise();
@@ -62,7 +63,8 @@ function init() {
     window.id_question = 0;
     window.etape = 0;
     // On récupère les éléments HTML
-    div_result = document.getElementById("result");
+    div_result = document.getElementById("div_result");
+    txt_result = document.getElementById("result");
     titre = document.getElementById("titre");
     // On lance le quiz
     next_state();
@@ -105,14 +107,20 @@ function next_state() {
     // Normalement, on n'a plus rien d'autre à faire
 }
 
+function affiche_reponse() {
+    div_result.style.display = "block";
+    document.getElementById("bt_aff").style.display = "none";
+}
+
 function create_question() { // On suppose qu'il y a des questions dans window.questions
     // On tire au sort une question
     window.id_question = parseInt(Math.random() * window.questions.length);
     // On prépare les elements HTML
-    titre.innerHTML = window.questions[window.id_question].titre;
+    titre.innerHTML = "Question : " + window.questions[window.id_question].titre;
     var txt = window.questions[window.id_question].texte;
-    div_result.innerHTML = Encoder.htmlDecode(txt);
+    txt_result.innerHTML = Encoder.htmlDecode(txt);
     compile();
     // On n'affiche que les bons 
+    document.getElementById("bt_aff").style.display = "block";
     div_result.style.display = "none";
 }
