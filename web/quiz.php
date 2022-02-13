@@ -19,9 +19,9 @@ $nb_questions = 20;
 if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_questions"]) && isset($_POST["nb_questions"]) && $_POST["type"] == "request" && test_token($_POST)){
     $toutes_questions = $_POST["toutes_questions"];
     $nb_questions = $_POST["nb_questions"];
-    $chap_fiches = json_decode($_POST["chapfiches"]);
-    clog("POST : " . array_to_str($_POST));
-    die();
+    $chap_fiches = json_decode($_POST["chapfiches"], true);
+    // clog("POST : " . array_to_str($chap_fiches));
+    // die();
     foreach($chap_fiches as $elt){
         if($elt["type"] == "chapitre"){
             $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE chapitres_elements.id_chapitre = :elt_id;";
@@ -44,6 +44,10 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
 if(count($questions) == 0){
     header("Location: ../web/quizs.php");
 }
+
+script("window.questions = " . json_encode($questions));
+script("window.all_questions = $toutes_questions;");
+script("window.nb_questions = $nb_questions;");
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
@@ -100,7 +104,7 @@ $_SESSION["last_page"] = "quiz.php";
 
     </body>
 
-    <script src="../js/brouillon.js"></script>
+    <script src="../js/quiz.js"></script>
 </html>
 
 

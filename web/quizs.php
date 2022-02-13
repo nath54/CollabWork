@@ -44,7 +44,7 @@ foreach($fiches as $elt){
     ] );
 }
 
-script("window.data_quiz = " . json_encode($fiches_et_chaps) . ";");
+script("window.data_quiz = '" . json_encode($fiches_et_chaps) . "';");
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
