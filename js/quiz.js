@@ -1,11 +1,20 @@
 var div_result = document.getElementById("result");
 var converter = new showdown.Converter();
-window.questions_faites = 0;
+window.nb_questions_faites = 0;
 window.score = 0;
 window.questions_reussies = [];
 window.questions_rates = [];
+window.id_question = 0;
+window.etape = 0; // 0 = pas commencé, 1 = en train d'afficher la question, 2 =  juste / faux, 3 = fini
+
+// ON SUPPOSE QU'IL Y A AU MOINS 3 QUESTIONS
+
+// window.questions;
+// window.all_questions;
+// window.nb_questions;
 
 
+/* ------------------------ COMPILATION / PAGE ------------------------ */
 function key_compile() {
     var live_compile = (document.getElementById("div_checkbox").style.display == "block") && (document.getElementById("checkbox_live_compil").checked)
         // console.log("live_compile = ", live_compile);
@@ -33,13 +42,40 @@ function compile() {
     setTimeout(update_md(), 1000);
 }
 
-
 function retour() {
     // En vrai, on fera une sauvegarde en envoyant une requete a la page brouillon, qui va ensuite rediriger vers brouillons.php
     window.location.href = "quizs.php";
 }
 
-function init() {
-    var titre = document.getElementById("titre");
+/* ------------------------------- QUIZ ------------------------------- */
 
+function init() {
+
+}
+
+function next_state() {
+    if (window.etape == 0) {
+        create_question();
+        window.etape += 1;
+    } else if (window.etape == 1) {
+        affiche_reponse();
+        window.etape += 1;
+    } else if (window.etape == 2) {
+        if (!window.all_questions) {
+            if (window.nb_questions_faites > window.nb_questions) {
+                ecran_fin();
+            } else if (windows.questions.length > 0) {
+
+            } else {
+
+            }
+        }
+    } else if (window.etape == 3) {
+
+    }
+    // Normalement, on n'a plus rien d'autre à faire
+}
+
+function create_question() {
+    // On tire au sort une question
 }

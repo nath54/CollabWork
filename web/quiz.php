@@ -41,7 +41,8 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
 }
 
 
-if(count($questions) == 0){
+if(count($questions) < 3){
+    $_SESSION["error"] = "Il faut y avoir au moins 3 éléments sur lesquels vous intérroger !";
     header("Location: ../web/quizs.php");
 }
 

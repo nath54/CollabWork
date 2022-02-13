@@ -1,4 +1,7 @@
 <?php
+
+//  -------------------------------------  INIT  ------------------------------------- 
+
 $debug = true;
 session_start();
 
@@ -7,6 +10,14 @@ if($debug){
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 }
+
+if($_SESSION["error"]){
+    alert("Error : <br />" . $_SESSION["error"]);
+    unset($_SESSION["error"]);
+}
+
+// ------------------------------------- FONCTIONS ------------------------------------- 
+
 
 /**
  * Crée une boîte de dialogue contenant `$texte`
