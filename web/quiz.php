@@ -104,7 +104,8 @@ $_SESSION["last_page"] = "quiz.php";
         <?php include "../include/form.php"; ?>
 
     </body>
-
+    
+    <script src="../js/encoder.js"></script>
     <script src="../js/quiz.js"></script>
 </html>
 

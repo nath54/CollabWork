@@ -7,6 +7,9 @@ window.questions_reussies = [];
 window.questions_rates = [];
 window.id_question = 0;
 window.etape = 0; // 0 = pas commencé, 1 = en train d'afficher la question, 2 =  juste / faux, 3 = fini
+// Pour l'équivalent du php : html_entity_decode
+Encoder.EncodeType = "entity";
+
 
 // ON SUPPOSE QU'IL Y A AU MOINS 3 QUESTIONS
 
@@ -107,7 +110,8 @@ function create_question() { // On suppose qu'il y a des questions dans window.q
     window.id_question = parseInt(Math.random() * window.questions.length);
     // On prépare les elements HTML
     titre.innerHTML = window.questions[window.id_question].titre;
-    div_result.innerHTML = window.questions[window.id_question].texte;
+    var txt = window.questions[window.id_question].texte;
+    div_result.innerHTML = Encoder.htmlDecode(txt);
     compile();
     // On n'affiche que les bons 
     div_result.style.display = "none";
