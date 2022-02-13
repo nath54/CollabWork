@@ -19,22 +19,23 @@ $nb_questions = 20;
 if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_questions"]) && isset($_POST["nb_questions"]) && $_POST["type"] == "request" && test_token($_POST)){
     $toutes_questions = $_POST["toutes_questions"];
     $nb_questions = $_POST["nb_questions"];
-    $chap_fiches = json_decode($_POST["chap_fiches"]);
+    $chap_fiches = json_decode($_POST["chapfiches"]);
+    clog("POST : " . array_to_str($_POST));
+    die();
     foreach($chap_fiches as $elt){
         if($elt["type"] == "chapitre"){
-            $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE chapitres_elements.id_chapitre = :id_chap;";
-            $data = requete_prep($db, $req, [":id_chap"=>$elt["id"]]);
-            foreach($data as $q){
-                array_push($questions, 
-                [
-                    "titre"=>$q["titre"],
-                    "texte"=>$q["texte"],
-                    "_type"=>$q["_type"]
-                ]);
-            }
+            $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE chapitres_elements.id_chapitre = :elt_id;";
+        } else if($elt["type"] == "fiche"){
+            $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN fiches_elements ON fiches_elements.id_element = element.id WHERE fiches_elements.id_fiche = :elt_id;";
         }
-        else if($elt["type"] == "fiche"){
-
+        $data = requete_prep($db, $req, [":elt_id"=>$elt["id"]]);
+        foreach($data as $q){
+            array_push($questions, 
+            [
+                "titre"=>$q["titre"],
+                "texte"=>$q["texte"],
+                "_type"=>$q["_type"]
+            ]);
         }
     }
 }

@@ -24,7 +24,7 @@ function lancer_quiz() {
     send_form(
         page, [
             ["type", "request"],
-            ["chapfiches", windows.data_quiz],
+            ["chapfiches", window.data_quiz],
             ["toutes_questions", document.getElementById("select_nb_questions").value == 1],
             ["nb_questions", document.getElementById("input_nb_questions").value]
         ]
