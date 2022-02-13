@@ -1,20 +1,20 @@
 # TODO : 
  
-[x] Quiz non écrire
+ - [x] Quiz non écrire
 
-[] Fiches
+ - [] Fiches
 
-[] Discussion
+ - [] Discussion
 
-[] Demonstrations
+ - [] Demonstrations
 
-[] Editeur SVG
+ - [] Editeur SVG
 
-[] Quiz écrire
+ - [] Quiz écrire
 
-[] La page d'acceuil
+ - [] La page d'acceuil
 
-[] Securité Majeure
+ - [] Securité Majeure
 
  - [] Améliorer l'aspect graphique/l'ergonomie de certaines pages 
 
