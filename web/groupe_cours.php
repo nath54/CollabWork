@@ -22,7 +22,7 @@ if($id == null){
     die();
 }
 
-$req = "SELECT id, titre FROM cours INNER JOIN cours_groupes ON cours.id = cours_groupes.id_cour WHERE cours_groupes.id_groupe = :id_g;";
+$req = "SELECT cours.id, cours.titre FROM cours INNER JOIN cours_groupes ON cours.id = cours_groupes.id_cour WHERE cours_groupes.id_groupe = :id_g;";
 $cours = requete_prep($db, $req, [":id_g"=>$id]);
 
 
@@ -67,9 +67,9 @@ $_SESSION["last_page"] = "groupe_cour.php";
                         }
                         else{
                             foreach($cours as $cr){
-                                $id = $cr["id"];
+                                $idc = $cr["id"];
                                 $titre = $cr["titre"];
-                                echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2></div> </div>";
+                                echo "<div id='$idc' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; ' onclick='send_form(\"cour.php\", [[\"type\", \"request\"], [\"id_cour\", $idc]])'><h2>$titre</h2></div> </div>";
                             }
                         }
 
@@ -82,6 +82,8 @@ $_SESSION["last_page"] = "groupe_cour.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
+        
 
     </body>
     <script src="../js/cours.js"></script>
