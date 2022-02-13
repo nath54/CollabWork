@@ -31,7 +31,9 @@ MathJax = {
             cP: "\\cal{P}",
             eq: "\\equiv",
             part: "\\partial",
-            ve: "\\varepsilon"
+            ve: "\\varepsilon",
+            bs: "\\Large \\star \\normalsize",
+            fa: "\\forall \\ "
         }
     }
 };
