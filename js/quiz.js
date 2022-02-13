@@ -1,4 +1,5 @@
-var div_result = document.getElementById("result");
+var div_result;
+var titre;
 var converter = new showdown.Converter();
 window.nb_questions_faites = 0;
 window.score = 0;
@@ -50,32 +51,60 @@ function retour() {
 /* ------------------------------- QUIZ ------------------------------- */
 
 function init() {
-
+    // On initialise les variables
+    window.nb_questions_faites = 0;
+    window.score = 0;
+    window.questions_reussies = [];
+    window.questions_rates = [];
+    window.id_question = 0;
+    window.etape = 0;
+    // On récupère les éléments HTML
+    div_result = document.getElementById("result");
+    titre = document.getElementById("titre");
+    // On lance le quiz
+    next_state();
 }
 
 function next_state() {
     if (window.etape == 0) {
         create_question();
-        window.etape += 1;
+        window.etape = 1;
     } else if (window.etape == 1) {
         affiche_reponse();
-        window.etape += 1;
+        window.etape = 2;
     } else if (window.etape == 2) {
         if (!window.all_questions) {
             if (window.nb_questions_faites > window.nb_questions) {
                 ecran_fin();
+                window.etape = 3;
             } else if (windows.questions.length > 0) {
-
+                if (window.questions_rates.length > 0) {
+                    window.questions = window.questions_rates;
+                    window.questions_rates = [];
+                } else {
+                    window.questions = window.questions_reussies;
+                    window.questions_reussies = [];
+                }
+            }
+            // Il devrait y avoir des éléments dans question normalement
+            create_question();
+            window.etape = 1;
+        } else {
+            if (window.questions.length > 0) {
+                create_question();
+                window.etape = 1;
             } else {
-
+                ecran_fin();
+                window.etape = 3;
             }
         }
-    } else if (window.etape == 3) {
-
     }
     // Normalement, on n'a plus rien d'autre à faire
 }
 
-function create_question() {
+function create_question() { // On suppose qu'il y a des questions dans window.questions
     // On tire au sort une question
+    window.id_question = parseInt(Math.random() * window.questions.length);
+    // On l'affiche
+    titre
 }

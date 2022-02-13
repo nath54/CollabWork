@@ -11,7 +11,7 @@ if($debug){
     error_reporting(E_ALL);
 }
 
-if($_SESSION["error"]){
+if(isset($_SESSION["error"])){
     alert("Error : <br />" . $_SESSION["error"]);
     unset($_SESSION["error"]);
 }
