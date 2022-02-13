@@ -12,7 +12,32 @@ if(!$est_connecte){
     header("Location: ../web/index.php");
 }
 
-$questions= []);
+$questions = [];
+$toutes_questions = true;
+$nb_questions = 20;
+
+if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_questions"]) && isset($_POST["nb_questions"]) && $_POST["type"] == "request" && test_token($_POST)){
+    $toutes_questions = $_POST["toutes_questions"];
+    $nb_questions = $_POST["nb_questions"];
+    $chap_fiches = json_decode($_POST["chap_fiches"]);
+    foreach($chap_fiches as $elt){
+        if($elt["type"] == "chapitre"){
+            $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE chapitres_elements.id_chapitre = :id_chap;";
+            $data = requete_prep($db, $req, [":id_chap"=>$elt["id"]]);
+            foreach($data as $q){
+                array_push($questions, 
+                [
+                    "titre"=>$q["titre"],
+                    "texte"=>$q["texte"],
+                    "_type"=>$q["_type"]
+                ]);
+            }
+        }
+        else if($elt["type"] == "fiche"){
+
+        }
+    }
+}
 
 
 if(count($questions) == 0){
@@ -55,26 +80,15 @@ $_SESSION["last_page"] = "quiz.php";
 
                 <div class="col" style="height:90%;">
 
-                    <div class="row">
-                        <button id="bt_edit" onclick="edit();" class="bt_tab_active">Editer</button>
-                        <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
-                    </div>
+                    <h1 id="titre"></h1>
+
                     <div class="row" style="height:85%; margin-bottom:2vh;">
-                        <div id="div_textarea" style="max-width:100%; height:100%;">
-                            <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"><?php echo  str_replace("<br />", "\n",html_entity_decode( $texte)); ?></textarea>
-                        </div>
                         <div id="div_result">
 
                             <div id="result"></div>
 
                         </div>
                     </div>
-                    <div style="margin:3px; display: block;" id="div_checkbox">
-                        <button onclick="compile();" class="bt1" >Compile</button>
-                        <input type="checkbox" class="visible_only_on_large_screen" value=false id="checkbox_live_compil" />
-                        <label class="visible_only_on_large_screen">Compiler à chaque changements</label>
-                    </div>
-
                 </div>
 
             </div>
