@@ -82,7 +82,7 @@ function next_state() {
             if (window.nb_questions_faites > window.nb_questions) {
                 ecran_fin();
                 window.etape = 3;
-            } else if (windows.questions.length > 0) {
+            } else if (window.questions.length > 0) {
                 if (window.questions_rates.length > 0) {
                     window.questions = window.questions_rates;
                     window.questions_rates = [];
@@ -110,6 +110,7 @@ function next_state() {
 function affiche_reponse() {
     div_result.style.display = "block";
     document.getElementById("bt_aff").style.display = "none";
+    document.getElementById("boutons_reussis").style.display = "block";
 }
 
 function create_question() { // On suppose qu'il y a des questions dans window.questions
@@ -123,4 +124,20 @@ function create_question() { // On suppose qu'il y a des questions dans window.q
     // On n'affiche que les bons 
     document.getElementById("bt_aff").style.display = "block";
     div_result.style.display = "none";
+    document.getElementById("boutons_reussis").style.display = "none";
+}
+
+function rate() {
+    window.nb_questions_faites += 1;
+    window.questions_rates.push(window.questions[window.id_question]);
+    window.questions.splice(window.id_question, 1);
+    next_state();
+}
+
+function reussi() {
+    window.nb_questions_faites += 1;
+    window.score += 1;
+    window.questions_reussies.push(window.questions[window.id_question]);
+    window.questions.splice(window.id_question, 1);
+    next_state();
 }

@@ -86,13 +86,15 @@ $_SESSION["last_page"] = "quiz.php";
 
                 <div class="col" style="height:90%;">
 
+                    <p>Score : <span id="s_score">0</span>/<span id="s_faites">0</span> (<span id="s_restantes">0</span> restantes)</p>
+
                     <h1 id="titre" style="text-align:center; margin:auto; margin-bottom: 5vh;"></h1>
 
                     <div id="bt_aff" style="margin: auto; margin-top: 5vh;">
                         <button class="bt1" onclick="next_state();"> Afficher la réponse</button>
                     </div>
 
-                    <div class="row" style="height:85%; margin-bottom:2vh;">
+                    <div class="col" style="height:85%; margin-bottom:2vh;">
                         <div id="div_result">
 
                             <div id="result"></div>
@@ -101,9 +103,9 @@ $_SESSION["last_page"] = "quiz.php";
 
                         <div id="boutons_reussis" class="row" style="margin:auto;">
 
-                            <button class="bt5" style="margin:auto;">Raté</button>
+                            <button class="bt3" style="margin:auto; margin-right: 2vh;" onclick="rate();">Raté</button>
 
-                            <button class="bt3" style="margin:auto;">Réussi</button>
+                            <button class="bt5" style="margin:auto; margin-left: 2vh;" onclick="reussi();">Réussi</button>
 
                         </div>
 
