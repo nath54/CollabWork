@@ -13,7 +13,37 @@ if($est_connecte){
 else{
 }
 
+if(!isset($_SESSION["quizs_chapitres"])){
+    $_SESSION["quizs_chapitres"] = [];
+}
+if(!isset($_SESSION["quizs_fiches"])){
+    $_SESSION["quizs_fiches"] = [];
+}
+
 $fiches_et_chaps = [];
+
+$req = "SELECT id, titre FROM chapitres WHERE id IN (".implode(", ",$_SESSION["quizs_chapitres"]).");";
+$chaps = requete_prep($db, $req);
+
+foreach($chaps as $elt){
+    array_push( $fiches_et_chaps, [
+        "id"=>$elt["id"],
+        "nom"=>$elt["titre"],
+        "type"=>"chapitre"
+    ]);
+}
+
+$req = "SELECT id, titre FROM fiches WHERE id IN (".implode(", ",$_SESSION["quizs_fiches"]).");";
+$fiches = requete_prep($db, $req);
+
+foreach($fiches as $elt){
+    array_push($fiches_et_chaps, [
+        "id"=>$elt["id"],
+        "nom"=>$elt["titre"],
+        "type"=>"fiche"
+    ] );
+}
+
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);

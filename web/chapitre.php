@@ -111,8 +111,8 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"] 
         $_SESSION["quizs_chapitres"] = [];
     }
     $index = array_search($id, $_SESSION["quizs_chapitres"]);
-    if(!is_int($index) || $index < 0){
-        clog("index : $index");
+    clog("index : $index");
+    if(is_int($index) && $index >= 0){
         unset($_SESSION["quizs_chapitres"][$index]);
     }
     else{
