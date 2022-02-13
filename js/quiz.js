@@ -71,6 +71,7 @@ function init() {
 }
 
 function next_state() {
+    update_score();
     if (window.etape == 0) {
         create_question();
         window.etape = 1;
@@ -79,10 +80,10 @@ function next_state() {
         window.etape = 2;
     } else if (window.etape == 2) {
         if (!window.all_questions) {
-            if (window.nb_questions_faites > window.nb_questions) {
+            if (window.nb_questions_faites >= window.nb_questions) {
                 ecran_fin();
                 window.etape = 3;
-            } else if (window.questions.length > 0) {
+            } else if (window.questions.length == 0) {
                 if (window.questions_rates.length > 0) {
                     window.questions = window.questions_rates;
                     window.questions_rates = [];
@@ -125,6 +126,9 @@ function create_question() { // On suppose qu'il y a des questions dans window.q
     document.getElementById("bt_aff").style.display = "block";
     div_result.style.display = "none";
     document.getElementById("boutons_reussis").style.display = "none";
+    document.getElementById("boutons_fins").style.display = "none";
+    document.getElementById("p_score").style.display = "block";
+
 }
 
 function rate() {
@@ -140,4 +144,24 @@ function reussi() {
     window.questions_reussies.push(window.questions[window.id_question]);
     window.questions.splice(window.id_question, 1);
     next_state();
+}
+
+function update_score() {
+    document.getElementById("s_score").innerHTML = window.score;
+    document.getElementById("s_faites").innerHTML = window.nb_questions_faites;
+    if (window.all_questions) {
+        document.getElementById("s_restantes").innerHTML = window.questions.length;
+    } else {
+        document.getElementById("s_restantes").innerHTML = window.nb_questions - window.nb_questions_faites;
+    }
+}
+
+function ecran_fin() {
+    // On modifie les éléments
+    titre.innerHTML = "Quiz fini ! Score : " + window.score + "/" + window.nb_questions_faites + " (" + parseInt(window.score / window.nb_questions_faites * 100.0) + "%)";
+    // On affiche que les bonnes choses
+    document.getElementById("p_score").style.display = "none";
+    document.getElementById("boutons_fins").style.display = "block";
+    document.getElementById("boutons_reussis").style.display = "none";
+    div_result.style.display = "none";
 }

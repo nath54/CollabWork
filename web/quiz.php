@@ -46,6 +46,11 @@ if(count($questions) < 3){
     header("Location: ../web/quizs.php");
 }
 
+
+$req = "SELECT * FROM `types elements`;";
+$types_elements = requete_prep($db, $req);
+
+
 script("window.questions = " . json_encode($questions));
 script("window.all_questions = $toutes_questions;");
 script("window.nb_questions = $nb_questions;");
@@ -86,7 +91,7 @@ $_SESSION["last_page"] = "quiz.php";
 
                 <div class="col" style="height:90%;">
 
-                    <p>Score : <span id="s_score">0</span>/<span id="s_faites">0</span> (<span id="s_restantes">0</span> restantes)</p>
+                    <p id="p_score">Score : <span id="s_score">0</span>/<span id="s_faites">0</span> (<span id="s_restantes">0</span> restantes)</p>
 
                     <h1 id="titre" style="text-align:center; margin:auto; margin-bottom: 5vh;"></h1>
 
@@ -106,6 +111,16 @@ $_SESSION["last_page"] = "quiz.php";
                             <button class="bt3" style="margin:auto; margin-right: 2vh;" onclick="rate();">Raté</button>
 
                             <button class="bt5" style="margin:auto; margin-left: 2vh;" onclick="reussi();">Réussi</button>
+
+                        </div>
+
+                        <div id="boutons_fins" class="row" style="margin:auto;">
+                            
+                            <button class="bt3" style="margin:auto; margin-right: 2vh;" onclick="retour();">Sortir</button>
+
+                            <button class="bt5" style="margin:auto; margin-left: 2vh;" onclick="recommencer();">Recommencer</button>
+
+                            <button class="bt3" style="margin:auto; margin-right: 2vh;" onclick="recommencer_rates();">Recommencer avec uniquement les ratés</button>
 
                         </div>
 
