@@ -73,7 +73,7 @@ $_SESSION["last_page"] = "quiz.php";
         <!-- STYLES ... -->
         <link href="../style/style.css" rel="stylesheet" />
     </head>
-    <body onload="compile();">
+    <body onload="init();">
         <div class="col" style="position: absolute; top:0; bottom:0; right:0; left:0;">
             <!-- Header -->
             <div class="row">

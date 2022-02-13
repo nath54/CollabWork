@@ -105,6 +105,10 @@ function next_state() {
 function create_question() { // On suppose qu'il y a des questions dans window.questions
     // On tire au sort une question
     window.id_question = parseInt(Math.random() * window.questions.length);
-    // On l'affiche
-    titre
+    // On prépare les elements HTML
+    titre.innerHTML = window.questions[window.id_question].titre;
+    div_result.innerHTML = window.questions[window.id_question].texte;
+    compile();
+    // On n'affiche que les bons 
+    div_result.style.display = "none";
 }
