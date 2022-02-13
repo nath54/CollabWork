@@ -105,6 +105,19 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
     $req = "DELETE FROM position_elements WHERE id_element=:ide;";
     action_prep($db, $req, [":ide"=>$ide]);
 }
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"] == "add_del_to_quiz" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    if(!isset($_SESSION["quizs_chapitres"])){
+        $_SESSION["quizs_chapitres"] = [];
+    }
+    $index = array_search($id, $_SESSION["quizs_chapitres"]);
+    if(!$index === false){
+        unset($_SESSION["quizs_chapitres"][$index]);
+    }
+    else{
+        array_push($_SESSION["quizs_chapitres"], $id);
+    }
+}
 else if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
 }
@@ -141,7 +154,12 @@ foreach($tmp as $t){
     $tp_elts[$t["id"]] = $t;
 }
 
-$quiz_mot = "Ajouter";
+if(isset($_SESSION["quizs_chapitres"]) && in_array($id, $_SESSION["quizs_chapitres"])){
+    $quiz_mot = "Retirer";
+}
+else{
+    $quiz_mot = "Ajouter";
+}
 
 $taille_toks = 32;
 $nb_toks = random_int(10, 30);
@@ -200,11 +218,11 @@ $_SESSION["last_page"] = "chapitre.php";
                 </div>
 
                 <div>
-                    <button class="bt1" style="margin: 1vh;" >Lancer un quiz sur ce chapitre</button>
+                    <button class="bt1" style="margin: 1vh;" onclick="send_form('quiz.php', [['type', 'request'], ['chapitres', '[[\'chapitre\',  <?php echo $id; ?>]]']]);">Lancer un quiz sur ce chapitre</button>
                 </div>
 
                 <div>
-                    <button class="bt1" style="margin: 1vh;" ><?php echo $quiz_mot; ?> le quiz à la liste des chapitres pour quiz</button>
+                    <button class="bt1" style="margin: 1vh;" onclick="send_form('chapitre.php', [['type', 'add_del_to_quiz'], ['id_chapitre', <?php echo $id; ?>]]);"><?php echo $quiz_mot; ?> le quiz à la liste des chapitres pour quiz</button>
                 </div>
 
                 <h1>Élements :</h1>

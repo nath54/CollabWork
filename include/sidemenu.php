@@ -12,6 +12,6 @@
         <a href="#" class="lien_sidemenu">Aide</a>
         <a href="#" class="lien_sidemenu">Contact</a>
         <a href="https://github.com/nath54" class="lien_sidemenu">Mon github</a>
-        <p style="margin-right:4vh;">Attention, ce site est en cours de construction ! Vous ne pouvez pas l'utiliser pour l'instant</p>
+        <p style="margin-right:4vh; padding:1vh;">Attention, ce site est en cours de construction ! Vous ne pouvez pas l'utiliser pour l'instant</p>
     </div>
 </div>
