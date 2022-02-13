@@ -19,5 +19,14 @@ function update_nb_questions() {
 }
 
 function lancer_quiz() {
-
+    var page = "quiz.php";
+    if (document.getElementById("select_type").value == 2) { page = "quiz_ecrire.php"; }
+    send_form(
+        page, [
+            ["type", "request"],
+            ["chapfiches", windows.data_quiz],
+            ["toutes_questions", document.getElementById("select_nb_questions").value == 1],
+            ["nb_questions", document.getElementById("input_nb_questions").value]
+        ]
+    );
 }
