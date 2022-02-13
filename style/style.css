@@ -126,6 +126,19 @@ textarea {
     box-shadow: 0px 0px 3px 3px rgb(111, 198, 248);
 }
 
+.bt5 {
+    color: white;
+    background: rgb(29, 129, 9);
+    border-radius: 2px;
+    border: none;
+    padding: 1.2vh;
+}
+
+.bt5:hover {
+    border-radius: 1px;
+    background: rgb(13, 143, 30);
+}
+
 .bt_item {
     display: flex;
     background-color: rgb(240, 240, 240);

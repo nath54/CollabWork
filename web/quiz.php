@@ -98,6 +98,15 @@ $_SESSION["last_page"] = "quiz.php";
                             <div id="result"></div>
 
                         </div>
+
+                        <div id="boutons_reussis" class="row" style="margin:auto;">
+
+                            <button class="bt5" style="margin:auto;">Raté</button>
+
+                            <button class="bt3" style="margin:auto;">Réussi</button>
+
+                        </div>
+
                     </div>
                 </div>
 
@@ -114,7 +123,13 @@ $_SESSION["last_page"] = "quiz.php";
 
     <style>
 
-
+#div_result{
+    overflow: hidden;
+    max-width: 85%;
+    max-height: 50%;
+    margin-left:auto;
+    margin-right:auto;
+}
 
     </style>
 </html>
