@@ -46,7 +46,7 @@ function edit() {
         bt2.classList.replace("bt_tab_active", "bt_tab");
     }
     //
-    document.getElementById("div_textarea").style.display = "initial";
+    document.getElementById("texte").style.display = "initial";
     document.getElementById("div_result").style.display = "none";
 }
 
@@ -61,7 +61,7 @@ function view() {
         bt2.classList.replace("bt_tab_active", "bt_tab");
     }
     //
-    document.getElementById("div_textarea").style.display = "none";
+    document.getElementById("texte").style.display = "none";
     document.getElementById("div_result").style.display = "initial";
     compile();
 }

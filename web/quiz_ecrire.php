@@ -12,7 +12,6 @@ if(!$est_connecte){
     header("Location: ../web/index.php");
 }
 
-$questions= []);
 
 
 if(count($questions) == 0){

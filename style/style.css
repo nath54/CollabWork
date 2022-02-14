@@ -334,6 +334,10 @@ header {
     display: none;
 }
 
+#texte {
+    width: 100vh;
+}
+
 @media screen and (min-width: 600px) and (min-aspect-ratio: 1.1) {
     #bt_edit,
     #bt_view {

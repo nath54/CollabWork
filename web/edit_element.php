@@ -129,9 +129,9 @@ $_SESSION["last_page"] = "edit_element.php";
                         <button id="bt_view" onclick="view();" class="bt_tab">Voir</button>
                     </div>
                     <div class="row" style="height:85%; margin-bottom:2vh; width:100%;">
-                        <div id="div_textarea" style="max-width:100%; height:100%;">
-                            <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"><?php echo str_replace("<br />", "\n", html_entity_decode( $texte)); ?></textarea>
-                        </div>
+                        <!-- <div id="div_textarea" style="max-width:100%; width:auto; height:100%;"> -->
+                        <textarea id="texte" style="width:100%; height:100%; border: 1px solid grey;" placeholder="Ecrire son texte ici" onkeyup="key_compile();"><?php echo str_replace("<br />", "\n", html_entity_decode( $texte)); ?></textarea>
+                        <!-- </div> -->
                         <div id="div_result">
 
                             <div id="result"></div>
