@@ -63,7 +63,7 @@ $_SESSION["last_page"] = "groupes.php";
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="compile();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -128,4 +128,13 @@ $_SESSION["last_page"] = "groupes.php";
     </body>
     <script src="../js/menus.js"></script>
     <script src="../js/quizs.js"></script>
+    <script src="../js/MATHJAX_CONFIG.js"></script>
+    <script src="../js/tex-mml-chtml.js"></script>
+    <script>
+
+function init(){
+    MathJax.typesetPromise();
+}
+
+    </script>
 </html>
