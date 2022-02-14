@@ -2,13 +2,13 @@
  
  - [x] Quiz non écrire
 
+ - [ ] Mode non auteur
+ 
  - [ ] Fiches
 
  - [ ] Discussion
 
  - [ ] Demonstrations
-
- - [ ] Editeur SVG
 
  - [ ] Quiz écrire
 
@@ -17,5 +17,7 @@
  - [ ] Securité Majeure
 
  - [ ] Améliorer l'aspect graphique/l'ergonomie de certaines pages 
+ 
+ - [ ] Editeur SVG Pour inclure les images dans les éléments de cours / brouillons
 
  - [ ] Sécurité

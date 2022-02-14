@@ -33,7 +33,9 @@ MathJax = {
             part: "\\partial",
             ve: "\\varepsilon",
             bs: "\\Large \\star \\normalsize",
-            fa: "\\forall \\ "
+            fa: "\\forall \\ ",
+            "[": "[\\![",
+            "]": "]\\!]"
         }
     }
 };
