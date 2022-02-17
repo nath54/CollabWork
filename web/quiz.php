@@ -20,7 +20,8 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
     $toutes_questions = $_POST["toutes_questions"];
     $nb_questions = $_POST["nb_questions"];
     $chap_fiches = json_decode($_POST["chapfiches"], true);
-    // clog("POST : " . array_to_str($chap_fiches));
+    // clog("chapfiches : " . array_to_str($chap_fiches));
+    // clog("chapfiches : " . $_POST["chapfiches"]);
     // die();
     foreach($chap_fiches as $elt){
         if($elt["type"] == "chapitre"){
@@ -41,7 +42,9 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
 }
 
 
-if(count($questions) < 3){
+if(count($questions) < 1){
+    // clog("POST : " . array_to_str($_POST));
+    // die();
     $_SESSION["error"] = "Il faut y avoir au moins 3 éléments sur lesquels vous intérroger !";
     header("Location: ../web/quizs.php");
 }
@@ -142,6 +145,7 @@ $_SESSION["last_page"] = "quiz.php";
 
 #div_result{
     overflow: hidden;
+    overflow-y: auto;
     max-width: 85%;
     max-height: 50%;
     margin-left:auto;

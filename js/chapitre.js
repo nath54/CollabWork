@@ -85,3 +85,12 @@ function page_init() {
     sessionStorage.removeItem('page_path');
     sessionStorage.removeItem('scroll_page');
 }
+
+function launch_quiz(quiz_id) {
+    send_form('quiz.php', [
+        ['type', 'request'],
+        ['chapfiches', '[["chapitre",  ' + quiz_id + ']]'],
+        ['toutes_questions', true],
+        ['nb_questions', 20]
+    ]);
+}

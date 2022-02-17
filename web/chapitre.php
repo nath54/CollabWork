@@ -219,7 +219,7 @@ $_SESSION["last_page"] = "chapitre.php";
                 </div>
 
                 <div>
-                    <button class="bt1" style="margin: 1vh;" onclick="send_form('quiz.php', [['type', 'request'], ['chapitres', '[[\'chapitre\',  <?php echo $id; ?>]]']]);">Lancer un quiz sur ce chapitre</button>
+                    <button class="bt1" style="margin: 1vh;" onclick="launch_quiz(<?php echo $id ?>);">Lancer un quiz sur ce chapitre</button>
                 </div>
 
                 <div>
