@@ -89,7 +89,7 @@ function page_init() {
 function launch_quiz(quiz_id) {
     send_form('quiz.php', [
         ['type', 'request'],
-        ['chapfiches', '[["chapitre",  ' + quiz_id + ']]'],
+        ['chapfiches', '[{"type": "chapitre",  "id":' + quiz_id + '}]'],
         ['toutes_questions', true],
         ['nb_questions', 20]
     ]);

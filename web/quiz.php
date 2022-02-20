@@ -21,7 +21,7 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
     $nb_questions = $_POST["nb_questions"];
     $chap_fiches = json_decode($_POST["chapfiches"], true);
     // clog("chapfiches : " . array_to_str($chap_fiches));
-    // clog("chapfiches : " . $_POST["chapfiches"]);
+    // clog("chapfiche _ post: " . $_POST["chapfiches"]);
     // die();
     foreach($chap_fiches as $elt){
         if($elt["type"] == "chapitre"){

@@ -148,6 +148,18 @@ $est_auteur = $data[0]["id_compte"] == $id_compte;
 $req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element INNER JOIN position_elements ON element.id = position_elements.id_element WHERE chapitres_elements.id_chapitre = :id ORDER BY position_elements.position;";
 $elements = requete_prep($db, $req, [":id"=>$id]);
 
+$req = "SELECT edc.id_element
+        FROM elements_desactives_comptes AS edc
+        INNER JOIN chapitres_elements
+        ON edc.id_element=chapitres_elements.id_element
+        WHERE edc.id_compte=:id_compte AND chapitres_elements.id_chapitre = :idc;";
+$data = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id]);
+
+$desactives = [];
+foreach($data as $des){
+    array_push($desactives, $des[0]);
+}
+
 $req = "SELECT * FROM `types elements`";
 $tmp = requete_prep($db, $req);
 $tp_elts = [];
@@ -240,6 +252,7 @@ $_SESSION["last_page"] = "chapitre.php";
                                 $ide = $el["id"];
                                 $titre = $el["titre"];
                                 $type = $tp_elts[$el["_type"]]["nom"];
+                                $est_desactive = in_array($ide, $desactives);
                                 $displaynone = "";
                                 if(!$est_auteur){ $displaynone = 'style="display:none;">'; }
                                 echo "  <div id='$ide' class='bt_item row' >
