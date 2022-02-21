@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `brouillons` (
   `last_modif` text,
   PRIMARY KEY (`id`),
   KEY `brouillons_fk0` (`id_compte`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `brouillons`
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `brouillons_comptes` (
   PRIMARY KEY (`id`),
   KEY `brouillons_comptes_fk0` (`id_compte`),
   KEY `brouillons_comptes_fk1` (`id_brouillon`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `brouillons_comptes`
@@ -82,12 +82,12 @@ CREATE TABLE IF NOT EXISTS `brouillon_exercice` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_exercice` int NOT NULL,
   `id_compte` int NOT NULL,
-  `titre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `titre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_modif` text,
   PRIMARY KEY (`id`),
   KEY `brouillon_exercice_fk0` (`id_exercice`),
   KEY `brouillon_exercice_fk1` (`id_compte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `brouillon_exercice`
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `chapitres` (
   `_description` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_compte` (`id_compte`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `chapitres`
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `chapitres_elements` (
   PRIMARY KEY (`id`),
   KEY `chapitres_elements_fk0` (`id_chapitre`),
   KEY `chapitres_elements_fk1` (`id_element`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `chapitres_elements`
@@ -384,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `chapitres_exercices` (
   PRIMARY KEY (`id`),
   KEY `chapitres_exercices_fk0` (`id_chapitre`),
   KEY `chapitres_exercices_fk1` (`id_exercice`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `chapitres_exercices`
@@ -407,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `comptes` (
   `token` varchar(255) NOT NULL,
   `compile_auto` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `comptes`
@@ -431,12 +431,12 @@ DROP TABLE IF EXISTS `cours`;
 CREATE TABLE IF NOT EXISTS `cours` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_createur` int NOT NULL,
-  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `est_public` tinyint(1) NOT NULL,
-  `_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cours_fk0` (`id_createur`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `cours`
@@ -464,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `cours_chapitres` (
   PRIMARY KEY (`id`),
   KEY `cours_chapitres_fk0` (`id_cour`),
   KEY `cours_chapitres_fk1` (`id_chapitre`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `cours_chapitres`
@@ -514,7 +514,7 @@ CREATE TABLE IF NOT EXISTS `cours_groupes` (
   PRIMARY KEY (`id`),
   KEY `cours_groupes_fk0` (`id_cour`),
   KEY `cours_groupes_fk1` (`id_groupe`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `cours_groupes`
@@ -546,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `demonstrations` (
   PRIMARY KEY (`id`),
   KEY `demonstrations_fk0` (`id_element`),
   KEY `demonstrations_fk1` (`id_compte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `demonstrations`
@@ -574,7 +574,7 @@ CREATE TABLE IF NOT EXISTS `dernier_action` (
   KEY `dernier_action_fk2` (`id_brouillon_exo`),
   KEY `dernier_action_fk3` (`id_fiche`),
   KEY `dernier_action_fk4` (`id_chapitre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `dernier_action`
@@ -598,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `discussions` (
   KEY `discussions_fk0` (`id_groupe`),
   KEY `discussions_fk1` (`id_compte1`),
   KEY `discussions_fk2` (`id_compte2`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `discussions`
@@ -619,7 +619,7 @@ CREATE TABLE IF NOT EXISTS `discussions_messages` (
   PRIMARY KEY (`id`),
   KEY `discussions_messages_fk0` (`id_discussion`),
   KEY `discussions_messages_fk1` (`id_message`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `discussions_messages`
@@ -636,11 +636,11 @@ DROP TABLE IF EXISTS `element`;
 CREATE TABLE IF NOT EXISTS `element` (
   `id` int NOT NULL AUTO_INCREMENT,
   `titre` varchar(255) NOT NULL,
-  `texte` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `texte` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_compte` int NOT NULL,
   `_type` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `element`
@@ -881,7 +881,7 @@ CREATE TABLE IF NOT EXISTS `elements_a_verifier` (
   `limite` int NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`),
   KEY `elements_a_verifier_fk0` (`id_element`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `elements_a_verifier`
@@ -902,7 +902,7 @@ CREATE TABLE IF NOT EXISTS `elements_connus` (
   PRIMARY KEY (`id`),
   KEY `elements_connus_fk0` (`id_compte`),
   KEY `elements_connus_fk1` (`id_element`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `elements_connus`
@@ -923,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `elements_demonstrations` (
   PRIMARY KEY (`id`),
   KEY `elements_demonstrations_fk0` (`id_element`),
   KEY `elements_demonstrations_fk1` (`id_demonstration`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `elements_demonstrations`
@@ -942,7 +942,7 @@ CREATE TABLE IF NOT EXISTS `elements_desactives_comptes` (
   `id_element` int NOT NULL,
   `id_compte` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `elements_desactives_comptes`
@@ -963,7 +963,7 @@ CREATE TABLE IF NOT EXISTS `exercices` (
   `est_public` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `exercices_fk0` (`id_compte`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `exercices`
@@ -991,7 +991,7 @@ CREATE TABLE IF NOT EXISTS `fiches` (
   `description` text NOT NULL,
   `est_public` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `fiches`
@@ -1012,7 +1012,7 @@ CREATE TABLE IF NOT EXISTS `fiches_chapitres` (
   PRIMARY KEY (`id`),
   KEY `fiches_chapitres_fk0` (`id_fiche`),
   KEY `fiches_chapitres_fk1` (`id_chapitre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `fiches_chapitres`
@@ -1033,7 +1033,7 @@ CREATE TABLE IF NOT EXISTS `fiches_elements` (
   PRIMARY KEY (`id`),
   KEY `fiches_elements_fk0` (`id_fiche`),
   KEY `fiches_elements_fk1` (`id_element`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `fiches_elements`
@@ -1054,7 +1054,7 @@ CREATE TABLE IF NOT EXISTS `groupes` (
   `est_public` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `groupes_fk0` (`id_creator`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `groupes`
@@ -1083,7 +1083,7 @@ CREATE TABLE IF NOT EXISTS `groupes_comptes` (
   PRIMARY KEY (`id`),
   KEY `groupes_comptes_fk0` (`id_compte`),
   KEY `groupes_comptes_fk1` (`id_groupe`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `groupes_comptes`
@@ -1113,7 +1113,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `edited` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `messages_fk0` (`id_compte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `messages`
@@ -1136,7 +1136,7 @@ CREATE TABLE IF NOT EXISTS `permissions_comptes_groupes` (
   PRIMARY KEY (`id`),
   KEY `permissions_comptes_groupes_fk0` (`id_groupe`),
   KEY `permissions_comptes_groupes_fk1` (`id_compte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `permissions_comptes_groupes`
@@ -1156,7 +1156,7 @@ CREATE TABLE IF NOT EXISTS `position_chapitres` (
   `id_chapitre` int NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `position_chapitres`
@@ -1205,7 +1205,7 @@ CREATE TABLE IF NOT EXISTS `position_elements` (
   `id_element` int NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `position_elements`
@@ -1428,11 +1428,11 @@ DROP TABLE IF EXISTS `questions_exercices`;
 CREATE TABLE IF NOT EXISTS `questions_exercices` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_exercice` int NOT NULL,
-  `_type` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `_type` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `texte` text,
   PRIMARY KEY (`id`),
   KEY `questions_exercice_fk0` (`id_exercice`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `questions_exercices`
@@ -1453,7 +1453,7 @@ CREATE TABLE IF NOT EXISTS `reponses_questions_exercices` (
   `texte` text,
   `id_brouillon_exercice` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `reponses_questions_exercices`
@@ -1477,7 +1477,7 @@ CREATE TABLE IF NOT EXISTS `solutions_exercices` (
   PRIMARY KEY (`id`),
   KEY `reponse_exercice_fk0` (`id_exercice`),
   KEY `reponse_exercice_fk1` (`id_compte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `solutions_exercices`
@@ -1497,7 +1497,7 @@ CREATE TABLE IF NOT EXISTS `types elements` (
   `couleur` text NOT NULL,
   `forme` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tronquer la table avant d'insérer `types elements`
