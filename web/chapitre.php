@@ -253,9 +253,13 @@ $_SESSION["last_page"] = "chapitre.php";
                                 $titre = $el["titre"];
                                 $type = $tp_elts[$el["_type"]]["nom"];
                                 $est_desactive = in_array($ide, $desactives);
+                                $txt_desactive = "";
+                                if($est_desactive){
+                                    $txt_desactive = "_desactive";
+                                }
                                 $displaynone = "";
                                 if(!$est_auteur){ $displaynone = 'style="display:none;">'; }
-                                echo "  <div id='$ide' class='bt_item row' >
+                                echo "  <div id='$ide' class='bt_item$txt_desactive row' >
                                             <div class='col' style='width:100%; padding:5px; margin:auto; ' onclick='send_form(\"../web/element.php\", [[\"type\", \"request\"], [\"id_element\", $ide]])'>
                                                 <h2>$titre</h2>
                                             </div>
