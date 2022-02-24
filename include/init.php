@@ -121,5 +121,17 @@ function test_token($arr){
     return isset($_SESSION["num_tok"]) && isset($_SESSION["token"]) && $arr["tok".$_SESSION["num_tok"]]==$_SESSION["token"];
 }
 
+function raise_error($bool, $error="", $error_debug=""){
+    if($bool){
+        if(isset($debug) && $debug){
+            $_SESSION["error"] = $error_debug;
+        }
+        else{
+            $_SESSION["error"] = $error;
+        }
+        header("Location: index.php");
+        die();
+    }
+}
 
 ?>

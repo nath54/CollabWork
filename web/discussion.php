@@ -56,10 +56,61 @@ if($id == null){
 }
 
 
+$req = "SELECT * FROM discussion WHERE id=:id;";
+$data = requete_prep($db, $req, [":id"=>$id]);
 
+raise_error($data == [], "", "probleme loading data");
 
-$type = "groupe";
-$nom = "MP2I-LLG";
+$type = $data[0]["_type"];
+$nom = $data[0]["nom"];
+
+$titre = " - Discussion - ";
+$pseudos_comptes = [];
+
+if($_type == 0){
+    $idg = $data[0]["id_groupe"];
+    $req = "SELECT nom FROM groupes WHERE id=:idg";
+    $dg = requete_prep($db, $req, [":idg"=>$idg]);
+    raise_error($dg == null, "", "error loading data groupe");
+    $titre = "Discussion du groupe " . $dg[0]["nom"];
+}
+else{
+    $idc1 = $data[0]["id_compte1"];
+    $idc2 = $data[1]["id_compte2"];
+    if($idc1 == $_SESSION["id_compte"]){
+        $idc = $idc2;
+    }else{
+        $idc = $idc1;
+    }
+    $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
+    $dc = requete_prep($db, $req, [":idc"=>$idc]);
+    raise_error($dc == null, "", "error loading data comptes");
+    $titre = "Discussion avec " . $dc[0]["pseudo"];
+    $pseudos_comptes[$idc] = $dc[0]["pseudo"];
+}
+
+$req = "SELECT id_compte, _message, _date FROM messages INNER JOIN discussions_messages ON messages.id = discussions_messages.id_message WHERE id_discussion = :idd;";
+$data = requete_prep($db, $req, [":idd"=>$id]);
+
+$messages = [];
+
+foreach($data as $d){
+    if(key_exists($d["id_compte"], $pseudos_comptes)){
+        $pseudo = $pseudos_comptes[$d["id_compte"]];
+    }else{
+        $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
+        $dc = requete_prep($db, $req, [":idc"=>$id_compte]);
+        raise_error($dc == null, "", "error loading data comptes");
+        $pseudo = $dc[0]["pseudo"];
+        $pseudos_comptes[$d["id_compte"]] = $pseudo;
+    }
+    array_push($messages,[
+        "id_compte" => $d["id_compte"],
+        "pseudo_compte" => $pseudo,
+        "message" => $d["_message"],
+        "date" => $d["date"]
+    ]);
+}
 
 $messages = [
     [
