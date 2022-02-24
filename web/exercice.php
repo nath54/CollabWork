@@ -12,10 +12,10 @@ $id = null;
 $id_brouillon = null;
 $titre = null;
 
-if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "request"){
+if(isset($_POST["type"]) && isset($_POST["id_exercice"]) && $_POST["type"] == "request" && test_token($_POST)){
     $id = $_POST["id_exercice"];
 }
-if(isset($_POST["id_brouillon"])){
+if(isset($_POST["id_brouillon"]) && test_token($_POST)){
     $id_brouillon = $_POST["id_brouillon"];
 }
 
