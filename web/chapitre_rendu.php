@@ -69,7 +69,7 @@ if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
 }
 
-raise_error($id == null, "Non connecté");
+raise_error($id == null, "Probleme id");
 
 $req = "SELECT titre, _description, id_compte FROM chapitres WHERE id=:id;";
 $data = requete_prep($db, $req, [":id"=>$id]);
