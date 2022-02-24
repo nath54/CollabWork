@@ -22,6 +22,7 @@ MathJax = {
             B: "\\cal{B}",
             bdot: ["\\dot{ \\raise{6pt}{} #1\\ } \\!", 1],
             bddot: ["\\ddot{ \\raise{6pt}{} #1\\ } \\!", 1],
+            btilde: ["\\tilde{ \\raise{10pt}{} #1\\ } \\!", 1],
             mto: "\\longmapsto",
             lra: "\\longrightarrow",
             ra: "\\rightarrow",
