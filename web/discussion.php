@@ -112,28 +112,8 @@ foreach($data as $d){
     ]);
 }
 
-$messages = [
-    [
-        "id_compte"=>5,
-        "pseudo_compte"=>"david",
-        "message"=>"Salut les amis, comment allez vous ?",
-        "date"=>"05/10/2021"
-    ],
-    [
-        "id_compte"=>0,
-        "pseudo_compte"=>"jean",
-        "message"=>"Ca va super et toi ?",
-        "date"=>"05/10/2021"
-    ],
-    [
-        "id_compte"=>5,
-        "pseudo_compte"=>"david",
-        "message"=>"J'ai une question sur le dm de maths. Comment est-ce qu'on simplifie l'expression $\\sum_{k=0}^{+\infty} \\frac{k!}{(1+i)^k}$",
-        "date"=>"05/10/2021"
-    ],
-];
 
-$id_compte = 0; // L'id du compte qui est connecté
+$id_compte = $_SESSION["id_compte"]; // L'id du compte qui est connecté
 
 
 $taille_toks = 32;
@@ -167,7 +147,7 @@ $_SESSION["last_page"] = "discussion.php";
                     <div>
                         <button class="bt1" onclick="window.location.href='groupes.php';">Retour</button>
                     </div>
-                    <h1 style='margin:auto; margin-left: 2vh;'>Discussion du groupe MP2I-LLG</h1>
+                    <h1 style='margin:auto; margin-left: 2vh;'><?php echo $titre; ?></h1>
                 </div>
 
                 <div class="col" style="height:85%; width: 95%;">
@@ -201,7 +181,7 @@ $_SESSION["last_page"] = "discussion.php";
                             <textarea id="input_message"  style="width:100%;" placeholder="Message..."></textarea>
                         </div>
                         <div style="margin-top: 1vh; margin-left:auto;">
-                            <button class="bt1">Envoyer</button>
+                            <button onclick="send_message();" class="bt1">Envoyer</button>
                         </div>
                     </div>
 
@@ -212,6 +192,7 @@ $_SESSION["last_page"] = "discussion.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
 
     </body>
     <script src="../js/menus.js"></script>
