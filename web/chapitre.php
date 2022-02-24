@@ -123,23 +123,12 @@ else if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
 }
 
-
-if($id == null){
-    header("Location: index.php");
-    die();
-}
+raise_error($id==null, "Probleme id");
 
 $req = "SELECT titre, _description, id_compte FROM chapitres WHERE id=:id;";
 $data = requete_prep($db, $req, [":id"=>$id]);
 
-if(count($data) != 1){
-    clog("post : " . array_to_str($_POST));
-    clog("session : " . array_to_str($_SESSION));
-    clog("data : " . array_to_str($data));
-    die();
-    header("Location: index.php");
-    die();
-}
+raise_error(count($data)==0, "Probleme data");
 
 $titre = $data[0]["titre"];
 $description = $data[0]["_description"];

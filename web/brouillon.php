@@ -8,9 +8,7 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
-if(!$est_connecte){
-    header("Location: ../web/index.php");
-}
+raise_error(!$est_connecte, "Non connecté");
 
 $id = null;
 
@@ -32,17 +30,12 @@ else if(isset($_SESSION["request"]) && isset($_SESSION["brouillon_id"]) && $_SES
     unset($_SESSION["brouillon_id"]);
 }
 
-
-if($id==null){
-    header("Location: ../web/index.php");
-}
+raise_error($id == null, "Problem id");
 
 $req = "SELECT titre, texte FROM brouillons WHERE id=:id_b AND id_compte=:id_c";
 $data = requete_prep($db, $req, [":id_b"=>$id, "id_c"=>$_SESSION["id_compte"]]);
 
-if(count($data) != 1){
-    header("Location: ../web/index.php");
-}
+raise_error(count($data) == 0, "Problem data");
 
 $titre = $data[0]["titre"];
 $texte = $data[0]["texte"];
