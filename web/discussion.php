@@ -57,28 +57,24 @@ else if(isset($_POST["type"]) && isset($_POST["id_discussion"]) && isset($_POST[
     action_prep($db, $req, [":idm"=>$db->lastInsertId(), ":idd"=>$id]);
 }
 
-if($id == null){
-    header("Location: index.php");
-    die();
-}
+raise_error($id == null, "id null", "id null");
 
 
-$req = "SELECT * FROM discussion WHERE id=:id;";
+$req = "SELECT * FROM discussions WHERE id=:id;";
 $data = requete_prep($db, $req, [":id"=>$id]);
 
-raise_error($data == [], "", "probleme loading data");
+raise_error($data == [], "problem data", "probleme loading data");
 
 $type = $data[0]["_type"];
-$nom = $data[0]["nom"];
 
 $titre = " - Discussion - ";
 $pseudos_comptes = [];
 
-if($_type == 0){
+if($type == 0){
     $idg = $data[0]["id_groupe"];
     $req = "SELECT nom FROM groupes WHERE id=:idg";
     $dg = requete_prep($db, $req, [":idg"=>$idg]);
-    raise_error($dg == null, "", "error loading data groupe");
+    raise_error($dg == null, "loading data grp", "error loading data groupe");
     $titre = "Discussion du groupe " . $dg[0]["nom"];
 }
 else{
@@ -91,7 +87,7 @@ else{
     }
     $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
     $dc = requete_prep($db, $req, [":idc"=>$idc]);
-    raise_error($dc == null, "", "error loading data comptes");
+    raise_error($dc == null, "error loading data comptes", "error loading data comptes");
     $titre = "Discussion avec " . $dc[0]["pseudo"];
     $pseudos_comptes[$idc] = $dc[0]["pseudo"];
 }
@@ -107,7 +103,7 @@ foreach($data as $d){
     }else{
         $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
         $dc = requete_prep($db, $req, [":idc"=>$id_compte]);
-        raise_error($dc == null, "", "error loading data comptes");
+        raise_error($dc == null, "error loading data comptes", "error loading data comptes");
         $pseudo = $dc[0]["pseudo"];
         $pseudos_comptes[$d["id_compte"]] = $pseudo;
     }

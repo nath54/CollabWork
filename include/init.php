@@ -12,7 +12,9 @@ if($debug){
 }
 
 if(isset($_SESSION["error"])){
-    alert("Error : <br />" . $_SESSION["error"]);
+    if($_SESSION["error"] != ""){
+        alert("Error : \n" . $_SESSION["error"]);
+    }
     unset($_SESSION["error"]);
 }
 
