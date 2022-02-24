@@ -48,7 +48,14 @@ else if(isset($_POST["type"]) && isset($_POST["id_compte2"]) && $_POST["type"]==
         $id = $data[0][0];
     }
 }
-
+else if(isset($_POST["type"]) && isset($_POST["id_discussion"]) && isset($_POST["message"]) && $_POST["type"] == "send_message" && $est_connecte && test_token($_POST)){
+    $id = $_POST["id_discussion"];
+    $mes = $_POST["message"];
+    $req = "INSERT INTO messages (id_compte, _message, _date) VALUES (:idc, :mes, NOW());";
+    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":mes"=>$mes]);
+    $req = "INSERT INTO discussions_messages (id_message, id_discussion) VALUES (:idm, :idd);";
+    action_prep($db, $req, [":idm"=>$db->lastInsertId(), ":idd"=>$id]);
+}
 
 if($id == null){
     header("Location: index.php");
@@ -112,7 +119,7 @@ foreach($data as $d){
     ]);
 }
 
-
+script("window.id_discussion = $id;");
 $id_compte = $_SESSION["id_compte"]; // L'id du compte qui est connecté
 
 
@@ -198,4 +205,28 @@ $_SESSION["last_page"] = "discussion.php";
     <script src="../js/menus.js"></script>
     <script src="../js/MATHJAX_CONFIG.js"></script>
     <script src="../js/tex-mml-chtml.js"></script>
+    <script>
+
+function init(){
+    MathJax.typesetPromise();
+}
+
+function send_message(){
+    var mes = document.getElementById("input_message").value;
+    if(mes != ""){
+        send_form("discussion.php",
+            [
+                ["type", "send_message"],
+                ["id_discussion", window.id_discussion],
+                ["id_compte", window.id_compte],
+                ["message", mes]
+            ]
+        );
+    }
+    else{
+        alert("Vous essayez d'envoyer un message vide !");
+    }
+}
+
+    </script>
 </html>

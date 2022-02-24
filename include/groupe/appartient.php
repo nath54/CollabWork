@@ -13,7 +13,7 @@
 </div>
 
 <div>
-    <button class="bt1" style="margin-top:2vh;">Discussion</button>
+    <button class="bt1" style="margin-top:2vh;" onclick="send_form('discussion.php', [['type', 'request'], ['id_groupe', <?php echo $id; ?>]]);">Discussion</button>
 </div>
 
 <div>
