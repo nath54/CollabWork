@@ -8,6 +8,55 @@ $db = load_db();
 
 include "../include/test_connecte.php";
 
+$id = null;
+
+if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="request" && test_token($_POST)){
+    $idg = $_POST["id_groupe"];
+    // On teste s'il y a déjà une discussion avec ce groupe
+    $req = "SELECT id FROM discussions WHERE _type = 0 AND id_groupe = :idg";
+    $data = requete_prep($db, $req, [":idg"=>$idg]);
+    // S'il n'y en a pas, on en crée une
+    if(count($data)==0){
+        $req = "INSERT INTO discussions (_type, id_groupe) VALUES (0, :idg);";
+        action_prep($db, $req, [":idg"=>$idg]);
+        $id = $db->lastInsertId();
+    }
+    else{
+        $id = $data[0][0];
+    }
+}
+else if(isset($_POST["type"]) && isset($_POST["id_compte2"]) && $_POST["type"]=="request" && $est_connecte && test_token($_POST)){
+    $idc = $_POST["id_compte2"];
+    // On teste s'il y a déjà une discussion avec ce compte
+    if($_SESSION["id_compte"] > $idc){
+        $idc1 = $idc;
+        $idc2 = $_SESSION["id_compte"];
+    }
+    else{
+        $idc1 = $_SESSION["id_compte"];
+        $idc2 = $idc;
+    }
+    $req = "SELECT id FROM discussions WHERE _type = 1 AND id_compte1 = :idc1 AND id_compte2 = :idc2;";
+    $data = requete_prep($db, $req, [":idc1"=>$idc1, ":idc2"=>$idc2]);
+    // S'il n'y en a pas, on en crée une
+    if(count($data)==0){
+        $req = "INSERT INTO discussions (_type, id_compte1, id_compte2) VALUES (1, :idc1, :idc2);";
+        action_prep($db, $req, [":idc1"=>$idc1, ":idc2"=>$idc2]);
+        $id = $db->lastInsertId();
+    }
+    else{
+        $id = $data[0][0];
+    }
+}
+
+
+if($id == null){
+    header("Location: index.php");
+    die();
+}
+
+
+
 
 $type = "groupe";
 $nom = "MP2I-LLG";

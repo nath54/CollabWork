@@ -142,7 +142,7 @@ textarea {
 .bt_item {
     display: flex;
     background-color: rgb(240, 240, 240);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     max-height: 13vh;
     margin: 10px;
@@ -156,9 +156,9 @@ textarea {
 
 .bt_item_desactive {
     display: flex;
-    background-color: rgb(119, 119, 119);
-    border: 1px solid rgba(0, 0, 0, 0.068);
-    border-radius: 1px;
+    background-color: rgb(170, 170, 170);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 0px;
     max-height: 13vh;
     margin: 10px;
     padding: 5px;

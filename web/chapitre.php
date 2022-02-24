@@ -149,7 +149,7 @@ $req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chap
 $elements = requete_prep($db, $req, [":id"=>$id]);
 
 $req = "SELECT edc.id_element
-        FROM elements_desactives_comptes AS edc
+        FROM elements_connus AS edc
         INNER JOIN chapitres_elements
         ON edc.id_element=chapitres_elements.id_element
         WHERE edc.id_compte=:id_compte AND chapitres_elements.id_chapitre = :idc;";
@@ -159,6 +159,7 @@ $desactives = [];
 foreach($data as $des){
     array_push($desactives, $des[0]);
 }
+
 
 $req = "SELECT * FROM `types elements`";
 $tmp = requete_prep($db, $req);
