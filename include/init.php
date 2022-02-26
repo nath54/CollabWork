@@ -30,7 +30,7 @@ if($debug){
 }
 
 if(isset($_SESSION["error"])){
-    alert("Error : \n" . $_SESSION["error"]);
+    alert("Error : \\n" . $_SESSION["error"]);
     unset($_SESSION["error"]);
 }
 
