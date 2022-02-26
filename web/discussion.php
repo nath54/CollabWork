@@ -139,7 +139,7 @@ $_SESSION["last_page"] = "discussion.php";
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body onload="MathJax.typesetPromise();">
+    <body onload="init();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
