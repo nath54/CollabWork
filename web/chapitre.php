@@ -133,6 +133,10 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
     $req = "DELETE FROM elements_connus WHERE id_compte=:idc AND id_element=:ide;";
     action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide], true);
 }
+// Mauvaises requete
+else if(count($_POST) > 0){
+    raise_error(true, "Mauvaise requete");
+}
 else if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
 }
