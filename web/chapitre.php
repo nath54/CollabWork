@@ -277,19 +277,24 @@ $_SESSION["last_page"] = "chapitre.php";
                                             <div style='margin:2vh; margin-left:auto;'>
                                                 <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
                                             </div>";
-                                }
-                                echo "      <div style='margin-left:auto; margin-right: 1em;' class='col'>";
-                                if($est_desactive){
-                                    echo "      <img class='bt_svg' src='../res/known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'active_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />";
+                                }if($est_desactive){
+                                    echo "  <div style='margin:2vh; margin-left:auto;'>    
+                                                <img class='bt_svg' src='../res/known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'active_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
+                                            </div>";
                                 }
                                 else{
-                                    echo "      <img class='bt_svg' src='../res/not_known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'desactive_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />";
+                                    echo "   <div style='margin:2vh; margin-left:auto;'>    
+                                                <img class='bt_svg' src='../res/not_known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'desactive_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
+                                            </div>";
                                 }
+                                
+                                
                                 if($est_auteur){
-                                    echo "      <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_up'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />
-                                                <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_down'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />";
+                                    echo "      <div style='margin-left:auto; margin-right: 1em;' class='col'>";
+                                    echo "          <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_up'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />
+                                                    <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/chapitre.php', [['type', 'position_down'], ['id_element', $ide], ['id_chapitre', $id]]);\"  />";
+                                    echo "      </div>";
                                 }  
-                                echo "      </div>";
                                 echo "</div>";
                                         # echo "<div id='$id' class='bt_item row'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>$type</i></div> <div class='row' $displaynone><img class='bt_svg' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' /></div></div>";
                             }
