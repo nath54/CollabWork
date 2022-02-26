@@ -164,6 +164,7 @@ $_SESSION["last_page"] = "discussion.php";
                         
                         foreach($messages as $msg){
                             $txt = $msg["message"];
+                            $txt = str_replace("<br />", "\n",html_entity_decode($txt));
                             $date = $msg["date"];
                             $s = "style='font-size:0.80em;'";
                             $sd = "style='font-size:0.75em;'";
@@ -210,15 +211,25 @@ function init(){
     MathJax.typesetPromise();
 }
 
+
+function HTMLencode(text) {
+    text = text.replaceAll("\n", "<br />");
+    var encodedStr = text.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+        return '&#' + i.charCodeAt(0) + ';';
+    });
+    return encodedStr;
+}
+
 function send_message(){
     var mes = document.getElementById("input_message").value;
+    var texte = HTMLencode(mes);
     if(mes != ""){
         send_form("discussion.php",
             [
                 ["type", "send_message"],
                 ["id_discussion", window.id_discussion],
                 ["id_compte", window.id_compte],
-                ["message", mes]
+                ["message", texte]
             ]
         );
     }
