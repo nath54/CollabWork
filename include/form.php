@@ -40,8 +40,9 @@ function send_form(action, data){
         f.appendChild(i);
     }
 
+    console.log(data);
 
-    f.submit();
+    //f.submit();
 }
 
 </script>
