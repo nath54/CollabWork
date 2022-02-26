@@ -133,7 +133,7 @@ raise_error(count($data)==0, "Probleme data");
 $titre = $data[0]["titre"];
 $description = $data[0]["_description"];
 $est_auteur = $data[0]["id_compte"] == $id_compte;
-if($_SESSION["mode_non_auteur"]){
+if(isset($_SESSION["mode_non_auteur"])){
     $est_auteur = false;
 }
 
