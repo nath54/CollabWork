@@ -9,6 +9,7 @@ $db = load_db();
 include "../include/test_connecte.php";
 
 $cours = [];
+$cours_vosgroupes = [];
 
 if($est_connecte){
     $req = "SELECT id, titre FROM cours WHERE id_createur=:id_c;";
@@ -25,9 +26,25 @@ if($est_connecte){
         die();
     }
 
+    // Cours vos groupes
+
+    // On récupère les groupes dont l'utilisateur est membre
+    $req = "SELECT id_groupe FROM groupes_comptes WHERE id_compte=:id_c;";
+    $groupes = requete_prep($db, $req, [":id_c"=>$_SESSION["id_compte"]]);
+
+    // On récupère les cours de chaque groupe
+    $cours_vosgroupes = [];
+    foreach($groupes as $groupe){
+        // ON récupère les cours partagés avec ce groupe
+        $id_g = $groupe["id_groupe"];
+        $req = "SELECT cours.id AS id, titre FROM cours INNER JOIN cours_groupes ON cours.id=cours_groupes.id_cour WHERE id_groupe=:id_g;";
+        $cours_groupe = requete_prep($db, $req, [":id_g"=>$id_g]);
+        $cours_vosgroupes = array_merge($cours_vosgroupes, $cours_groupe);
+    }
+
+
 }
 
-$cours_vosgroupes = [];
 $cours_publics = [];
 
 $req = "SELECT id, titre FROM cours WHERE est_public=1;";

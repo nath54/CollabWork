@@ -41,15 +41,17 @@ $_SESSION["last_page"] = "settings.php";
 
         <div id="main_body" style="position: absolute; top:8%; bottom: 0; left: 0; right: 0; overflow:auto;">
 
-            <div>
-                <h1>Paramètres : </h1>
-            </div>
+            <div style="margin: 4vh;">
+                <div>
+                    <h1>Paramètres : </h1>
+                </div>
 
-            <!-- Mode non auteur -->
-            <div>
-                <button id="mode_non_auteur" class="btn btn-primary" onclick="send_form('settings.php', [['type', 'toggle_mode_non_auteur']]);"><?php if(isset($_SESSION["mode_non_auteur"])){ echo "Désactiver"; } else { echo "Activer"; } ?> le mode non auteur (session)</button>
-            </div>
+                <!-- Mode non auteur -->
+                <div>
+                    <button id="mode_non_auteur" class="bt1" onclick="send_form('settings.php', [['type', 'toggle_mode_non_auteur']]);"><?php if(isset($_SESSION["mode_non_auteur"])){ echo "Désactiver"; } else { echo "Activer"; } ?> le mode non auteur (session)</button>
+                </div>
 
+            </div>
         </div>
 
         <?php include "../include/accountmenu.php" ?>
