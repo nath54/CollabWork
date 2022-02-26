@@ -9,6 +9,11 @@ $db = load_db();
 include "../include/test_connecte.php";
 
 
+$taille_toks = 32;
+$nb_toks = random_int(10, 30);
+$_SESSION["token"] = random_str($taille_toks);
+$_SESSION["num_tok"] = random_int(0, $nb_toks); // Pour la sécurité, on va générer pleins de faux tokens, que l'on va tous passer à la page suivante
+
 $_SESSION["last_page"] = "main.php";
 ?>
 
@@ -32,6 +37,7 @@ $_SESSION["last_page"] = "main.php";
         </div>
 
         <?php include "../include/accountmenu.php" ?>
+        <?php include "../include/form.php" ?>
 
     </body>
     <script src="../js/menus.js"></script>
