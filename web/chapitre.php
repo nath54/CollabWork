@@ -119,8 +119,9 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"] 
         array_push($_SESSION["quizs_chapitres"], $id);
     }
 }
-//active l'element
+//desactive l'element
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "desactive_element" && test_token($_POST)){
+    die();
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "INSERT INTO elements_connus (id_compte, id_element) VALUES (:idc, :ide);";
@@ -128,10 +129,11 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
 }
 //desactive l'element
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "active_element" && test_token($_POST)){
+    die();
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "DELETE FROM elements_connus WHERE id_compte=:idc AND id_element=:ide;";
-    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide]);
+    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide], true);
 }
 else if(isset($_SESSION["id_chapitre"])){
     $id = $_SESSION["id_chapitre"];
