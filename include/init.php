@@ -1,5 +1,23 @@
 <?php
 
+// ------------------------------------- FONCTIONS ------------------------------------- 
+
+
+/**
+ * Crée une boîte de dialogue contenant `$texte`
+ *
+ * @param string $texte
+ *      Texte devant être écrit dans la boîte de dialogue
+ *
+ * @return void
+ *
+ * @author Nathan
+**/
+function alert($texte){
+    $texte = htmlspecialchars($texte);
+    script("alert(\"$texte\");");
+}
+
 //  -------------------------------------  INIT  ------------------------------------- 
 
 $debug = true;
@@ -19,20 +37,6 @@ if(isset($_SESSION["error"])){
 // ------------------------------------- FONCTIONS ------------------------------------- 
 
 
-/**
- * Crée une boîte de dialogue contenant `$texte`
- *
- * @param string $texte
- *      Texte devant être écrit dans la boîte de dialogue
- *
- * @return void
- *
- * @author Nathan
-**/
-function alert($texte){
-    $texte = htmlspecialchars($texte);
-    script("alert(\"$texte\");");
-}
 
 /**
  * Écrit `$texte` dans la console du navigateur

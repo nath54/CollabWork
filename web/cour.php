@@ -241,12 +241,14 @@ script("window.id_cour = $id;");
                                 echo "  <div id='$id' class='bt_item row'>
                                             <div class='col' style='width:100%; padding:5px; margin:auto;' onclick='send_form(\"chapitre.php\", [[\"type\", \"request\"], [\"id_chapitre\", $id_chap]]);' >
                                                 <h2>$titre</h2>
-                                            </div>
-                                            <div style='margin-left:auto; margin-right: 1em;' class='col'>
+                                            </div>";
+                                if($est_auteur){
+                                echo"       <div style='margin-left:auto; margin-right: 1em;' class='col'>
                                                 <img class='bt_svg_wm' style='margin-bottom:-3px; 0px; margin-top:auto;' src='../res/up_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/cour.php', [['type', 'position_up'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
                                                 <img class='bt_svg_wm' style='margin-top:-3px; margin-bottom:auto' src='../res/down_arrow.svg' onclick=\"save_scroll_position(); send_form('../web/cour.php', [['type', 'position_down'], ['id_chapitre', $id_chap], ['id_cour', $id]]);\"  />
-                                            </div>
-                                        </div>";
+                                            </div>";
+                                }
+                                echo"   </div>";
                             }
                         }
 
