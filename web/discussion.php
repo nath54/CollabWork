@@ -103,7 +103,7 @@ foreach($data as $d){
         $pseudo = $pseudos_comptes[$d["id_compte"]];
     }else{
         $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
-        $dc = requete_prep($db, $req, [":idc"=>$id_compte]);
+        $dc = requete_prep($db, $req, [":idc"=>$d["id_compte"]]);
         raise_error($dc == null, "error loading data comptes");
         $pseudo = $dc[0]["pseudo"];
         $pseudos_comptes[$d["id_compte"]] = $pseudo;
@@ -112,7 +112,7 @@ foreach($data as $d){
         "id_compte" => $d["id_compte"],
         "pseudo_compte" => $pseudo,
         "message" => $d["_message"],
-        "date" => $d["date"]
+        "date" => $d["_date"]
     ]);
 }
 

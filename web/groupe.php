@@ -33,6 +33,27 @@ else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && isset($_POST["est
     $req = "UPDATE groupes SET est_public=:ep WHERE id=:id_c AND id_creator=:id_compte;";
     action_prep($db, $req, [":id_c"=>$id, ":id_compte"=>$_SESSION["id_compte"], ":ep"=>$est_public]);
 }
+else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="rejoindre_groupe" && test_token($_POST)){
+    $id = $_POST["id_groupe"];
+    $req = "INSERT INTO groupes_comptes (id_groupe, id_compte) VALUES (:id_g, :id_c);";
+    action_prep($db, $req, [":id_g"=>$id, ":id_c"=>$_SESSION["id_compte"]]);
+}
+else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="quitter_groupe" && test_token($_POST)){
+    $id = $_POST["id_groupe"];
+    $req = "DELETE FROM groupes_comptes WHERE id_groupe=:id_g AND id_compte=:id_c;";
+    action_prep($db, $req, [":id_g"=>$id, ":id_c"=>$_SESSION["id_compte"]]);
+}
+else if(isset($_POST["type"]) && isset($_POST["id_groupe"]) && $_POST["type"]=="supprimer_groupe" && test_token($_POST)){
+    $id = $_POST["id_groupe"];
+    $req = "DELETE FROM groupes_comptes WHERE id_groupe=:id_g;";
+    action_prep($db, $req, [":id_g"=>$id]);
+    $req = "DELETE FROM cours_groupes WHERE id_groupe=:id_g;";
+    action_prep($db, $req, [":id_g"=>$id]);
+    $req = "DELETE FROM permissions_comptes_groupes WHERE id_groupe=:id_g;";
+    action_prep($db, $req, [":id_g"=>$id]);
+    $req = "DELETE FROM groupes WHERE id=:id_g AND id_creator=:id_c;";
+    action_prep($db, $req, [":id_g"=>$id, ":id_c"=>$_SESSION["id_compte"]]);
+}
 else if(isset($_POST["type"])){ // ON protège des mauvaises requetes
     header("Location: index.php");
     die();
