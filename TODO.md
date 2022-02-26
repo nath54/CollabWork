@@ -20,4 +20,6 @@
  
  - [ ] Editeur SVG Pour inclure les images dans les éléments de cours / brouillons
 
+ - [ ] Page d'aide pour aider les gens à utiliser le site
+
  - [ ] Sécurité
