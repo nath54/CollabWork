@@ -158,7 +158,7 @@ $_SESSION["last_page"] = "discussion.php";
                 <div class="col" style="height:85%; width: 95%;">
 
                     <!-- CONTAINER DES MESSAGES -->
-                    <div style="overflow-y: auto; height:80%; width:100%; border:1px solid rgb(200,200,200); border-radius: 1vh; margin-top:2vh; margin-bottom:2vh; padding:1vh;">
+                    <div id="mes_div" style="overflow-y: auto; height:80%; width:100%; border:1px solid rgb(200,200,200); border-radius: 1vh; margin-top:2vh; margin-bottom:2vh; padding:1vh;">
 
                         <?php
                         
@@ -209,6 +209,8 @@ $_SESSION["last_page"] = "discussion.php";
 
 function init(){
     MathJax.typesetPromise();
+    var objDiv = document.getElementById("mes_div");
+    objDiv.scrollTop = objDiv.scrollHeight;
 }
 
 
@@ -223,7 +225,7 @@ function HTMLencode(text) {
 function send_message(){
     var mes = document.getElementById("input_message").value;
     var texte = HTMLencode(mes);
-    if(mes != ""){
+    if(texte != ""){
         send_form("discussion.php",
             [
                 ["type", "send_message"],
