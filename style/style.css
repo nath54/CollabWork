@@ -165,8 +165,8 @@ textarea {
 }
 
 .bt_svg {
-    width: 3vh;
-    height: 3vh;
+    width: 5vh;
+    height: 5vh;
     padding: 5px;
     margin-left: 0px;
     margin-top: auto;
@@ -183,8 +183,8 @@ textarea {
 }
 
 .bt_svg_wm {
-    width: 3vh;
-    height: 3vh;
+    width: 5vh;
+    height: 5vh;
     padding: 5px;
     border-radius: 5px;
     transition: all 0.2s;
