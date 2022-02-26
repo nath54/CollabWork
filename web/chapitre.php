@@ -120,14 +120,14 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"] 
     }
 }
 //active l'element
-else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "active_element" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "desactive_element" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "INSERT INTO elements_connus (id_compte, id_element) VALUES (:idc, :ide);";
-    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide]);
+    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide], true);
 }
 //desactive l'element
-else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "desactive_element" && test_token($_POST)){
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "active_element" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "DELETE FROM elements_connus WHERE id_compte=:idc AND id_element=:ide;";
@@ -270,14 +270,7 @@ $_SESSION["last_page"] = "chapitre.php";
                                             <div class='col' style='width:100%; padding:5px; margin:auto; ' onclick='send_form(\"../web/element.php\", [[\"type\", \"request\"], [\"id_element\", $ide]])'>
                                                 <h2>$titre</h2>
                                             </div>";
-                                if($est_auteur){
-                                    echo "<div style='margin:2vh; margin-left:auto;'>
-                                                <img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'request'], ['id_element', $ide]]);\"  />
-                                            </div>
-                                            <div style='margin:2vh; margin-left:auto;'>
-                                                <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
-                                            </div>";
-                                }if($est_desactive){
+                                if($est_desactive){
                                     echo "  <div style='margin:2vh; margin-left:auto;'>    
                                                 <img class='bt_svg' src='../res/known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'active_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
                                             </div>";
@@ -285,6 +278,14 @@ $_SESSION["last_page"] = "chapitre.php";
                                 else{
                                     echo "   <div style='margin:2vh; margin-left:auto;'>    
                                                 <img class='bt_svg' src='../res/not_known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'desactive_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
+                                            </div>";
+                                }
+                                if($est_auteur){
+                                    echo "<div style='margin:2vh; margin-left:auto;'>
+                                                <img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'request'], ['id_element', $ide]]);\"  />
+                                            </div>
+                                            <div style='margin:2vh; margin-left:auto;'>
+                                                <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
                                             </div>";
                                 }
                                 

@@ -19,6 +19,7 @@ unset($_SESSION["est_connecte"]    );
 unset($_SESSION["pseudo"]          );
 unset($_SESSION["token_connection"]);
 unset($_SESSION["id_compte"]       );
+unset($_SESSION["mode_non_auteur"] );
 
 header("Location: ../web/index.php");
 

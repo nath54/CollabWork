@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="46.494743mm"
+   height="58.622814mm"
+   viewBox="0 0 46.494743 58.622814"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
@@ -24,8 +24,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="2.8578563"
-     inkscape:cx="319.9951"
-     inkscape:cy="470.10761"
+     inkscape:cx="57.910539"
+     inkscape:cy="108.29796"
      inkscape:window-width="1920"
      inkscape:window-height="991"
      inkscape:window-x="-9"
@@ -37,10 +37,11 @@
   <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-69.379988,-95.765586)">
     <path
        style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 96.37687,97.765586 -24.996883,0.09258 0.277743,54.530234 42.0318,-0.0926 0.0926,-37.5879 -17.590402,-0.18517 0.185142,-16.757144 2.684869,0.09256 14.720391,14.350065 0.0926,2.59227"
+       d="m 96.37687,97.765586 -24.996883,0.09258 0.277743,54.530234 42.0318,-0.0926 0.0926,-37.5879 -17.590402,-0.18517 0.185142,-16.757144 2.684869,0.09256 14.720391,14.350064 0.0926,2.59227"
        id="path2797"
        sodipodi:nodetypes="cccccccccc" />
     <text
