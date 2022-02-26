@@ -80,7 +80,7 @@ $est_public = $data[0]["est_public"];
 $id_createur = $data[0]["id_creator"];
 $appartient_au_groupe = false;
 $est_createur = false;
-if($est_connecte){
+if($est_connecte && !isset($_SESSION["mode_non_auteur"])){
     $est_createur = $id_createur == $_SESSION["id_compte"];
     $req = "SELECT id FROM groupes_comptes WHERE id_compte = :id_compte AND id_groupe = :id_groupe;";
     $appartient_au_groupe = count(requete_prep($db, $req, [":id_groupe"=>$id, ":id_compte"=>$_SESSION["id_compte"]]));

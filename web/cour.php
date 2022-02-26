@@ -149,6 +149,9 @@ if(count($data) != 1){
 }
 
 $est_auteur = $data[0]["id_createur"] == $id_compte;
+if($_SESSION["mode_non_auteur"]){
+    $est_auteur = false;
+}
 $titre = $data[0]["titre"];
 $est_public = $data[0]["est_public"];
 $description = $data[0]["_description"];

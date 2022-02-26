@@ -133,6 +133,9 @@ raise_error(count($data)==0, "Probleme data");
 $titre = $data[0]["titre"];
 $description = $data[0]["_description"];
 $est_auteur = $data[0]["id_compte"] == $id_compte;
+if($_SESSION["mode_non_auteur"]){
+    $est_auteur = false;
+}
 
 $req = "SELECT * FROM element INNER JOIN chapitres_elements ON element.id = chapitres_elements.id_element INNER JOIN position_elements ON element.id = position_elements.id_element WHERE chapitres_elements.id_chapitre = :id ORDER BY position_elements.position;";
 $elements = requete_prep($db, $req, [":id"=>$id]);

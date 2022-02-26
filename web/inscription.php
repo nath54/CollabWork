@@ -111,7 +111,6 @@ $_SESSION["last_page"] = "inscription.php";
 <!DOCTYPE html>
 <html lang="fr">
 
-
 <style>
     html,
     body {

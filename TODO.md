@@ -6,7 +6,7 @@
  
  - [ ] Fiches
 
- - [ ] Discussion
+ - [x] Discussion
 
  - [ ] Demonstrations
 
