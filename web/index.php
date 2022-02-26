@@ -1,6 +1,5 @@
 <?php
 
-
 include_once "../include/init.php";
 include_once "../include/bdd.php";
 

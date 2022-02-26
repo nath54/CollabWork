@@ -57,13 +57,13 @@ else if(isset($_POST["type"]) && isset($_POST["id_discussion"]) && isset($_POST[
     action_prep($db, $req, [":idm"=>$db->lastInsertId(), ":idd"=>$id]);
 }
 
-raise_error($id == null, "id null", "id null");
+raise_error($id == null, "id null");
 
 
 $req = "SELECT * FROM discussions WHERE id=:id;";
 $data = requete_prep($db, $req, [":id"=>$id]);
 
-raise_error($data == [], "problem data", "probleme loading data");
+raise_error($data == [], "probleme loading data");
 
 $type = $data[0]["_type"];
 
@@ -74,7 +74,7 @@ if($type == 0){
     $idg = $data[0]["id_groupe"];
     $req = "SELECT nom FROM groupes WHERE id=:idg";
     $dg = requete_prep($db, $req, [":idg"=>$idg]);
-    raise_error($dg == null, "loading data grp", "error loading data groupe");
+    raise_error($dg == null, "loading data grp");
     $titre = "Discussion du groupe " . $dg[0]["nom"];
 }
 else{
@@ -87,7 +87,7 @@ else{
     }
     $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
     $dc = requete_prep($db, $req, [":idc"=>$idc]);
-    raise_error($dc == null, "error loading data comptes", "error loading data comptes");
+    raise_error($dc == null, "error loading data comptes");
     $titre = "Discussion avec " . $dc[0]["pseudo"];
     $pseudos_comptes[$idc] = $dc[0]["pseudo"];
 }
@@ -97,13 +97,14 @@ $data = requete_prep($db, $req, [":idd"=>$id]);
 
 $messages = [];
 
+
 foreach($data as $d){
     if(key_exists($d["id_compte"], $pseudos_comptes)){
         $pseudo = $pseudos_comptes[$d["id_compte"]];
     }else{
         $req = "SELECT pseudo FROM comptes WHERE id=:idc;";
         $dc = requete_prep($db, $req, [":idc"=>$id_compte]);
-        raise_error($dc == null, "error loading data comptes", "error loading data comptes");
+        raise_error($dc == null, "error loading data comptes");
         $pseudo = $dc[0]["pseudo"];
         $pseudos_comptes[$d["id_compte"]] = $pseudo;
     }
@@ -114,6 +115,7 @@ foreach($data as $d){
         "date" => $d["date"]
     ]);
 }
+
 
 script("window.id_discussion = $id;");
 $id_compte = $_SESSION["id_compte"]; // L'id du compte qui est connecté
@@ -173,6 +175,7 @@ $_SESSION["last_page"] = "discussion.php";
                                 echo "<div><div class='col msg1'> <strong $s>$pseudo_compte</strong> <span $s>$txt</span> <i $sd>$date</i> </div></div>";
                             }
                         }
+                        
 
                         ?>
 
