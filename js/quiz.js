@@ -165,3 +165,8 @@ function ecran_fin() {
     document.getElementById("boutons_reussis").style.display = "none";
     div_result.style.display = "none";
 }
+
+function desactiver_connus() {
+    var questions_reussies = JSON.stringify(window.questions_reussies);
+    request_iframe();
+}
