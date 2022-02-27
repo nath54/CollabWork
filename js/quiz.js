@@ -168,5 +168,7 @@ function ecran_fin() {
 
 function desactiver_connus() {
     var questions_reussies = JSON.stringify(window.questions_reussies);
-    request_iframe();
+    request_iframe("../requests/connaitre_elements.php", [
+        ["elts", questions_reussies]
+    ]);
 }

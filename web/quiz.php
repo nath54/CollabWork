@@ -25,14 +25,15 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
     // die();
     foreach($chap_fiches as $elt){
         if($elt["type"] == "chapitre"){
-            $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE chapitres_elements.id_chapitre = :elt_id;";
+            $req = "SELECT element.id AS id, titre, texte, _type FROM element INNER JOIN chapitres_elements ON chapitres_elements.id_element = element.id WHERE chapitres_elements.id_chapitre = :elt_id;";
         } else if($elt["type"] == "fiche"){
-            $req = "SELECT element.id, titre, texte, _type FROM element INNER JOIN fiches_elements ON fiches_elements.id_element = element.id WHERE fiches_elements.id_fiche = :elt_id;";
+            $req = "SELECT element.id AS id, titre, texte, _type FROM element INNER JOIN fiches_elements ON fiches_elements.id_element = element.id WHERE fiches_elements.id_fiche = :elt_id;";
         }
         $data = requete_prep($db, $req, [":elt_id"=>$elt["id"]]);
         foreach($data as $q){
             array_push($questions, 
             [
+                "id" => $q["id"],
                 "titre"=>$q["titre"],
                 "texte"=>$q["texte"],
                 "_type"=>$q["_type"]
@@ -55,7 +56,11 @@ $types_elements = requete_prep($db, $req);
 
 
 script("window.questions = " . json_encode($questions));
-script("window.all_questions = $toutes_questions;");
+if($toutes_questions){
+    script("window.all_questions = true;");
+} else {
+    script("window.all_questions = false;");
+}
 script("window.nb_questions = $nb_questions;");
 
 $taille_toks = 32;
