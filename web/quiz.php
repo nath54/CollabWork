@@ -45,7 +45,7 @@ if(isset($_POST["type"]) && isset($_POST["chapfiches"]) && isset($_POST["toutes_
 if(count($questions) < 1){
     // clog("POST : " . array_to_str($_POST));
     // die();
-    $_SESSION["error"] = "Il faut y avoir au moins 3 éléments sur lesquels vous intérroger !";
+    $_SESSION["error"] = "Il faut y avoir au moins 3 éléments sur lesquels vous interroger !";
     header("Location: ../web/quizs.php");
 }
 
@@ -122,6 +122,8 @@ $_SESSION["last_page"] = "quiz.php";
                             <button class="bt3" style="margin:auto; margin-right: 2vh;" onclick="retour();">Sortir</button>
 
                             <button class="bt5" style="margin:auto; margin-left: 2vh;" onclick="recommencer();">Recommencer</button>
+
+                            <button class="bt5" style="margin:auto; margin-left: 2vh;" onclick="desactiver_connus();">Désactiver tous les éléments connus</button>
 
                             <button class="bt3" style="margin:auto; margin-right: 2vh;" onclick="recommencer_rates();">Recommencer avec uniquement les ratés</button>
 

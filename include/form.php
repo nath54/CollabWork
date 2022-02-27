@@ -13,6 +13,7 @@
 
 </form>
 
+<iframe id="form_iframe" name="form_iframe" style="display:none;"></iframe>
 
 <script>
 
@@ -48,6 +49,21 @@ function send_form(action, data, confirm_msg=""){
     //console.log(data);
 
     f.submit();
+}
+
+function clean_iframe(){
+    var f = document.getElementById("form_iframe");
+    f.innerHTML = "";
+    f.setAttribute("src", "about:blank");
+}
+
+function request_iframe(action, data, confirm_msg=""){
+    clean_iframe();
+    var f = document.getElementById("form_iframe");
+    f.setAttribute("src", action);
+    f.onload = function(){
+        send_form(action, data, confirm_msg);
+    }
 }
 
 </script>
