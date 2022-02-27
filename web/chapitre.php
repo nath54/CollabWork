@@ -314,7 +314,7 @@ $_SESSION["last_page"] = "chapitre.php";
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh; margin-top:0;" onclick="send_form('chapitre.php', [['type', 'supprime_chapitre'], ['id_chapitre', window.id_chapitre]]);">Supprimer le chapitre</button>
+                    <button class="bt3" style="margin:2vh; margin-top:0;" onclick="send_form('chapitre.php', [['type', 'supprime_chapitre'], ['id_chapitre', window.id_chapitre]], 'Etes vous sur de bien vouloir supprimer ce chapitre ?');">Supprimer le chapitre</button>
                 </div>
 
             </div>

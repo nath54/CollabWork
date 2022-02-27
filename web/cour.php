@@ -301,7 +301,7 @@ script("window.id_cour = $id;");
                 </div>
 
                 <div <?php if(!$est_auteur){ echo 'style="display:none;">'; } ?>>
-                    <button class="bt3" style="margin:2vh;" onclick="send_form('cour.php', [['type', 'delete_cour'], ['id_cour', window.id_cour]]);">Supprimer le cour</button>
+                    <button class="bt3" style="margin:2vh;" onclick="send_form('cour.php', [['type', 'delete_cour'], ['id_cour', window.id_cour]], 'Etes vous bien sur de vouloir supprimer ce cour ?');">Supprimer le cour</button>
                 </div>
 
             </div>

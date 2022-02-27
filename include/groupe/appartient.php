@@ -36,10 +36,10 @@
 <div>
     <?php
         if($est_createur){
-            echo "<button class=\"bt3\" style=\"margin-top:5vh;\" onclick=\"send_form('groupes.php', [['type', 'supprimer_groupe'], ['id_groupe', $id]]);\">Supprimer le groupe</button>";
+            echo "<button class=\"bt3\" style=\"margin-top:5vh;\" onclick=\"send_form('groupes.php', [['type', 'supprimer_groupe'], ['id_groupe', $id]], 'Etes vous bien sur de vouloir supprimer ce groupe ?');\">Supprimer le groupe</button>";
         }
         else{
-            echo "<button class=\"bt3\" style=\"margin-top:5vh;\" onclick=\"send_form('groupe.php', [['type', 'quitter_groupe'], ['id_groupe', $id]]);\">Quitter le groupe</button>";
+            echo "<button class=\"bt3\" style=\"margin-top:5vh;\" onclick=\"send_form('groupe.php', [['type', 'quitter_groupe'], ['id_groupe', $id]], 'Etes vous bien sur de vouloir quitter ce groupe ?');\">Quitter le groupe</button>";
         }
     ?>
 </div>

@@ -17,7 +17,7 @@
                     $date = $br["last_modif"];
                     // $text_date = "hier";
                     $text_date = $date;
-                    echo "<div id='$id' class='bt_item row' style='cursor:default;'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>Dernière modification : $text_date</i></div> <div class='row'><img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/brouillon.php', [['type', 'request'], ['brouillon_id', $id]]);\"  /> <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/brouillons.php', [['type', 'delete'], ['brouillon_id', $id]]);\"/></div></div>";
+                    echo "<div id='$id' class='bt_item row' style='cursor:default;'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>Dernière modification : $text_date</i></div> <div class='row'><img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/brouillon.php', [['type', 'request'], ['brouillon_id', $id]]);\"  /> <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/brouillons.php', [['type', 'delete'], ['brouillon_id', $id]], 'Etes vous bien sur de vouloir supprimer ce brouillon ?');\"/></div></div>";
                 }
             }
 
@@ -44,7 +44,7 @@
                     $ide = $ex["id_exercice"];
                     $titre = $ex["titre"];
                     $date = $ex["last_modif"];
-                    echo "<div id='$id' class='bt_item row' style='cursor:default;'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>Dernière modification : $date</i></div> <div class='row'><img class='bt_svg' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_brouillon\", $id], [\"id_exercice\", $ide]]);' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' onclick='send_form(\"exercice\", [[\"type\", \"delete_brouillon_exercice\"], [\"id_brouillon\", $id], [\"id_exercice\", $ide]]);'/></div></div>";
+                    echo "<div id='$id' class='bt_item row' style='cursor:default;'><div class='col' style='width:100%; padding:5px; margin:auto; '><h2>$titre</h2><i style='font-size:0.9em;'>Dernière modification : $date</i></div> <div class='row'><img class='bt_svg' onclick='send_form(\"exercice.php\", [[\"type\", \"request\"], [\"id_brouillon\", $id], [\"id_exercice\", $ide]]);' src='../res/pencil.svg' /> <img class='bt_svg' src='../res/trash.svg' onclick='send_form(\"exercice\", [[\"type\", \"delete_brouillon_exercice\"], [\"id_brouillon\", $id], [\"id_exercice\", $ide]], 'Etes vous bien sur de vouloir supprimer cet exercice ?');'/></div></div>";
                 }
             }
 
