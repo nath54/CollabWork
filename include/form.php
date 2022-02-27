@@ -16,7 +16,12 @@
 
 <script>
 
-function send_form(action, data){
+function send_form(action, data, confirm_msg=""){
+    if(confirm_msg!=""){
+        if(!confirm(confirm_msg)){
+            return;
+        }
+    }
     var f = document.getElementById("forme");
     f.setAttribute("action", action);
     var est_type = false;
@@ -40,9 +45,9 @@ function send_form(action, data){
         f.appendChild(i);
     }
 
-    console.log(data);
+    //console.log(data);
 
-    //f.submit();
+    f.submit();
 }
 
 </script>

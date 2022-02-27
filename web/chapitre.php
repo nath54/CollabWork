@@ -94,6 +94,20 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"]=
     action_prep($db, $req, [":id_c"=>$id_compte, ":id"=>$id]);
     header("Location: ../web/cour.php");
 }
+//desactive l'element
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "desactive_element" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $ide = $_POST["id_element"];
+    $req = "INSERT INTO elements_connus (id_compte, id_element) VALUES (:idc, :ide);";
+    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide]);
+}
+//desactive l'element
+else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "active_element" && test_token($_POST)){
+    $id = $_POST["id_chapitre"];
+    $ide = $_POST["id_element"];
+    $req = "DELETE FROM elements_connus WHERE id_compte=:idc AND id_element=:ide;";
+    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide]);
+}
 // [['type', 'delete_element'], ['id_element', $ide, 'id_chapitre', $id]]
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] = "delete_element" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
@@ -118,20 +132,6 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && $_POST["type"] 
     else{
         array_push($_SESSION["quizs_chapitres"], $id);
     }
-}
-//desactive l'element
-else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "desactive_element" && test_token($_POST)){
-    $id = $_POST["id_chapitre"];
-    $ide = $_POST["id_element"];
-    $req = "INSERT INTO elements_connus (id_compte, id_element) VALUES (:idc, :ide);";
-    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide], true);
-}
-//desactive l'element
-else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "active_element" && test_token($_POST)){
-    $id = $_POST["id_chapitre"];
-    $ide = $_POST["id_element"];
-    $req = "DELETE FROM elements_connus WHERE id_compte=:idc AND id_element=:ide;";
-    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide], true);
 }
 // Mauvaises requete
 else if(count($_POST) > 0){
@@ -276,12 +276,12 @@ $_SESSION["last_page"] = "chapitre.php";
                                             </div>";
                                 if($est_desactive){
                                     echo "  <div style='margin:2vh; margin-left:auto;'>    
-                                                <img class='bt_svg' src='../res/known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'active_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
+                                                <img class='bt_svg' src='../res/known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'active_element'], ['id_element', $ide],['id_chapitre', $id]], 'Etes vous sur de ne pas connaitre cet élément ?');\"  />
                                             </div>";
                                 }
                                 else{
                                     echo "   <div style='margin:2vh; margin-left:auto;'>    
-                                                <img class='bt_svg' src='../res/not_known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'desactive_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
+                                                <img class='bt_svg' src='../res/not_known.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'desactive_element'], ['id_element', $ide],['id_chapitre', $id]], 'Etes vous sur de bien connaitre cet élément ?');\"  />
                                             </div>";
                                 }
                                 if($est_auteur){
@@ -289,7 +289,7 @@ $_SESSION["last_page"] = "chapitre.php";
                                                 <img class='bt_svg' src='../res/pencil.svg' onclick=\"send_form('../web/edit_element.php', [['type', 'request'], ['id_element', $ide]]);\"  />
                                             </div>
                                             <div style='margin:2vh; margin-left:auto;'>
-                                                <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide],['id_chapitre', $id]]);\"  />
+                                                <img class='bt_svg' src='../res/trash.svg' onclick=\"send_form('../web/chapitre.php', [['type', 'delete_element'], ['id_element', $ide],['id_chapitre', $id]], 'Etes vous sur de vouloir supprimer cet élément ?');\"  />
                                             </div>";
                                 }
                                 
