@@ -15,7 +15,11 @@ function save_selectionnes() {
 }
 
 function update_nb_questions() {
-
+    if (document.getElementById("select_nb_questions").value == 1) {
+        document.getElementById("input_nb_questions").style.display = "none";
+    } else {
+        document.getElementById("input_nb_questions").style.display = "block";
+    }
 }
 
 function lancer_quiz() {

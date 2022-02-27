@@ -101,7 +101,7 @@ $_SESSION["last_page"] = "groupes.php";
                             <option value=2>Nombre choisi</option>
                         </select>
                         <div style="display:block" style="margin-top: auto; margin-bottom:auto;" >
-                            <input id="input_nb_questions" value=20 placeholder="Nombre de questions" type="number" style=" margin-left: 2vh;" />
+                            <input id="input_nb_questions" value=20 placeholder="Nombre de questions" type="number" style="display:none; margin-left: 2vh;" />
                         </div>
                     </div>
 
