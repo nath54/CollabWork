@@ -63,7 +63,7 @@ $_SESSION["last_page"] = "groupes.php";
         <!-- STYLES ... -->
         <link href="../style/style.css" media="screen" rel="stylesheet" />
     </head>
-    <body onload="compile();">
+    <body onload="init();">
         <!-- HEADER -->
         <?php include "../include/header.php"; ?>
         <?php include "../include/sidemenu.php" ?>
@@ -101,7 +101,7 @@ $_SESSION["last_page"] = "groupes.php";
                             <option value=2>Nombre choisi</option>
                         </select>
                         <div style="display:block" style="margin-top: auto; margin-bottom:auto;" >
-                            <input id="input_nb_questions" value=20 placeholder="Nombre de questions" type="number" style="display:none; margin-left: 2vh;" />
+                            <input id="input_nb_questions" value=20 placeholder="Nombre de questions" type="number" style="display:none; max-width:100px; margin-left: 2vh;" />
                         </div>
                     </div>
 
@@ -134,6 +134,7 @@ $_SESSION["last_page"] = "groupes.php";
 
 function init(){
     MathJax.typesetPromise();
+    update_nb_questions();
 }
 
     </script>
