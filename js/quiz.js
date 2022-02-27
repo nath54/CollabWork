@@ -72,7 +72,7 @@ function init() {
 
 function next_state() {
     update_score();
-    if (window.etape == 0) {
+    if (window.etape == 0 && window.questions.length > 0) {
         create_question();
         window.etape = 1;
     } else if (window.etape == 1) {
