@@ -99,14 +99,14 @@ else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["i
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "INSERT INTO elements_connus (id_compte, id_element) VALUES (:idc, :ide);";
-    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide]);
+    action_prep($db, $req, [":idc"=>$id_compte, ":ide"=>$ide]);
 }
 //desactive l'element
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] == "active_element" && test_token($_POST)){
     $id = $_POST["id_chapitre"];
     $ide = $_POST["id_element"];
     $req = "DELETE FROM elements_connus WHERE id_compte=:idc AND id_element=:ide;";
-    action_prep($db, $req, [":idc"=>$_SESSION["id_compte"], ":ide"=>$ide]);
+    action_prep($db, $req, [":idc"=>$id_compte, ":ide"=>$ide]);
 }
 // [['type', 'delete_element'], ['id_element', $ide, 'id_chapitre', $id]]
 else if(isset($_POST["type"]) && isset($_POST["id_chapitre"]) && isset($_POST["id_element"]) && $_POST["type"] = "delete_element" && test_token($_POST)){
@@ -163,7 +163,7 @@ $req = "SELECT edc.id_element
         INNER JOIN chapitres_elements
         ON edc.id_element=chapitres_elements.id_element
         WHERE edc.id_compte=:id_compte AND chapitres_elements.id_chapitre = :idc;";
-$data = requete_prep($db, $req, [":id_compte"=>$_SESSION["id_compte"], ":idc"=>$id]);
+$data = requete_prep($db, $req, [":id_compte"=>$id_compte, ":idc"=>$id]);
 
 $desactives = [];
 foreach($data as $des){
