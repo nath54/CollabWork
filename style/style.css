@@ -184,7 +184,9 @@ textarea {
 
 .bt_svg_wm {
     width: 5vh;
+    max-width: 50px;
     height: 5vh;
+    max-height: 50px;
     padding: 5px;
     border-radius: 5px;
     transition: all 0.2s;
